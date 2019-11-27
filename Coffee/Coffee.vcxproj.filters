@@ -7,11 +7,17 @@
     <Filter Include="include\Coffee">
       <UniqueIdentifier>{E0D283FB-CCA0-7701-B534-E827A1A15366}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Coffee\Events">
+      <UniqueIdentifier>{C482D30F-30EF-8E0A-F9E2-2668650EB172}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Coffee">
       <UniqueIdentifier>{04CE9909-F085-DB56-598D-B4B245647647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Coffee\Events">
+      <UniqueIdentifier>{680D4399-D423-412F-1D9B-CC5089F011B7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,16 +33,46 @@
     <ClInclude Include="include\Coffee\EntryPoint.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Events\AppEvents.h">
+      <Filter>include\Coffee\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Events\Event.h">
+      <Filter>include\Coffee\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Events\KeyEvents.h">
+      <Filter>include\Coffee\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Events\MouseEvents.h">
+      <Filter>include\Coffee\Events</Filter>
+    </ClInclude>
     <ClInclude Include="include\Coffee\Logging.h">
       <Filter>include\Coffee</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CoffeePCH.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp">
       <Filter>src\Coffee</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Events\AppEvents.cpp">
+      <Filter>src\Coffee\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Events\Event.cpp">
+      <Filter>src\Coffee\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Events\KeyEvents.cpp">
+      <Filter>src\Coffee\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Events\MouseEvents.cpp">
+      <Filter>src\Coffee\Events</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Logging.cpp">
       <Filter>src\Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CoffeePCH.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

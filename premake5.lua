@@ -23,6 +23,9 @@ project "Coffee"
 	targetdir ("Build/bin/" .. outputDirectory .. "/%{prj.name}")
 	objdir ("Build/obj/" .. outputDirectory .. "/%{prj.name}")
 	
+	pchheader "CoffeePCH.h"
+	pchsource "%{prj.name}/src/CoffeePCH.cpp"
+	
 	includedirs {
 		"%{prj.name}/Externals/spdlog/include",
 		"%{prj.name}/include"

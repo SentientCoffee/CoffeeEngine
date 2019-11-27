@@ -3,8 +3,7 @@
 #include "Coffee/Core.h"
 
 #include <spdlog/spdlog.h>
-
-#include <memory>
+#include <spdlog/fmt/ostr.h>
 
 namespace Coffee {
 
@@ -20,7 +19,6 @@ namespace Coffee {
 
 		static std::shared_ptr<spdlog::logger> _engineLogger;
 		static std::shared_ptr<spdlog::logger> _clientLogger;
-		
 	};
 	
 }

@@ -12,7 +12,6 @@ namespace Coffee {
 		void run();
 	};
 
-
 	// To be defined in CLIENT
 	Application* createApp();
 

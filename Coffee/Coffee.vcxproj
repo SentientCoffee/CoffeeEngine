@@ -76,7 +76,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -93,7 +94,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_RELEASE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -114,7 +116,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DIST=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -138,11 +141,23 @@
     <ClInclude Include="include\Coffee\Application.h" />
     <ClInclude Include="include\Coffee\Core.h" />
     <ClInclude Include="include\Coffee\EntryPoint.h" />
+    <ClInclude Include="include\Coffee\Events\AppEvents.h" />
+    <ClInclude Include="include\Coffee\Events\Event.h" />
+    <ClInclude Include="include\Coffee\Events\KeyEvents.h" />
+    <ClInclude Include="include\Coffee\Events\MouseEvents.h" />
     <ClInclude Include="include\Coffee\Logging.h" />
+    <ClInclude Include="include\CoffeePCH.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp" />
+    <ClCompile Include="src\Coffee\Events\AppEvents.cpp" />
+    <ClCompile Include="src\Coffee\Events\Event.cpp" />
+    <ClCompile Include="src\Coffee\Events\KeyEvents.cpp" />
+    <ClCompile Include="src\Coffee\Events\MouseEvents.cpp" />
     <ClCompile Include="src\Coffee\Logging.cpp" />
+    <ClCompile Include="src\CoffeePCH.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
