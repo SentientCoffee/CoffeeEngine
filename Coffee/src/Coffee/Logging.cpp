@@ -9,7 +9,7 @@ std::shared_ptr<spdlog::logger> Logger::_engineLogger;
 std::shared_ptr<spdlog::logger> Logger::_clientLogger;
 
 void Logger::init() {
-	spdlog::set_pattern("[%n]: %v%$");
+	spdlog::set_pattern("%^[%n] %v%$");
 	_engineLogger = spdlog::stdout_color_mt("COFFEE");
 	_engineLogger->set_level(spdlog::level::trace);
 	_clientLogger = spdlog::stdout_color_mt("CLIENT");

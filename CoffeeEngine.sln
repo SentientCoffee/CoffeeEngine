@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Coffee", "Coffee\Coffee.vcxproj", "{CDF43AAC-B996-6582-A251-79D68E92ECD2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Externals", "Coffee\Externals\Externals.vcxproj", "{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,6 +26,12 @@ Global
 		{CDF43AAC-B996-6582-A251-79D68E92ECD2}.Dist|x64.Build.0 = Dist|x64
 		{CDF43AAC-B996-6582-A251-79D68E92ECD2}.Release|x64.ActiveCfg = Release|x64
 		{CDF43AAC-B996-6582-A251-79D68E92ECD2}.Release|x64.Build.0 = Release|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Debug|x64.ActiveCfg = Debug|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Debug|x64.Build.0 = Debug|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Dist|x64.ActiveCfg = Dist|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Dist|x64.Build.0 = Dist|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Release|x64.ActiveCfg = Release|x64
+		{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

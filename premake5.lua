@@ -11,7 +11,9 @@ workspace "CoffeeEngine"
 	startproject "Sandbox"
 
 outputDirectory = "%{cfg.system}/%{cfg.buildcfg}-%{cfg.architecture}"
-	
+
+include "Coffee/Externals"
+
 project "Coffee"
 	location "Coffee"
 	kind "SharedLib"
@@ -28,7 +30,14 @@ project "Coffee"
 	
 	includedirs {
 		"%{prj.name}/Externals/spdlog/include",
+		"%{prj.name}/Externals/glfw3/include",
 		"%{prj.name}/include"
+	}
+	
+	links {
+		"Externals",
+		
+		"opengl32"
 	}
 	
 	files {
@@ -45,17 +54,32 @@ project "Coffee"
 		}
 		
 	filter "configurations:Debug"
-		defines "CF_DEBUG=1"
+		defines {
+			"CF_DEBUG=1",
+			"CF_RELEASE=0",
+			"CF_DIST=0",
+			"CF_ENABLE_ASSERTS=1"
+		}
 		runtime "Debug"
 		symbols "on"
 	
 	filter "configurations:Release"
-		defines "CF_RELEASE=1"
+		defines {
+			"CF_DEBUG=0",
+			"CF_RELEASE=1",
+			"CF_DIST=0",
+			"CF_ENABLE_ASSERTS=0"
+		}
 		runtime "Release"
 		optimize "on"
 	
 	filter "configurations:Dist"
-		defines "CF_DIST=1"
+		defines {
+			"CF_DEBUG=0",
+			"CF_RELEASE=0",
+			"CF_DIST=1",
+			"CF_ENABLE_ASSERTS=0"
+		}
 		runtime "Release"
 		optimize "on"
 
@@ -73,6 +97,8 @@ project "Sandbox"
 	
 	includedirs {
 		"Coffee/Externals/spdlog/include",
+		"Coffee/Externals/glfw/include",
+		
 		"Coffee/include"
 	}
 	
@@ -98,16 +124,31 @@ project "Sandbox"
 		}
 	
 	filter "configurations:Debug"
-		defines "CF_DEBUG=1"
+		defines {
+			"CF_DEBUG=1",
+			"CF_RELEASE=0",
+			"CF_DIST=0",
+			"CF_ENABLE_ASSERTS=1"
+		}
 		runtime "Debug"
 		symbols "on"
 	
 	filter "configurations:Release"
-		defines "CF_RELEASE=1"
+		defines {
+			"CF_DEBUG=0",
+			"CF_RELEASE=1",
+			"CF_DIST=0",
+			"CF_ENABLE_ASSERTS=0"
+		}
 		runtime "Release"
 		optimize "on"
 	
 	filter "configurations:Dist"
-		defines "CF_DIST=1"
+		defines {
+			"CF_DEBUG=0",
+			"CF_RELEASE=0",
+			"CF_DIST=1",
+			"CF_ENABLE_ASSERTS=0"
+		}
 		runtime "Release"
 		optimize "on"

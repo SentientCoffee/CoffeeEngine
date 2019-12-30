@@ -12,6 +12,8 @@
 #include <utility>
 #include <vector>
 
+#include "Coffee/Logging.h"
+
 #if CF_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif

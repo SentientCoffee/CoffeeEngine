@@ -10,6 +10,12 @@
     <Filter Include="include\Coffee\Events">
       <UniqueIdentifier>{C482D30F-30EF-8E0A-F9E2-2668650EB172}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Platform">
+      <UniqueIdentifier>{FD7581F9-E96E-A04B-12A1-85D0FEF87F57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Platform\Windows">
+      <UniqueIdentifier>{37CD2F6F-23F2-7EEF-4C3D-647F38C17D0D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
@@ -18,6 +24,12 @@
     </Filter>
     <Filter Include="src\Coffee\Events">
       <UniqueIdentifier>{680D4399-D423-412F-1D9B-CC5089F011B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\Windows">
+      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,8 +60,14 @@
     <ClInclude Include="include\Coffee\Logging.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Window.h">
+      <Filter>include\Coffee</Filter>
+    </ClInclude>
     <ClInclude Include="include\CoffeePCH.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\Windows\WindowsWindow.h">
+      <Filter>include\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="src\CoffeePCH.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

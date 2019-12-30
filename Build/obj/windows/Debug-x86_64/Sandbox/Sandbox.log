@@ -3,4 +3,6 @@ C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Logging.h(20,55
 C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\Externals\spdlog\include\spdlog\details\registry.h(33): message : see declaration of 'std::shared_ptr<spdlog::logger>'
 C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Logging.h(21,55): warning C4251: 'Coffee::Logger::_clientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Coffee::Logger'
 C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\Externals\spdlog\include\spdlog\details\registry.h(33): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Application.h(24,24): warning C4251: 'Coffee::Application::_window': class 'std::unique_ptr<Coffee::Window,std::default_delete<Coffee::Window>>' needs to have dll-interface to be used by clients of class 'Coffee::Application'
+C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Core.h(41): message : see declaration of 'std::unique_ptr<Coffee::Window,std::default_delete<Coffee::Window>>'
   Sandbox.vcxproj -> C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Sandbox\..\Build\bin\windows\Debug-x86_64\Sandbox\Sandbox.exe
