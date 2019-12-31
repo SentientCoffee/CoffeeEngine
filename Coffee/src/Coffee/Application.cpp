@@ -8,21 +8,29 @@ Application::Application() {
 	_window->setEventCallbackFunc(CF_BIND_FN(Application::onEvent));
 }
 
-Application::~Application() {}
-
 void Application::run() {
 
 	while(_isRunning) {
-		_window->onUpdate();
+		for(auto layer : _layerStack) {
+			layer->update();
+		}
+		
+		_window->update();
 	}
 }
 
 void Application::onEvent(Event& e) {
 	EventDispatcher dispatcher(e);
 	dispatcher.dispatch<WindowClosedEvent>(CF_BIND_FN(Application::onWindowClosed));
-	
-	CF_CORE_TRACE("{0}", e);
+
+	for(auto it = _layerStack.end(); it != _layerStack.begin(); ) {
+		(*--it)->onEvent(e);
+		if(e.isHandled()) { break; }
+	}
 }
+
+void Application::pushLayer(Layer* layer) { _layerStack.pushLayer(layer); }
+void Application::pushOverlay(Layer* overlay) { _layerStack.pushOverlay(overlay); }
 
 bool Application::onWindowClosed(WindowClosedEvent& e) {
 	_isRunning = false;

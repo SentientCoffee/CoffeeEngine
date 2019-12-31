@@ -68,6 +68,8 @@ namespace Coffee {
 	public:
 
 		virtual EventType getEventType() const = 0;
+
+		bool isHandled() const;
 		
 		#if CF_DEBUG || CF_RELEASE
 		

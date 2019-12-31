@@ -12,7 +12,7 @@ namespace Coffee {
 		WindowsWindow(const WindowProperties& properties);
 		~WindowsWindow() override;
 
-		void onUpdate() override;
+		void update() override;
 
 		unsigned getWidth() const override;
 		unsigned getHeight() const override;
@@ -26,7 +26,7 @@ namespace Coffee {
 		virtual void init(const WindowProperties& properties);
 		virtual void shutdown();
 
-		virtual void setCallbacks();
+		virtual void setGlfwCallbacks();
 		static void glfwErrorCallback(int errorCode, const char* log);
 		
 		GLFWwindow* _window;

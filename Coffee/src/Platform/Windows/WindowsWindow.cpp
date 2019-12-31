@@ -5,6 +5,8 @@
 #include "Coffee/Events/KeyEvents.h"
 #include "Coffee/Events/MouseEvents.h"
 
+#include <glad/glad.h>
+
 
 using namespace Coffee;
 
@@ -34,9 +36,10 @@ void WindowsWindow::init(const WindowProperties& properties) {
 	CF_CORE_INFO("Creating Windows window \"{0}\" ({1} x {2})", _data.title, _data.width, _data.height);
 	#endif
 
+	// GLFW initialization
 	if(!glfwInitialized) {
-		const int success = glfwInit();
-		CF_CORE_ASSERT(success, "Could not initialize GLFW!");
+		const int glfwStatus = glfwInit();
+		CF_CORE_ASSERT(glfwStatus, "Could not initialize GLFW!");
 		glfwSetErrorCallback(glfwErrorCallback);
 		glfwInitialized = true;
 	}
@@ -49,14 +52,17 @@ void WindowsWindow::init(const WindowProperties& properties) {
 	glfwMakeContextCurrent(_window);
 	glfwSetWindowUserPointer(_window, &_data);
 	setVSync(true);
+	setGlfwCallbacks();
 
-	setCallbacks();
+	// GLAD function loading
+	const int gladStatus = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+	CF_CORE_ASSERT(gladStatus, "Could not initialize GLAD!");
 }
 void WindowsWindow::shutdown() {
 	glfwDestroyWindow(_window);
 }
 
-void WindowsWindow::setCallbacks() {
+void WindowsWindow::setGlfwCallbacks() {
 	// Window resize callback
 	glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, const int width, const int height) {
 		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
@@ -146,7 +152,7 @@ void WindowsWindow::glfwErrorCallback(const int errorCode, const char* log) {
 	CF_CORE_CRITICAL("GLFW ERROR! ({0})\n{1}", errorCode, log);
 }
 
-void WindowsWindow::onUpdate() {
+void WindowsWindow::update() {
 	glfwPollEvents();
 	glfwSwapBuffers(_window);
 }

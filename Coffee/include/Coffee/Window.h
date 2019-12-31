@@ -24,7 +24,7 @@ namespace Coffee {
 		
 		static Window* create(const WindowProperties& properties = WindowProperties());
 
-		virtual void onUpdate() = 0;
+		virtual void update() = 0;
 
 		virtual unsigned int getWidth() const = 0;
 		virtual unsigned int getHeight() const = 0;

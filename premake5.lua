@@ -28,9 +28,12 @@ project "Coffee"
 	pchheader "CoffeePCH.h"
 	pchsource "%{prj.name}/src/CoffeePCH.cpp"
 	
+	defines { "GLFW_INCLUDE_NONE" }
+	
 	includedirs {
-		"%{prj.name}/Externals/spdlog/include",
+		"%{prj.name}/Externals/glad/include",
 		"%{prj.name}/Externals/glfw3/include",
+		"%{prj.name}/Externals/spdlog/include",
 		"%{prj.name}/include"
 	}
 	
@@ -96,8 +99,9 @@ project "Sandbox"
 	objdir ("Build/obj/" .. outputDirectory .. "/%{prj.name}")
 	
 	includedirs {
-		"Coffee/Externals/spdlog/include",
+		"Coffee/Externals/glad/include",
 		"Coffee/Externals/glfw/include",
+		"Coffee/Externals/spdlog/include",
 		
 		"Coffee/include"
 	}
@@ -131,6 +135,7 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=1"
 		}
 		runtime "Debug"
+		buildoptions "/MDd"
 		symbols "on"
 	
 	filter "configurations:Release"
@@ -141,6 +146,7 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=0"
 		}
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "on"
 	
 	filter "configurations:Dist"
@@ -151,4 +157,5 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=0"
 		}
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "on"

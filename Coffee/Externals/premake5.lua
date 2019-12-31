@@ -17,7 +17,15 @@ project "Externals"
         "glfw3/src/input.c",
         "glfw3/src/monitor.c",
         "glfw3/src/vulkan.c",
-        "glfw3/src/window.c"
+        "glfw3/src/window.c",
+		
+		"glad/include/KHR/khrplatform.h",
+		"glad/include/glad/glad.h",
+		"glad/src/glad.c"
+	}
+	
+	includedirs {
+		"glad/include"
 	}
 	
 	filter "system:windows"		
