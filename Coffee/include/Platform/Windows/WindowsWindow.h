@@ -20,6 +20,8 @@ namespace Coffee {
 		void setVSync(bool enabled) override;
 		bool isVSync() const override;
 
+		void* getNativeWindow() const override;
+
 		inline void setEventCallbackFunc(const EventCallbackFunc& callback) override;
 	private:
 

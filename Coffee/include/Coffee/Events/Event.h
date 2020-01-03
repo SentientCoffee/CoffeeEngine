@@ -20,6 +20,7 @@ namespace Coffee {
 
 		KeyPressed,
 		KeyReleased,
+		KeyTyped,
 
 		MouseButtonPressed,
 		MouseButtonReleased,
@@ -28,12 +29,12 @@ namespace Coffee {
 	};
 
 	enum EventCategory {
-		None			= 0,
-		App				= BIT_SHIFT(0),
-		Input			= BIT_SHIFT(1),
-		Keyboard		= BIT_SHIFT(2),
-		Mouse			= BIT_SHIFT(3),
-		MouseButton		= BIT_SHIFT(4)
+		CategoryNone		= 0,
+		CategoryApp			= BIT_SHIFT(0),
+		CategoryInput		= BIT_SHIFT(1),
+		CategoryKeyboard	= BIT_SHIFT(2),
+		CategoryMouse		= BIT_SHIFT(3),
+		CategoryMouseButton	= BIT_SHIFT(4)
 	};
 
 

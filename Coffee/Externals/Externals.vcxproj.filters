@@ -28,6 +28,15 @@
     <Filter Include="glfw3\src">
       <UniqueIdentifier>{7F88F440-EBF2-A8B7-3431-5A5DA0DA860C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\include">
+      <UniqueIdentifier>{73BF4D15-DF7F-C94B-A8BA-12C9143A0E28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\include\imgui">
+      <UniqueIdentifier>{1D5716D8-89B8-F3E5-1226-3A987E862AA5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glad\include\KHR\khrplatform.h">
@@ -44,6 +53,30 @@
     </ClInclude>
     <ClInclude Include="glfw3\src\glfw_config.h">
       <Filter>glfw3\src</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imconfig.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imgui.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imgui_impl_glfw.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imgui_impl_opengl3.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imgui_internal.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imstb_rectpack.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imstb_textedit.h">
+      <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\include\imgui\imstb_truetype.h">
+      <Filter>imgui\include\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +127,24 @@
     </ClCompile>
     <ClCompile Include="glfw3\src\window.c">
       <Filter>glfw3\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui.cpp">
+      <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui_demo.cpp">
+      <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui_draw.cpp">
+      <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui_impl_opengl3.cpp">
+      <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\include\imgui\imgui_widgets.cpp">
+      <Filter>imgui\include\imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -110,6 +110,14 @@ void WindowsWindow::setGlfwCallbacks() {
 		}
 	});
 
+	glfwSetCharCallback(_window, [](GLFWwindow* window, unsigned int key) {
+		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+		KeyTypedEvent keyTyped(key);
+		data->eventFunc(keyTyped);
+		
+	});
+
 	// Window mouse button callback
 	glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, const int button, const int action, const int mods) {
 		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
@@ -167,6 +175,7 @@ void WindowsWindow::setVSync(const bool enabled) {
 	else              { glfwSwapInterval(0); }
 }
 bool WindowsWindow::isVSync() const { return _data.isVSync; }
+void* WindowsWindow::getNativeWindow() const { return _window; }
 
 void WindowsWindow::setEventCallbackFunc(const EventCallbackFunc& callback) { _data.eventFunc = callback; }
 

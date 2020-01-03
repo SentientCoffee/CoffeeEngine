@@ -57,6 +57,9 @@
     <ClInclude Include="include\Coffee\Events\MouseEvents.h">
       <Filter>include\Coffee\Events</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\ImguiLayer.h">
+      <Filter>include\Coffee</Filter>
+    </ClInclude>
     <ClInclude Include="include\Coffee\Layer.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
@@ -72,6 +75,8 @@
     <ClInclude Include="include\Platform\Windows\WindowsWindow.h">
       <Filter>include\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Input.h" />
+    <ClInclude Include="include\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp">
@@ -89,6 +94,9 @@
     <ClCompile Include="src\Coffee\Events\MouseEvents.cpp">
       <Filter>src\Coffee\Events</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\ImguiLayer.cpp">
+      <Filter>src\Coffee</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Layer.cpp">
       <Filter>src\Coffee</Filter>
     </ClCompile>
@@ -101,5 +109,6 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

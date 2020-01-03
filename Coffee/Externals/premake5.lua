@@ -9,6 +9,10 @@ project "Externals"
 	objdir ("Build/obj/" .. outputDirectory .. "/%{prj.name}")
 	
 	files {
+		"glad/include/KHR/khrplatform.h",
+		"glad/include/glad/glad.h",
+		"glad/src/glad.c",
+		
 		"glfw3/include/GLFW/glfw3.h",
         "glfw3/include/GLFW/glfw3native.h",
         "glfw3/src/glfw_config.h",
@@ -19,13 +23,26 @@ project "Externals"
         "glfw3/src/vulkan.c",
         "glfw3/src/window.c",
 		
-		"glad/include/KHR/khrplatform.h",
-		"glad/include/glad/glad.h",
-		"glad/src/glad.c"
+		"imgui/include/imgui/imconfig.h",
+		"imgui/include/imgui/imgui.h",
+		"imgui/include/imgui/imgui_internal.h",
+		"imgui/include/imgui/imgui_impl_glfw.h",
+		"imgui/include/imgui/imgui_impl_opengl3.h",
+		"imgui/include/imgui/imstb_rectpack.h",
+		"imgui/include/imgui/imstb_textedit.h",
+		"imgui/include/imgui/imstb_truetype.h",
+		"imgui/include/imgui/imgui.cpp",
+		"imgui/include/imgui/imgui_demo.cpp",
+		"imgui/include/imgui/imgui_draw.cpp",
+		"imgui/include/imgui/imgui_impl_glfw.cpp",
+		"imgui/include/imgui/imgui_impl_opengl3.cpp",
+		"imgui/include/imgui/imgui_widgets.cpp"
 	}
 	
 	includedirs {
-		"glad/include"
+		"glad/include",
+		"glfw3/include",
+		"imgui/include"
 	}
 	
 	filter "system:windows"		

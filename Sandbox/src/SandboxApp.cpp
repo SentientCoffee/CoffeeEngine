@@ -6,15 +6,22 @@ public:
 	TestLayer() : Layer("Test") {}
 	~TestLayer() = default;
 
-	void update() override { return; }
-	void onEvent(Coffee::Event& e) override { CF_TRACE("{0}", e); }
+	void update() override {
+		
+	}
+	void onEvent(Coffee::Event& e) override {
+		
+	}
 	
 };
 
 class Sandbox : public Coffee::Application {
 public:
 
-	Sandbox() { pushLayer(new TestLayer()); }
+	Sandbox() {
+		pushLayer(new TestLayer());
+		pushOverlay(new Coffee::ImguiLayer());
+	}
 	~Sandbox() {}
 	
 };

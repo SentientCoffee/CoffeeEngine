@@ -12,7 +12,7 @@ unsigned WindowResizedEvent::getHeight() const { return _height; }
 #if CF_DEBUG || CF_RELEASE
 
 std::string WindowResizedEvent::toString() const {
-	std::string buffer = "WindowResizedEvent: " + std::to_string(_width) + ", " + std::to_string(_height);
+	std::string buffer = "WindowResized: " + std::to_string(_width) + ", " + std::to_string(_height);
 	return buffer;
 }
 

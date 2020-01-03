@@ -23,15 +23,18 @@ LayerStack::~LayerStack() {
 
 void LayerStack::pushLayer(Layer* layer) {
 	_layerInsert = _layers.emplace(_layerInsert, layer);
+	layer->onPush();
 }
 
 void LayerStack::pushOverlay(Layer* overlay) {
 	_layers.emplace_back(overlay);
+	overlay->onPush();
 }
 
 void LayerStack::popLayer(Layer* layer) {
 	const auto it = std::find(_layers.begin(), _layers.end(), layer);
 	if(it != _layers.end()) {
+		(*it)->onPop();
 		_layers.erase(it);
 		--_layerInsert;
 	}
@@ -39,7 +42,10 @@ void LayerStack::popLayer(Layer* layer) {
 
 void LayerStack::popOverlay(Layer* overlay) {
 	const auto it = std::find(_layers.begin(), _layers.end(), overlay);
-	if(it != _layers.end()) { _layers.erase(it); }
+	if(it != _layers.end()) {
+		(*it)->onPop();
+		_layers.erase(it);
+	}
 }
 
 std::vector<Layer*>::iterator LayerStack::begin() { return _layers.begin(); }

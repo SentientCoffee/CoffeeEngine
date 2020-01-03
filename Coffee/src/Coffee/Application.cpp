@@ -1,9 +1,15 @@
 #include "CoffeePCH.h"
 #include "Coffee/Application.h"
+#include "Coffee/Input.h"
 
 using namespace Coffee;
 
+Application* Application::_instance = nullptr;
+
 Application::Application() {
+	CF_CORE_ASSERT(!_instance, "Application already exists!");
+	_instance = this;
+	
 	_window = scope<Window>(Window::create());
 	_window->setEventCallbackFunc(CF_BIND_FN(Application::onEvent));
 }
@@ -14,6 +20,9 @@ void Application::run() {
 		for(auto layer : _layerStack) {
 			layer->update();
 		}
+
+		auto [mouseX, mouseY] = Input::getMousePosition();
+		CF_CORE_TRACE("MOUSE POSITION: {0}, {1}", mouseX, mouseY);
 		
 		_window->update();
 	}
@@ -29,8 +38,11 @@ void Application::onEvent(Event& e) {
 	}
 }
 
-void Application::pushLayer(Layer* layer) { _layerStack.pushLayer(layer); }
+void Application::pushLayer(Layer* layer) {_layerStack.pushLayer(layer); }
 void Application::pushOverlay(Layer* overlay) { _layerStack.pushOverlay(overlay); }
+
+Window& Application::getWindow() const { return *_window; }
+Application& Application::getInstance() { return *_instance; }
 
 bool Application::onWindowClosed(WindowClosedEvent& e) {
 	_isRunning = false;

@@ -33,6 +33,7 @@ project "Coffee"
 	includedirs {
 		"%{prj.name}/Externals/glad/include",
 		"%{prj.name}/Externals/glfw3/include",
+		"%{prj.name}/Externals/imgui/include",
 		"%{prj.name}/Externals/spdlog/include",
 		"%{prj.name}/include"
 	}
@@ -101,6 +102,7 @@ project "Sandbox"
 	includedirs {
 		"Coffee/Externals/glad/include",
 		"Coffee/Externals/glfw/include",
+		"Coffee/Externals/imgui/include",
 		"Coffee/Externals/spdlog/include",
 		
 		"Coffee/include"

@@ -14,7 +14,7 @@ namespace Coffee {
 		MouseMovedEvent(float x, float y);
 
 		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(Mouse | Input)
+		EVENT_CLASS_CATEGORY(CategoryMouse | CategoryInput)
 
 		inline float getMouseX() const;
 		inline float getMouseY() const;
@@ -37,7 +37,7 @@ namespace Coffee {
 
 		inline int getMouseButton() const;
 
-		EVENT_CLASS_CATEGORY(Mouse | Input)
+		EVENT_CLASS_CATEGORY(CategoryMouseButton | CategoryInput)
 
 	protected:
 
@@ -80,7 +80,7 @@ namespace Coffee {
 		MouseScrolledEvent(float xOffset, float yOffset);
 
 		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(Mouse | Input)
+		EVENT_CLASS_CATEGORY(CategoryMouse | CategoryInput)
 
 		inline float getXOffset() const;
 		inline float getYOffset() const;

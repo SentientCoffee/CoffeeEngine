@@ -20,6 +20,10 @@ namespace Coffee {
 
 		void pushLayer(Layer* layer);
 		void pushOverlay(Layer* overlay);
+
+		inline Window& getWindow() const;
+		
+		inline static Application& getInstance();
 		
 	private:
 
@@ -29,6 +33,8 @@ namespace Coffee {
 		bool _isRunning = true;
 
 		LayerStack _layerStack;
+
+		static Application* _instance;
 		
 	};
 
