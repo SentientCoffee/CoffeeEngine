@@ -20,4 +20,5 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           ]
 C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Application.h(32,24): warning C4251: 'Coffee::Application::_window': class 'std::unique_ptr<Coffee::Window,std::default_delete<Coffee::Window>>' needs to have dll-interface to be used by clients of class 'Coffee::Application'
 C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\include\Coffee\Core.h(41): message : see declaration of 'std::unique_ptr<Coffee::Window,std::default_delete<Coffee::Window>>'
+C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Sandbox\src\SandboxApp.cpp(49,1): warning C4506: no definition for inline function 'std::shared_ptr<spdlog::logger> &Coffee::Logger::getClientLogger(void)'
   Sandbox.vcxproj -> C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Sandbox\..\Build\bin\windows\Debug-x86_64\Sandbox\Sandbox.exe

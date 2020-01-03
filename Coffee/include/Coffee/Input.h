@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Core.h"
+#include "KeyCodes.h"
+#include "MouseButtonCodes.h"
 
 namespace Coffee {
 
@@ -8,7 +10,9 @@ namespace Coffee {
 	public:
 
 		static bool isKeyPressed(const int keyCode) { return _instance->isKeyPressedImpl(keyCode); };
+		static bool isKeyPressed(const KeyCode keyCode) { return _instance->isKeyPressedImpl(static_cast<int>(keyCode)); };
 		static bool isMouseButtonPressed(const int button) { return _instance->isMouseButtonPressedImpl(button); }
+		static bool isMouseButtonPressed(const MouseButton button) { return _instance->isMouseButtonPressedImpl(static_cast<int>(button)); }
 
 		static std::pair<float, float> getMousePosition() { return _instance->getMousePosImpl(); }
 		static float getMouseX() { return _instance->getMouseXImpl(); }

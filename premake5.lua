@@ -33,6 +33,7 @@ project "Coffee"
 	includedirs {
 		"%{prj.name}/Externals/glad/include",
 		"%{prj.name}/Externals/glfw3/include",
+		"%{prj.name}/Externals/glm/include",
 		"%{prj.name}/Externals/imgui/include",
 		"%{prj.name}/Externals/spdlog/include",
 		"%{prj.name}/include"
@@ -40,7 +41,6 @@ project "Coffee"
 	
 	links {
 		"Externals",
-		
 		"opengl32"
 	}
 	
@@ -101,7 +101,8 @@ project "Sandbox"
 	
 	includedirs {
 		"Coffee/Externals/glad/include",
-		"Coffee/Externals/glfw/include",
+		"Coffee/Externals/glfw3/include",
+		"Coffee/Externals/glm/include",
 		"Coffee/Externals/imgui/include",
 		"Coffee/Externals/spdlog/include",
 		

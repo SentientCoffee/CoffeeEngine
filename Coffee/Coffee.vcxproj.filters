@@ -60,10 +60,19 @@
     <ClInclude Include="include\Coffee\ImguiLayer.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Input.h">
+      <Filter>include\Coffee</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\KeyCodes.h">
+      <Filter>include\Coffee</Filter>
+    </ClInclude>
     <ClInclude Include="include\Coffee\Layer.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Logging.h">
+      <Filter>include\Coffee</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\MouseButtonCodes.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Window.h">
@@ -72,11 +81,12 @@
     <ClInclude Include="include\CoffeePCH.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Platform\Windows\WindowsInput.h">
+      <Filter>include\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="include\Platform\Windows\WindowsWindow.h">
       <Filter>include\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="include\Coffee\Input.h" />
-    <ClInclude Include="include\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp">
@@ -106,9 +116,11 @@
     <ClCompile Include="src\CoffeePCH.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

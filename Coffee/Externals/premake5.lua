@@ -23,6 +23,11 @@ project "Externals"
         "glfw3/src/vulkan.c",
         "glfw3/src/window.c",
 		
+        "glm/include/glm/**.h",
+        "glm/include/glm/**.hpp",
+        "glm/include/glm/**.inl",
+        "glm/include/glm/**.cpp",
+		
 		"imgui/include/imgui/imconfig.h",
 		"imgui/include/imgui/imgui.h",
 		"imgui/include/imgui/imgui_internal.h",
@@ -42,6 +47,7 @@ project "Externals"
 	includedirs {
 		"glad/include",
 		"glfw3/include",
+		"glm/include",
 		"imgui/include"
 	}
 	

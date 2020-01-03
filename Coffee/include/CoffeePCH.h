@@ -12,6 +12,8 @@
 #include <utility>
 #include <vector>
 
+#include <glm/glm.hpp>
+
 #include "Coffee/Logging.h"
 
 #if CF_PLATFORM_WINDOWS

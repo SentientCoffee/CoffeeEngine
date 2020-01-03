@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=1;CF_RELEASE=0;CF_DIST=0;CF_ENABLE_ASSERTS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -99,7 +99,7 @@
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=1;CF_DIST=0;CF_ENABLE_ASSERTS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -122,7 +122,7 @@
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=0;CF_DIST=1;CF_ENABLE_ASSERTS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\spdlog\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -150,8 +150,10 @@
     <ClInclude Include="include\Coffee\Events\MouseEvents.h" />
     <ClInclude Include="include\Coffee\ImguiLayer.h" />
     <ClInclude Include="include\Coffee\Input.h" />
+    <ClInclude Include="include\Coffee\KeyCodes.h" />
     <ClInclude Include="include\Coffee\Layer.h" />
     <ClInclude Include="include\Coffee\Logging.h" />
+    <ClInclude Include="include\Coffee\MouseButtonCodes.h" />
     <ClInclude Include="include\Coffee\Window.h" />
     <ClInclude Include="include\CoffeePCH.h" />
     <ClInclude Include="include\Platform\Windows\WindowsInput.h" />

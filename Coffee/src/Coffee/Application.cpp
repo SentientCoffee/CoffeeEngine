@@ -1,6 +1,5 @@
 #include "CoffeePCH.h"
 #include "Coffee/Application.h"
-#include "Coffee/Input.h"
 
 using namespace Coffee;
 
@@ -20,9 +19,6 @@ void Application::run() {
 		for(auto layer : _layerStack) {
 			layer->update();
 		}
-
-		auto [mouseX, mouseY] = Input::getMousePosition();
-		CF_CORE_TRACE("MOUSE POSITION: {0}, {1}", mouseX, mouseY);
 		
 		_window->update();
 	}
