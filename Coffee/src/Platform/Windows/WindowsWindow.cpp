@@ -160,7 +160,7 @@ void WindowsWindow::glfwErrorCallback(const int errorCode, const char* log) {
 	CF_CORE_CRITICAL("GLFW ERROR! ({0})\n{1}", errorCode, log);
 }
 
-void WindowsWindow::update() {
+void WindowsWindow::update() {	
 	glfwPollEvents();
 	glfwSwapBuffers(_window);
 }

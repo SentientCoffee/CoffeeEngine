@@ -6,6 +6,7 @@
 
 #include "Events/Event.h"
 #include "Events/AppEvents.h"
+#include "Imgui/ImguiLayer.h"
 
 namespace Coffee {
 	
@@ -33,7 +34,9 @@ namespace Coffee {
 		bool _isRunning = true;
 
 		LayerStack _layerStack;
+		ImguiLayer* _imguiLayer;
 
+		
 		static Application* _instance;
 		
 	};

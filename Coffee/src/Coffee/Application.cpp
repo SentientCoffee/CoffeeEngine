@@ -1,6 +1,8 @@
 #include "CoffeePCH.h"
 #include "Coffee/Application.h"
 
+#include <glad/glad.h>
+
 using namespace Coffee;
 
 Application* Application::_instance = nullptr;
@@ -11,14 +13,26 @@ Application::Application() {
 	
 	_window = scope<Window>(Window::create());
 	_window->setEventCallbackFunc(CF_BIND_FN(Application::onEvent));
+
+	_imguiLayer = new ImguiLayer;
+	pushOverlay(_imguiLayer);
 }
 
 void Application::run() {
 
 	while(_isRunning) {
+		glClearColor(0.1f, 0.2f, 0.8f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 		for(auto layer : _layerStack) {
 			layer->update();
 		}
+
+		_imguiLayer->begin();
+		for(auto layer : _layerStack) {
+			layer->drawImgui();
+		}
+		_imguiLayer->end();
 		
 		_window->update();
 	}

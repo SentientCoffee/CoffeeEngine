@@ -14,6 +14,7 @@ namespace Coffee {
 		virtual void onPush();
 		virtual void onPop();
 		virtual void update();
+		virtual void drawImgui();
 		virtual void onEvent(Event& e);
 
 		const std::string& getName() const;
@@ -31,7 +32,7 @@ namespace Coffee {
 		
 	public:
 
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 
 		void pushLayer(Layer* layer);
@@ -47,7 +48,7 @@ namespace Coffee {
 	private:
 
 		LayerVector _layers;
-		LayerIterator _layerInsert;
+		unsigned int _layerIndex = 0;
 	};
 	
 }

@@ -43,7 +43,7 @@ project "Externals"
 		"glad/include",
 		"glfw3/include",
 		"glm/include",
-		"imgui/include"
+		"imgui/include/imgui"
 	}
 	
 	filter "system:windows"

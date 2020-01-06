@@ -10,6 +10,9 @@
     <Filter Include="include\Coffee\Events">
       <UniqueIdentifier>{C482D30F-30EF-8E0A-F9E2-2668650EB172}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Coffee\Imgui">
+      <UniqueIdentifier>{2A789765-1607-212F-BF25-352AAB9331D5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include\Platform">
       <UniqueIdentifier>{FD7581F9-E96E-A04B-12A1-85D0FEF87F57}</UniqueIdentifier>
     </Filter>
@@ -24,6 +27,9 @@
     </Filter>
     <Filter Include="src\Coffee\Events">
       <UniqueIdentifier>{680D4399-D423-412F-1D9B-CC5089F011B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Coffee\Imgui">
+      <UniqueIdentifier>{4E3E2E1C-3A37-4D6E-6369-32F34FC12C7A}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -57,8 +63,8 @@
     <ClInclude Include="include\Coffee\Events\MouseEvents.h">
       <Filter>include\Coffee\Events</Filter>
     </ClInclude>
-    <ClInclude Include="include\Coffee\ImguiLayer.h">
-      <Filter>include\Coffee</Filter>
+    <ClInclude Include="include\Coffee\Imgui\ImguiLayer.h">
+      <Filter>include\Coffee\Imgui</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Input.h">
       <Filter>include\Coffee</Filter>
@@ -104,8 +110,11 @@
     <ClCompile Include="src\Coffee\Events\MouseEvents.cpp">
       <Filter>src\Coffee\Events</Filter>
     </ClCompile>
-    <ClCompile Include="src\Coffee\ImguiLayer.cpp">
-      <Filter>src\Coffee</Filter>
+    <ClCompile Include="src\Coffee\Imgui\ImguiBuild.cpp">
+      <Filter>src\Coffee\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Imgui\ImguiLayer.cpp">
+      <Filter>src\Coffee\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Coffee\Layer.cpp">
       <Filter>src\Coffee</Filter>

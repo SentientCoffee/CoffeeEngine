@@ -60,12 +60,6 @@
     <ClInclude Include="imgui\include\imgui\imgui.h">
       <Filter>imgui\include\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\include\imgui\imgui_impl_glfw.h">
-      <Filter>imgui\include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\include\imgui\imgui_impl_opengl3.h">
-      <Filter>imgui\include\imgui</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\include\imgui\imgui_internal.h">
       <Filter>imgui\include\imgui</Filter>
     </ClInclude>
@@ -135,12 +129,6 @@
       <Filter>imgui\include\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\include\imgui\imgui_draw.cpp">
-      <Filter>imgui\include\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui\include\imgui\imgui_impl_glfw.cpp">
-      <Filter>imgui\include\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui\include\imgui\imgui_impl_opengl3.cpp">
       <Filter>imgui\include\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\include\imgui\imgui_widgets.cpp">

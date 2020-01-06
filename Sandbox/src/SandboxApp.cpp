@@ -1,4 +1,5 @@
 #include <Coffee.h>
+#include <imgui/imgui.h>
 
 class TestLayer : public Coffee::Layer {
 public:
@@ -7,14 +8,15 @@ public:
 	~TestLayer() = default;
 
 	void update() override {
-		if(Coffee::Input::isKeyPressed(KeyCode::Escape)) {
-			CF_TRACE("Escape key pressed!");
-		}
-
-		if(Coffee::Input::isMouseButtonPressed(MouseButton::Left)) {
-			CF_TRACE("Left mouse button pressed!");
-		}
+		
 	}
+
+	void drawImgui() override {
+		ImGui::Begin("TestLayer");
+		ImGui::Text("Beep beep lettuce");
+		ImGui::End();
+	}
+	
 	void onEvent(Coffee::Event& e) override {
 		
 	}
@@ -26,7 +28,6 @@ public:
 
 	Sandbox() {
 		pushLayer(new TestLayer());
-		pushOverlay(new Coffee::ImguiLayer());
 	}
 	~Sandbox() {}
 	

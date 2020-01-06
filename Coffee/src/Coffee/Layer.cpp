@@ -9,11 +9,10 @@ Layer::Layer(const std::string& name) :
 void Layer::onPush() {}
 void Layer::onPop() {}
 void Layer::update() {}
+void Layer::drawImgui() {}
 void Layer::onEvent(Event& e) {}
 
 const std::string& Layer::getName() const { return _debugName; }
-
-LayerStack::LayerStack() { _layerInsert = _layers.begin(); }
 
 LayerStack::~LayerStack() {
 	for(auto layer : _layers) {
@@ -22,8 +21,9 @@ LayerStack::~LayerStack() {
 }
 
 void LayerStack::pushLayer(Layer* layer) {
-	_layerInsert = _layers.emplace(_layerInsert, layer);
+	_layers.emplace(_layers.begin() + _layerIndex, layer);
 	layer->onPush();
+	++_layerIndex;
 }
 
 void LayerStack::pushOverlay(Layer* overlay) {
@@ -36,7 +36,7 @@ void LayerStack::popLayer(Layer* layer) {
 	if(it != _layers.end()) {
 		(*it)->onPop();
 		_layers.erase(it);
-		--_layerInsert;
+		--_layerIndex;
 	}
 }
 
