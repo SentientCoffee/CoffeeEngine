@@ -3,17 +3,16 @@
 #include "Coffee/Core.h"
 
 #include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
 
 namespace Coffee {
 
-	class COFFEE_API Logger {
+	class Logger {
 	public:
 		
 		static void init();
 
-		inline static std::shared_ptr<spdlog::logger>& getEngineLogger();
-		inline static std::shared_ptr<spdlog::logger>& getClientLogger();
+		static std::shared_ptr<spdlog::logger>& getEngineLogger();
+		static std::shared_ptr<spdlog::logger>& getClientLogger();
 
 	private:
 
@@ -41,14 +40,14 @@ namespace Coffee {
 
 #else
 
-#define CF_CORE_FATAL(msg, ...)			__noop
+#define CF_CORE_CRITICAL(msg, ...)		__noop
 #define CF_CORE_ERROR(msg, ...)			__noop
 #define CF_CORE_WARNING(msg, ...)		__noop
 #define CF_CORE_INFO(msg, ...)			__noop
 #define CF_CORE_TRACE(msg, ...)			__noop
 
 // Client log macros 
-#define CF_FATAL(msg, ...)				__noop
+#define CF_CRITICAL(msg, ...)			__noop
 #define CF_ERROR(msg, ...)				__noop
 #define CF_WARNING(msg, ...)			__noop
 #define CF_INFO(msg, ...)				__noop

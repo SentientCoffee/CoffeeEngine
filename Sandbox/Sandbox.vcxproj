@@ -83,16 +83,12 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\Build\bin\windows\Debug-x86_64\Coffee\Coffee.dll\ (xcopy /Q /E /Y /I ..\Build\bin\windows\Debug-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul) ELSE (xcopy /Q /Y /I ..\Build\bin\windows\Debug-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -106,7 +102,6 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -114,9 +109,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\Build\bin\windows\Release-x86_64\Coffee\Coffee.dll\ (xcopy /Q /E /Y /I ..\Build\bin\windows\Release-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul) ELSE (xcopy /Q /Y /I ..\Build\bin\windows\Release-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -130,7 +122,6 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -138,9 +129,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\Build\bin\windows\Dist-x86_64\Coffee\Coffee.dll\ (xcopy /Q /E /Y /I ..\Build\bin\windows\Dist-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul) ELSE (xcopy /Q /Y /I ..\Build\bin\windows\Dist-x86_64\Coffee\Coffee.dll $(TargetDir) &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\SandboxApp.cpp" />

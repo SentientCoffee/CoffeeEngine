@@ -4,7 +4,7 @@
 
 namespace Coffee {
 
-	class COFFEE_API WindowResizedEvent : public Event {
+	class WindowResizedEvent : public Event {
 	public:
 
 		WindowResizedEvent(unsigned width, unsigned height);
@@ -12,8 +12,8 @@ namespace Coffee {
 		EVENT_CLASS_TYPE(WindowResized)
 		EVENT_CLASS_CATEGORY(CategoryApp)
 		
-		inline unsigned getWidth() const;
-		inline unsigned getHeight() const;
+		unsigned getWidth() const;
+		unsigned getHeight() const;
 
 		#if CF_DEBUG || CF_RELEASE
 		std::string toString() const override;
@@ -25,7 +25,7 @@ namespace Coffee {
 	};
 
 
-	class COFFEE_API WindowClosedEvent : public Event {
+	class WindowClosedEvent : public Event {
 	public:
 
 		WindowClosedEvent() = default;
@@ -34,7 +34,7 @@ namespace Coffee {
 		EVENT_CLASS_CATEGORY(CategoryApp)
 	};
 
-	class COFFEE_API AppTickEvent : public Event {
+	class AppTickEvent : public Event {
 	public:
 
 		AppTickEvent() = default;
@@ -43,7 +43,7 @@ namespace Coffee {
 		EVENT_CLASS_CATEGORY(CategoryApp)
 	};
 
-	class COFFEE_API AppUpdateEvent : public Event {
+	class AppUpdateEvent : public Event {
 	public:
 
 		AppUpdateEvent() = default;
@@ -52,7 +52,7 @@ namespace Coffee {
 		EVENT_CLASS_CATEGORY(CategoryApp)
 	};
 
-	class COFFEE_API AppRenderEvent : public Event {
+	class AppRenderEvent : public Event {
 	public:
 
 		AppRenderEvent() = default;

@@ -5,7 +5,7 @@
 
 namespace Coffee {
 
-	class COFFEE_API Layer {
+	class Layer {
 	public:
 
 		Layer(const std::string& name = "Layer");
@@ -16,14 +16,14 @@ namespace Coffee {
 		virtual void update();
 		virtual void onEvent(Event& e);
 
-		inline const std::string& getName() const;
+		const std::string& getName() const;
 		
 	protected:
 
 		std::string _debugName;
 	};
 
-	class COFFEE_API LayerStack {
+	class LayerStack {
 
 		using LayerVector = std::vector<Layer*>;
 		using LayerIterator = LayerVector::iterator;

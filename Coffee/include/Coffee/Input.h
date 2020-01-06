@@ -6,11 +6,11 @@
 
 namespace Coffee {
 
-	class COFFEE_API Input {
+	class Input {
 	public:
 
-		static bool isKeyPressed(const int keyCode) { return _instance->isKeyPressedImpl(keyCode); };
-		static bool isKeyPressed(const KeyCode keyCode) { return _instance->isKeyPressedImpl(static_cast<int>(keyCode)); };
+		static bool isKeyPressed(const int keyCode) { return _instance->isKeyPressedImpl(keyCode); }
+		static bool isKeyPressed(const KeyCode keyCode) { return _instance->isKeyPressedImpl(static_cast<int>(keyCode)); }
 		static bool isMouseButtonPressed(const int button) { return _instance->isMouseButtonPressedImpl(button); }
 		static bool isMouseButtonPressed(const MouseButton button) { return _instance->isMouseButtonPressedImpl(static_cast<int>(button)); }
 

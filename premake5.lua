@@ -16,11 +16,11 @@ include "Coffee/Externals"
 
 project "Coffee"
 	location "Coffee"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	
-	staticruntime "off"
+	staticruntime "on"
 	
 	targetdir ("Build/bin/" .. outputDirectory .. "/%{prj.name}")
 	objdir ("Build/obj/" .. outputDirectory .. "/%{prj.name}")
@@ -54,7 +54,7 @@ project "Coffee"
 		systemversion "latest"
 		defines {
 			"CF_PLATFORM_WINDOWS",
-			"CF_BUILD_DLL"
+			"CF_BUILD_DLL",
 		}
 		
 	filter "configurations:Debug"
@@ -125,10 +125,6 @@ project "Sandbox"
 		defines {
 			"CF_PLATFORM_WINDOWS"
 		}
-		
-		postbuildcommands {
-			("{COPY} ../Build/bin/" .. outputDirectory .. "/Coffee/Coffee.dll %{cfg.buildtarget.directory}")
-		}
 	
 	filter "configurations:Debug"
 		defines {
@@ -138,7 +134,6 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=1"
 		}
 		runtime "Debug"
-		buildoptions "/MDd"
 		symbols "on"
 	
 	filter "configurations:Release"
@@ -149,7 +144,6 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=0"
 		}
 		runtime "Release"
-		buildoptions "/MD"
 		optimize "on"
 	
 	filter "configurations:Dist"
@@ -160,5 +154,4 @@ project "Sandbox"
 			"CF_ENABLE_ASSERTS=0"
 		}
 		runtime "Release"
-		buildoptions "/MD"
 		optimize "on"

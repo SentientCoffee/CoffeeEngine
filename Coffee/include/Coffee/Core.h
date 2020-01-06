@@ -3,13 +3,7 @@
 #include <memory>
 
 // Platform DLL export/import code
-#ifdef CF_PLATFORM_WINDOWS
-	#ifdef CF_BUILD_DLL
-		#define COFFEE_API __declspec(dllexport)
-	#else
-		#define COFFEE_API __declspec(dllimport)
-	#endif
-#else
+#ifndef CF_PLATFORM_WINDOWS
 	#error CoffeeEngine only supports Windows!
 #endif
 

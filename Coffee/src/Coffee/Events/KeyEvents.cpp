@@ -5,7 +5,7 @@ using namespace Coffee;
 
 KeyEvent::KeyEvent(const int keyCode) : _keyCode(keyCode) {}
 
-inline int KeyEvent::getKeyCode() const { return _keyCode; }
+int KeyEvent::getKeyCode() const { return _keyCode; }
 
 KeyPressedEvent::KeyPressedEvent(const int keyCode, const int repeatCount) :
 	KeyEvent(keyCode), _repeatCount(repeatCount) {}

@@ -8,12 +8,12 @@ namespace Coffee {
 	// ----- Keyboard Events ---------------
 	// -------------------------------------
 	
-	class COFFEE_API KeyEvent : public Event {
+	class KeyEvent : public Event {
 	public:
 
 		EVENT_CLASS_CATEGORY(CategoryKeyboard | CategoryInput)
 
-		inline int getKeyCode() const;
+		int getKeyCode() const;
 		
 	protected:
 
@@ -22,14 +22,14 @@ namespace Coffee {
 		int _keyCode;
 	};
 	
-	class COFFEE_API KeyPressedEvent : public KeyEvent {
+	class KeyPressedEvent : public KeyEvent {
 	public:
 
 		KeyPressedEvent(int keyCode, int repeatCount);
 
 		EVENT_CLASS_TYPE(KeyPressed)
 
-		inline int getRepeatCount() const;
+		int getRepeatCount() const;
 
 		#if CF_DEBUG || CF_RELEASE
 		std::string toString() const override;
@@ -41,7 +41,7 @@ namespace Coffee {
 	};
 
 
-	class COFFEE_API KeyReleasedEvent : public KeyEvent {
+	class KeyReleasedEvent : public KeyEvent {
 	public:
 
 		KeyReleasedEvent(int keyCode);
@@ -53,7 +53,7 @@ namespace Coffee {
 		#endif
 	};
 
-	class COFFEE_API KeyTypedEvent : public KeyEvent {
+	class KeyTypedEvent : public KeyEvent {
 	public:
 
 		KeyTypedEvent(int keyCode);

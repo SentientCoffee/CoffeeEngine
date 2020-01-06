@@ -15,7 +15,7 @@ bool WindowsInput::isKeyPressedImpl(const int keyCode) {
 	return state == GLFW_PRESS || state == GLFW_REPEAT;
 }
 
-bool WindowsInput::isMouseButtonPressedImpl(int button) {
+bool WindowsInput::isMouseButtonPressedImpl(const int button) {
 	const auto window = Application::getInstance().getWindow().getNativeWindow();
 	const int state = glfwGetMouseButton(static_cast<GLFWwindow*>(window), button);
 	return state == GLFW_PRESS;
@@ -26,7 +26,7 @@ std::pair<float, float> WindowsInput::getMousePosImpl() {
 	double xPos, yPos;
 	glfwGetCursorPos(static_cast<GLFWwindow*>(window), &xPos, &yPos);
 
-	return { xPos, yPos };
+	return { static_cast<float>(xPos), static_cast<float>(yPos) };
 }
 
 float WindowsInput::getMouseXImpl() {

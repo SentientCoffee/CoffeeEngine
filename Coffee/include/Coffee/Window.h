@@ -14,7 +14,7 @@ namespace Coffee {
 		                 unsigned int       height = 720);
 	};
 	
-	class COFFEE_API Window {
+	class Window {
 	public:
 		
 		using EventCallbackFunc = std::function<void(Event&)>;
@@ -34,7 +34,7 @@ namespace Coffee {
 
 		virtual void* getNativeWindow() const = 0;
 
-		virtual inline void setEventCallbackFunc(const EventCallbackFunc& callback) = 0;
+		virtual void setEventCallbackFunc(const EventCallbackFunc& callback) = 0;
 	};
 	
 }

@@ -22,7 +22,7 @@ namespace Coffee {
 
 		void* getNativeWindow() const override;
 
-		inline void setEventCallbackFunc(const EventCallbackFunc& callback) override;
+		void setEventCallbackFunc(const EventCallbackFunc& callback) override;
 	private:
 
 		virtual void init(const WindowProperties& properties);

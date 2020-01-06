@@ -44,16 +44,16 @@ void ImguiLayer::onPush() {
 	io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
 	io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 
-	ImGui_ImplOpenGL3_Init("#version 410");
+	ImGui_ImplOpenGL3_Init("#version 450");
 }
 void ImguiLayer::onPop() {}
 
 void ImguiLayer::update() {
 	ImGuiIO& io = ImGui::GetIO();
 	Application& app = Application::getInstance();
-	io.DisplaySize = ImVec2(app.getWindow().getWidth(), app.getWindow().getHeight());
+	io.DisplaySize = ImVec2(static_cast<float>(app.getWindow().getWidth()), static_cast<float>(app.getWindow().getHeight()));
 	
-	const float time = glfwGetTime();
+	const float time = static_cast<float>(glfwGetTime());
 	io.DeltaTime = _currentTime > 0.0f ? (time - _currentTime) : 1.0f / 60.0f;
 	_currentTime = time;
 
@@ -142,7 +142,7 @@ bool ImguiLayer::onKeyTyped(KeyTypedEvent& e) {
 
 bool ImguiLayer::onWindowResized(WindowResizedEvent& e) {
 	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize = ImVec2(e.getWidth(), e.getHeight());
+	io.DisplaySize = ImVec2(static_cast<float>(e.getWidth()), static_cast<float>(e.getHeight()));
 	io.DisplayFramebufferScale = { 1.0f, 1.0f };
 	glViewport(0, 0, e.getWidth(), e.getHeight());
 

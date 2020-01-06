@@ -110,10 +110,10 @@ void WindowsWindow::setGlfwCallbacks() {
 		}
 	});
 
-	glfwSetCharCallback(_window, [](GLFWwindow* window, unsigned int key) {
+	glfwSetCharCallback(_window, [](GLFWwindow* window, const unsigned int key) {
 		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
-		KeyTypedEvent keyTyped(key);
+		KeyTypedEvent keyTyped(static_cast<int>(key));
 		data->eventFunc(keyTyped);
 		
 	});

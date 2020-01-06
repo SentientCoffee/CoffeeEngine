@@ -9,7 +9,7 @@
 
 namespace Coffee {
 	
-	class COFFEE_API Application {
+	class Application {
 	public:
 		Application();
 		virtual ~Application() = default;
@@ -21,9 +21,9 @@ namespace Coffee {
 		void pushLayer(Layer* layer);
 		void pushOverlay(Layer* overlay);
 
-		inline Window& getWindow() const;
+		Window& getWindow() const;
 		
-		inline static Application& getInstance();
+		static Application& getInstance();
 		
 	private:
 

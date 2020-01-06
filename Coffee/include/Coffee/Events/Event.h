@@ -62,7 +62,7 @@ namespace Coffee {
 
 	
 
-	class COFFEE_API Event {
+	class Event {
 
 		friend class EventDispatcher;
 
@@ -78,7 +78,7 @@ namespace Coffee {
 		virtual int getCategoryFlags() const = 0;
 		
 		virtual std::string toString() const;
-		inline bool hasCategoryFlag(EventCategory flag) const;
+		bool hasCategoryFlag(EventCategory flag) const;
 		
 		#endif
 

@@ -15,6 +15,13 @@ c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\de
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\init.obj
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\egl_context.obj
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\context.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\glad.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui_widgets.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui_impl_opengl3.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui_impl_glfw.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui_draw.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui_demo.obj
+c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\imgui.obj
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\bin\windows\debug-x86_64\externals\externals.lib
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\externals.tlog\cl.command.1.tlog
 c:\users\daniel\desktop\repos\coffeeengine\coffee\externals\build\obj\windows\debug-x86_64\externals\externals.tlog\cl.read.1.tlog

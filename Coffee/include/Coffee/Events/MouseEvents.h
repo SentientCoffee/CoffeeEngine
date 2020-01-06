@@ -8,7 +8,7 @@ namespace Coffee {
 	// ----- Mouse Moved Event -------------
 	// -------------------------------------
 	
-	class COFFEE_API MouseMovedEvent : public Event {
+	class MouseMovedEvent : public Event {
 	public:
 
 		MouseMovedEvent(float x, float y);
@@ -16,8 +16,8 @@ namespace Coffee {
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(CategoryMouse | CategoryInput)
 
-		inline float getMouseX() const;
-		inline float getMouseY() const;
+		float getMouseX() const;
+		float getMouseY() const;
 
 		#if CF_DEBUG || CF_RELEASE
 		std::string toString() const override;
@@ -32,10 +32,10 @@ namespace Coffee {
 	// ----- Mouse Button Events -----------
 	// -------------------------------------
 	
-	class COFFEE_API MouseButtonEvent : public Event {
+	class MouseButtonEvent : public Event {
 	public:
 
-		inline int getMouseButton() const;
+		int getMouseButton() const;
 
 		EVENT_CLASS_CATEGORY(CategoryMouseButton | CategoryInput)
 
@@ -46,7 +46,7 @@ namespace Coffee {
 		int _mouseButton;
 	};
 
-	class COFFEE_API MouseButtonPressedEvent : public MouseButtonEvent {
+	class MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
 
 		MouseButtonPressedEvent(int button);
@@ -58,7 +58,7 @@ namespace Coffee {
 		#endif
 	};
 
-	class COFFEE_API MouseButtonReleasedEvent : public MouseButtonEvent {
+	class MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
 
 		MouseButtonReleasedEvent(int button);
@@ -74,7 +74,7 @@ namespace Coffee {
 	// ----- Mouse Scrolled Event ----------
 	// -------------------------------------
 	
-	class COFFEE_API MouseScrolledEvent : public Event {
+	class MouseScrolledEvent : public Event {
 	public:
 
 		MouseScrolledEvent(float xOffset, float yOffset);
@@ -82,8 +82,8 @@ namespace Coffee {
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(CategoryMouse | CategoryInput)
 
-		inline float getXOffset() const;
-		inline float getYOffset() const;
+		float getXOffset() const;
+		float getYOffset() const;
 
 		#if CF_DEBUG || CF_RELEASE
 		std::string toString() const override;
