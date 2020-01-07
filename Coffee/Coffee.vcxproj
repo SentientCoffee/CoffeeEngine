@@ -154,10 +154,15 @@
     <ClInclude Include="include\Coffee\Layer.h" />
     <ClInclude Include="include\Coffee\Logging.h" />
     <ClInclude Include="include\Coffee\MouseButtonCodes.h" />
+    <ClInclude Include="include\Coffee\Renderer\Buffers.h" />
+    <ClInclude Include="include\Coffee\Renderer\GraphicsContext.h" />
+    <ClInclude Include="include\Coffee\Renderer\Renderer.h" />
     <ClInclude Include="include\Coffee\Window.h" />
     <ClInclude Include="include\CoffeePCH.h" />
     <ClInclude Include="include\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="include\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLBuffers.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp" />
@@ -172,13 +177,21 @@
     <ClCompile Include="src\CoffeePCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Renderer\Buffers.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLBuffers.cpp" />
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Externals\Externals.vcxproj">
       <Project>{7B3ECCEB-E7A8-8062-30E7-31089C905EB7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Coffee\Renderer\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

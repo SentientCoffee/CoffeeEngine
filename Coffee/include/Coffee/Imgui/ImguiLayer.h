@@ -2,10 +2,6 @@
 
 #include "Coffee/Layer.h"
 
-#include "Coffee/Events/MouseEvents.h"
-#include "Coffee/Events/KeyEvents.h"
-#include "Coffee/Events/AppEvents.h"
-
 namespace Coffee {
 
 	class ImguiLayer : public Layer {

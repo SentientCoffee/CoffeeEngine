@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Coffee/Window.h"
+#include "Coffee/Renderer/GraphicsContext.h"
 
 #include <glfw/glfw3.h>
 
@@ -32,6 +33,7 @@ namespace Coffee {
 		static void glfwErrorCallback(int errorCode, const char* log);
 		
 		GLFWwindow* _window;
+		GraphicsContext* _renderContext;
 
 		struct WindowData {
 			std::string title;

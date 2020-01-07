@@ -26,16 +26,12 @@ project "Externals"
 		"imgui/include/imgui/imconfig.h",
 		"imgui/include/imgui/imgui.h",
 		"imgui/include/imgui/imgui_internal.h",
-		"imgui/include/imgui/imgui_impl_glfw.h",
-		"imgui/include/imgui/imgui_impl_opengl3.h",
 		"imgui/include/imgui/imstb_rectpack.h",
 		"imgui/include/imgui/imstb_textedit.h",
 		"imgui/include/imgui/imstb_truetype.h",
 		"imgui/include/imgui/imgui.cpp",
 		"imgui/include/imgui/imgui_demo.cpp",
 		"imgui/include/imgui/imgui_draw.cpp",
-		"imgui/include/imgui/imgui_impl_glfw.cpp",
-		"imgui/include/imgui/imgui_impl_opengl3.cpp",
 		"imgui/include/imgui/imgui_widgets.cpp"
 	}
 	

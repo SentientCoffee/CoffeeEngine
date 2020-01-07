@@ -6,7 +6,11 @@
 
 #include "Events/Event.h"
 #include "Events/AppEvents.h"
+
 #include "Imgui/ImguiLayer.h"
+
+#include "Renderer/Shader.h"
+#include "Renderer/Buffers.h"
 
 namespace Coffee {
 	
@@ -36,6 +40,10 @@ namespace Coffee {
 		LayerStack _layerStack;
 		ImguiLayer* _imguiLayer;
 
+		unsigned int vao;
+		Shader* shader;
+		VertexBuffer* vbo;
+		IndexBuffer* ibo;
 		
 		static Application* _instance;
 		

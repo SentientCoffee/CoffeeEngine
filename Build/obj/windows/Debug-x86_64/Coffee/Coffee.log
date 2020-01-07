@@ -1,4 +1,3 @@
 ﻿  Application.cpp
-  WindowsWindow.cpp
-  Generating Code...
+C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\src\Coffee\Application.cpp(75,86): warning C4312: 'reinterpret_cast': conversion from 'const unsigned int' to 'const void *' of greater size
   Coffee.vcxproj -> C:\Users\Daniel\Desktop\Repos\CoffeeEngine\Coffee\..\Build\bin\windows\Debug-x86_64\Coffee\Coffee.lib

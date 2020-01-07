@@ -93,6 +93,11 @@
     <ClInclude Include="include\Platform\Windows\WindowsWindow.h">
       <Filter>include\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Renderer\GraphicsContext.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="include\Coffee\Renderer\Buffers.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLBuffers.h" />
+    <ClInclude Include="include\Coffee\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp">
@@ -131,5 +136,13 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Buffers.cpp" />
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLBuffers.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Renderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Coffee\Renderer\Shader.h" />
   </ItemGroup>
 </Project>

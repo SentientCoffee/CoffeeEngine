@@ -5,7 +5,7 @@
 #include "Coffee/Events/KeyEvents.h"
 #include "Coffee/Events/MouseEvents.h"
 
-#include <glad/glad.h>
+#include "RenderAPI/OpenGL/OpenGLContext.h"
 
 
 using namespace Coffee;
@@ -20,7 +20,7 @@ WindowProperties::WindowProperties(const std::string& title, const unsigned widt
 	title(title), width(width), height(height) {}
 
 WindowsWindow::WindowsWindow(const WindowProperties& properties) :
-	_window(nullptr) {
+	_window(nullptr), _renderContext(nullptr) {
 	WindowsWindow::init(properties);
 }
 WindowsWindow::~WindowsWindow() {
@@ -49,14 +49,12 @@ void WindowsWindow::init(const WindowProperties& properties) {
 	                           _data.title.c_str(),
 	                           nullptr, nullptr);
 
-	glfwMakeContextCurrent(_window);
+	_renderContext = new OpenGLContext(_window);
+	_renderContext->init();
+
 	glfwSetWindowUserPointer(_window, &_data);
 	setVSync(true);
 	setGlfwCallbacks();
-
-	// GLAD function loading
-	const int gladStatus = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-	CF_CORE_ASSERT(gladStatus, "Could not initialize GLAD!");
 }
 void WindowsWindow::shutdown() {
 	glfwDestroyWindow(_window);
@@ -87,21 +85,18 @@ void WindowsWindow::setGlfwCallbacks() {
 		static int repeatCount = 0;
 		
 		switch(action) {
-			case GLFW_PRESS:
-			{
+			case GLFW_PRESS: {
 				KeyPressedEvent keyPressed(key, 0);
 				data->eventFunc(keyPressed);
 				break;
 			}
-			case GLFW_RELEASE:
-			{
+			case GLFW_RELEASE: {
 				repeatCount = 0;
 				KeyReleasedEvent keyReleased(key);
 				data->eventFunc(keyReleased);
 				break;
 			}
-			case GLFW_REPEAT:
-			{
+			case GLFW_REPEAT: {
 				KeyPressedEvent keyRepeat(key, ++repeatCount);
 				data->eventFunc(keyRepeat);
 				break;
@@ -123,14 +118,12 @@ void WindowsWindow::setGlfwCallbacks() {
 		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		switch(action) {
-			case GLFW_PRESS:
-			{
+			case GLFW_PRESS: {
 				MouseButtonPressedEvent mousePressed(button);
 				data->eventFunc(mousePressed);
 				break;
 			}
-			case GLFW_RELEASE:
-			{
+			case GLFW_RELEASE: {
 				MouseButtonReleasedEvent mouseReleased(button);
 				data->eventFunc(mouseReleased);
 				break;
@@ -162,7 +155,7 @@ void WindowsWindow::glfwErrorCallback(const int errorCode, const char* log) {
 
 void WindowsWindow::update() {	
 	glfwPollEvents();
-	glfwSwapBuffers(_window);
+	_renderContext->swapBuffers();
 }
 
 unsigned WindowsWindow::getWidth() const { return _data.width; }
