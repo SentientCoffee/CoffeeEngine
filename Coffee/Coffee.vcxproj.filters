@@ -98,6 +98,11 @@
     <ClInclude Include="include\Coffee\Renderer\Buffers.h" />
     <ClInclude Include="include\RenderAPI\OpenGL\OpenGLBuffers.h" />
     <ClInclude Include="include\Coffee\Renderer\Renderer.h" />
+    <ClInclude Include="include\Coffee\Renderer\VertexArray.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="include\Coffee\Renderer\RendererAPI.h" />
+    <ClInclude Include="include\Coffee\Renderer\RenderCommand.h" />
+    <ClInclude Include="include\RenderAPI\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Application.cpp">
@@ -141,6 +146,11 @@
     <ClCompile Include="src\Coffee\Renderer\Buffers.cpp" />
     <ClCompile Include="src\RenderAPI\OpenGL\OpenGLBuffers.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\RenderAPI\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Coffee\Renderer\Shader.h" />

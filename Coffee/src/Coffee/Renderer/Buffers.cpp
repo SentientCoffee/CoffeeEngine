@@ -77,10 +77,10 @@ VertexBuffer* VertexBuffer::create(std::vector<float>& vertices) {
 
 VertexBuffer* VertexBuffer::create(float* vertices, const unsigned size) {
 	switch(Renderer::getAPI()) {
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 	}
 
@@ -98,10 +98,10 @@ IndexBuffer* IndexBuffer::create(std::vector<unsigned>& indices) {
 
 IndexBuffer* IndexBuffer::create(unsigned* indices, const unsigned count) {
 	switch(Renderer::getAPI()) {
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 	}
 

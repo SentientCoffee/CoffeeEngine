@@ -1,21 +1,17 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 namespace Coffee {
-
-	enum class RendererAPI : unsigned int {
-		None = 0,
-		OpenGL
-	};
-
 
 	class Renderer {
 	public:
 
-		static RendererAPI getAPI();
+		static void beginScene();
+		static void endScene();
 		
-	private:
+		static void submit(const std::shared_ptr<VertexArray>& vertexArray);
 
-		static RendererAPI _api;
-		
+		static RendererAPI::API getAPI();
 	};
 }

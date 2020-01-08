@@ -18,7 +18,6 @@ namespace Coffee {
 		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		~Shader();
 
-
 		void bind() const;
 		static void unbind();
 

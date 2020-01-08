@@ -3,6 +3,12 @@
 
 using namespace Coffee;
 
-RendererAPI Renderer::_api = RendererAPI::OpenGL;
+void Renderer::beginScene() {}
+void Renderer::endScene() {}
 
-RendererAPI Renderer::getAPI() { return _api; }
+void Renderer::submit(const std::shared_ptr<VertexArray>& vertexArray) {
+	vertexArray->bind();
+	RenderCommand::drawIndexed(vertexArray);
+}
+
+RendererAPI::API Renderer::getAPI() { return RendererAPI::getAPI(); }

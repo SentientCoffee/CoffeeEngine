@@ -15,5 +15,9 @@
 
 #include "Coffee/Imgui/ImguiLayer.h"
 
+#include "Coffee/Renderer/Renderer.h"
+#include "Coffee/Renderer/Shader.h"
+#include "Coffee/Renderer/VertexArray.h"
+
 ///// ENTRY POINT /////
 #include "Coffee/EntryPoint.h"
