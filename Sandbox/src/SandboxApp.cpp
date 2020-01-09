@@ -43,35 +43,35 @@ public:
 		// ---------------------------------------------------------
 
 		std::string vertSrc = R"(
-		#version 450
+			#version 450
 
-		layout(location = 0) in vec3 inPosition;
-		layout(location = 1) in vec4 inColour;
+			layout(location = 0) in vec3 inPosition;
+			layout(location = 1) in vec4 inColour;
 	
-		layout(location = 0) out vec3 outPosition;
-		layout(location = 1) out vec4 outColour;
+			layout(location = 0) out vec3 outPosition;
+			layout(location = 1) out vec4 outColour;
 
-		void main() {
-			outPosition = inPosition;
-			outColour = inColour;
-			gl_Position = vec4(inPosition, 1.0);
-		}
+			void main() {
+				outPosition = inPosition;
+				outColour = inColour;
+				gl_Position = vec4(inPosition, 1.0);
+			}
 
-	)";
+		)";
 
 		std::string fragSrc = R"(
-		#version 450
+			#version 450
 	
-		layout(location = 0) in vec3 inPosition;
-		layout(location = 1) in vec4 inColour;
+			layout(location = 0) in vec3 inPosition;
+			layout(location = 1) in vec4 inColour;
 		
-		layout(location = 0) out vec4 outColour;
+			layout(location = 0) out vec4 outColour;
 
-		void main() {
-			outColour = inColour;
-		}
+			void main() {
+				outColour = inColour;
+			}
 
-	)";
+		)";
 
 
 		triShader.reset(new Coffee::Shader(vertSrc, fragSrc));
@@ -110,26 +110,26 @@ public:
 		// ---------------------------------------------------------
 
 		std::string squareVertSrc = R"(
-		#version 450
+			#version 450
 
-		layout(location = 0) in vec3 inPosition;
+			layout(location = 0) in vec3 inPosition;
 
-		void main() {
-			gl_Position = vec4(inPosition, 1.0);
-		}
+			void main() {
+				gl_Position = vec4(inPosition, 1.0);
+			}
 
-	)";
+		)";
 
 		std::string squareFragSrc = R"(
-		#version 450
+			#version 450
 		
-		layout(location = 0) out vec4 outColour;
+			layout(location = 0) out vec4 outColour;
 
-		void main() {
-			outColour = vec4(0.2, 0.3, 0.8, 1.0);
-		}
+			void main() {
+				outColour = vec4(0.2, 0.3, 0.8, 1.0);
+			}
 
-	)";
+		)";
 
 		squareShader.reset(new Coffee::Shader(squareVertSrc, squareFragSrc));
 
@@ -141,8 +141,7 @@ public:
 	}
 
 	void update() override {
-		Coffee::RenderCommand::clearScreen();
-
+		
 		Coffee::Renderer::beginScene();
 		{
 			squareShader->bind();
@@ -152,6 +151,7 @@ public:
 			Coffee::Renderer::submit(triVao);
 		}
 		Coffee::Renderer::endScene();
+		
 	}
 
 	void drawImgui() override {

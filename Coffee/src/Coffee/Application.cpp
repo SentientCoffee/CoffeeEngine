@@ -23,6 +23,8 @@ Application::Application() {
 void Application::run() {
 
 	while(_isRunning) {
+
+		RenderCommand::clearScreen();
 		
 		for(auto layer : _layerStack) {
 			layer->update();
