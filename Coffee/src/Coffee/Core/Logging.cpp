@@ -1,5 +1,5 @@
 #include "CoffeePCH.h"
-#include "Coffee/Logging.h"
+#include "Coffee/Core/Logging.h"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 

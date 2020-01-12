@@ -1,7 +1,9 @@
 #pragma once
 
-#include "CoffeePCH.h"
-#include "Coffee/Core.h"
+#include "Coffee/Core/Core.h"
+
+#include <functional>
+#include <string>
 
 namespace Coffee {
 

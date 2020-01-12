@@ -1,7 +1,7 @@
 #include "CoffeePCH.h"
 #include "Platform/Windows/WindowsInput.h"
 
-#include "Coffee/Application.h"
+#include "Coffee/Core/Application.h"
 
 #include <glfw/glfw3.h>
 

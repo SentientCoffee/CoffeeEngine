@@ -12,17 +12,17 @@ namespace Coffee {
 		
 		void bind() const override;
 		void unbind() const override;
-		void addVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		void setIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+		void addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+		void setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-		const std::vector<std::shared_ptr<VertexBuffer>>& getVertexBuffers() const override;
-		const std::shared_ptr<IndexBuffer>& getIndexBuffer() const override;
+		const std::vector<Ref<VertexBuffer>>& getVertexBuffers() const override;
+		const Ref<IndexBuffer>& getIndexBuffer() const override;
 
 	private:
 		
 		unsigned int _rendererId;
-		std::vector<std::shared_ptr<VertexBuffer>> _vertexBuffers;
-		std::shared_ptr<IndexBuffer> _indexBuffer;
+		std::vector<Ref<VertexBuffer>> _vertexBuffers;
+		Ref<IndexBuffer> _indexBuffer;
 		
 	};
 	

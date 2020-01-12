@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -14,7 +15,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Coffee/Logging.h"
+#include "Coffee/Core/Logging.h"
 
 #if CF_PLATFORM_WINDOWS
 #include <Windows.h>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Coffee/Window.h"
+#include "Coffee/Core/Window.h"
 #include "Coffee/Renderer/GraphicsContext.h"
 
 #include <glfw/glfw3.h>

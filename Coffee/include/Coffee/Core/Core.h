@@ -32,8 +32,8 @@
 namespace Coffee {
 
 	template<class T>
-	using scope = std::unique_ptr<T>;
+	using Scope = std::unique_ptr<T>;
 
 	template<class T>
-	using ref = std::shared_ptr<T>;
+	using Ref = std::shared_ptr<T>;
 }

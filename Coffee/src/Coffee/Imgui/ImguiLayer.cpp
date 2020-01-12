@@ -1,9 +1,8 @@
 #include "CoffeePCH.h"
 #include "Coffee/Imgui/ImguiLayer.h"
 
-#include "Coffee/Application.h"
+#include "Coffee/Core/Application.h"
 
-#include <glad/glad.h>
 #include <glfw/glfw3.h>
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
@@ -54,10 +53,7 @@ void ImguiLayer::begin() {
 	ImGui::NewFrame();
 }
 
-void ImguiLayer::drawImgui() {
-	static bool show = true;
-	ImGui::ShowDemoWindow(&show);
-}
+void ImguiLayer::drawImgui() {}
 
 void ImguiLayer::end() {
 	ImGuiIO& io = ImGui::GetIO();

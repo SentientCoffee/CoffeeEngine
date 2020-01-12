@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "KeyCodes.h"
-#include "MouseButtonCodes.h"
+#include "Coffee/Input/KeyCodes.h"
+#include "Coffee/Input/MouseButtonCodes.h"
 
 namespace Coffee {
 

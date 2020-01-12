@@ -32,14 +32,24 @@ project "Externals"
 		"imgui/include/imgui/imgui.cpp",
 		"imgui/include/imgui/imgui_demo.cpp",
 		"imgui/include/imgui/imgui_draw.cpp",
-		"imgui/include/imgui/imgui_widgets.cpp"
+		"imgui/include/imgui/imgui_widgets.cpp",
+		
+		"stb/include/stb/stb_image.h",
+        "stb/include/stb/stb_image_write.h",
+        "stb/include/stb/stb_impl.h",
+        "stb/include/stb/stb_include.h",
+        "stb/include/stb/stb_perlin.h",
+        "stb/include/stb/stb_rect_pack.h",
+        "stb/include/stb/stb_truetype.h",
+        "stb/src/stb_impl.cpp"
 	}
 	
 	includedirs {
 		"glad/include",
 		"glfw3/include",
 		"glm/include",
-		"imgui/include/imgui"
+		"imgui/include/imgui",
+		"stb/include/stb"
 	}
 	
 	filter "system:windows"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Coffee/Core.h"
+#include "Coffee/Core/Core.h"
 
 #include <spdlog/spdlog.h>
 

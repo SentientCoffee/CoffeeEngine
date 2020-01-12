@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Coffee/Input.h"
+#include "Coffee/Input/Input.h"
 
 namespace Coffee {
 

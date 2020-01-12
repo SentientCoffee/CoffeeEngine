@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Coffee/Core.h"
+#include "Coffee/Core/Timestep.h"
 #include "Coffee/Events/Event.h"
 
 namespace Coffee {
@@ -13,7 +13,7 @@ namespace Coffee {
 
 		virtual void onPush();
 		virtual void onPop();
-		virtual void update();
+		virtual void update(Timestep ts);
 		virtual void drawImgui();
 		virtual void onEvent(Event& e);
 

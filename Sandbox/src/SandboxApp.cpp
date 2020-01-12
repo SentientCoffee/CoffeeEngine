@@ -1,91 +1,33 @@
 #include <Coffee.h>
 
+#include "RenderAPI/OpenGL/OpenGLShader.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <imgui/imgui.h>
 
 class TestLayer : public Coffee::Layer {
 public:
 	
-	TestLayer() : Layer("Test") {}
+	TestLayer() : Layer("Test"),
+	              cameraController(static_cast<float>(Coffee::Application::getInstance().getWindow().getWidth()) / static_cast<float>(Coffee::Application::getInstance().getWindow().getHeight())) {}
+	
 	~TestLayer() = default;
 
 	void onPush() override {
-		
-		// ---------------------------------------------------------
-		// ----- Triangle ------------------------------------------
-		// ---------------------------------------------------------
-
-		std::vector<float> vertices = {
-			// Position				// Colour
-			-0.5f, -0.5f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
-			0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
-			0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
-		};
-
-		std::vector<unsigned> indices = {
-			0, 1, 2
-		};
-
-		triVao.reset(Coffee::VertexArray::create());
-		std::shared_ptr<Coffee::VertexBuffer> triVbo(Coffee::VertexBuffer::create(vertices));
-		std::shared_ptr<Coffee::IndexBuffer>  triIbo(Coffee::IndexBuffer::create(indices));
-
-		const Coffee::BufferLayout layout = {
-			{ Coffee::ShaderDataType::Vec3, "inPosition" },
-			{ Coffee::ShaderDataType::Vec4, "inColour" }
-		};
-
-		triVbo->setLayout(layout);
-		triVao->addVertexBuffer(triVbo);
-		triVao->setIndexBuffer(triIbo);
-
-		// ---------------------------------------------------------
-		// ----- Triangle Shader -----------------------------------
-		// ---------------------------------------------------------
-
-		std::string vertSrc = R"(
-			#version 450
-
-			layout(location = 0) in vec3 inPosition;
-			layout(location = 1) in vec4 inColour;
-	
-			layout(location = 0) out vec3 outPosition;
-			layout(location = 1) out vec4 outColour;
-
-			void main() {
-				outPosition = inPosition;
-				outColour = inColour;
-				gl_Position = vec4(inPosition, 1.0);
-			}
-
-		)";
-
-		std::string fragSrc = R"(
-			#version 450
-	
-			layout(location = 0) in vec3 inPosition;
-			layout(location = 1) in vec4 inColour;
-		
-			layout(location = 0) out vec4 outColour;
-
-			void main() {
-				outColour = inColour;
-			}
-
-		)";
-
-
-		triShader.reset(new Coffee::Shader(vertSrc, fragSrc));
 
 		// ---------------------------------------------------------
 		// ----- Square --------------------------------------------
 		// ---------------------------------------------------------
 
 		std::vector<float> squareVertices = {
-			// Position
-			-0.75f, -0.75f, 0.0f,
-			0.75f, -0.75f, 0.0f,
-			0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f,
+			// Position				// UV coords
+			-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f,		1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f,		0.0f, 1.0f
 		};
 
 		std::vector<unsigned> squareIndices = {
@@ -93,12 +35,13 @@ public:
 			0, 2, 3
 		};
 
-		squareVao.reset(Coffee::VertexArray::create());
-		std::shared_ptr<Coffee::VertexBuffer> squareVbo(Coffee::VertexBuffer::create(squareVertices));
-		std::shared_ptr<Coffee::IndexBuffer>  squareIbo(Coffee::IndexBuffer::create(squareIndices));
+		squareVao = Coffee::VertexArray::create();
+		Coffee::Ref<Coffee::VertexBuffer> squareVbo(Coffee::VertexBuffer::create(squareVertices));
+		Coffee::Ref<Coffee::IndexBuffer>  squareIbo(Coffee::IndexBuffer::create(squareIndices));
 
 		const Coffee::BufferLayout squareLayout = {
 			{ Coffee::ShaderDataType::Vec3, "inPosition" },
+			{ Coffee::ShaderDataType::Vec2, "inUVs" }
 		};
 
 		squareVbo->setLayout(squareLayout);
@@ -109,29 +52,17 @@ public:
 		// ----- Square Shader -------------------------------------
 		// ---------------------------------------------------------
 
-		std::string squareVertSrc = R"(
-			#version 450
+		const auto squareShader = Coffee::Renderer::getShaderLibrary()->load("assets/shaders/texture.glsl");
 
-			layout(location = 0) in vec3 inPosition;
+		// ---------------------------------------------------------
+		// ----- Square Texture ------------------------------------
+		// ---------------------------------------------------------
 
-			void main() {
-				gl_Position = vec4(inPosition, 1.0);
-			}
+		checkerboardTexture = Coffee::Texture2D::create("assets/textures/checkerboard.png");
+		chernoTexture = Coffee::Texture2D::create("assets/textures/ChernoLogo.png");
 
-		)";
-
-		std::string squareFragSrc = R"(
-			#version 450
-		
-			layout(location = 0) out vec4 outColour;
-
-			void main() {
-				outColour = vec4(0.2, 0.3, 0.8, 1.0);
-			}
-
-		)";
-
-		squareShader.reset(new Coffee::Shader(squareVertSrc, squareFragSrc));
+		squareShader->bind();
+		std::dynamic_pointer_cast<Coffee::OpenGLShader>(squareShader)->setUniform("uTextureAlbedo", 0);
 
 		Coffee::RenderCommand::setClearColour(0.1f, 0.1f, 0.1f, 1.0f);
 	}
@@ -140,37 +71,59 @@ public:
 		
 	}
 
-	void update() override {
-		
-		Coffee::Renderer::beginScene();
-		{
-			squareShader->bind();
-			Coffee::Renderer::submit(squareVao);
+	void update(const Coffee::Timestep ts) override {
 
-			triShader->bind();
-			Coffee::Renderer::submit(triVao);
+		cameraController.onUpdate(ts);
+		
+		if(Coffee::Input::isKeyPressed(KeyCode::J)) {
+			squarePos.x -= squareSpeed * ts;
+		}
+		else if(Coffee::Input::isKeyPressed(KeyCode::L)) {
+			squarePos.x += squareSpeed * ts;
+		}
+
+		if(Coffee::Input::isKeyPressed(KeyCode::I)) {
+			squarePos.y += squareSpeed * ts;
+		}
+		else if(Coffee::Input::isKeyPressed(KeyCode::K)) {
+			squarePos.y -= squareSpeed * ts;
+		}
+
+		
+		Coffee::Renderer::beginScene(cameraController.getCamera());
+		{
+			const auto squareShader = Coffee::Renderer::getShaderLibrary()->get("texture");
+			const auto transform = glm::translate(glm::mat4(1.0f), squarePos) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f));
+			
+			checkerboardTexture->bind();
+			Coffee::Renderer::submit(squareShader, squareVao, transform);
+			chernoTexture->bind();
+			Coffee::Renderer::submit(squareShader, squareVao,transform);
 		}
 		Coffee::Renderer::endScene();
 		
 	}
 
-	void drawImgui() override {
-		ImGui::Begin("TestLayer");
-		ImGui::Text("Beep beep lettuce");
-		ImGui::End();
-	}
+	void drawImgui() override {}
 	
 	void onEvent(Coffee::Event& e) override {
-		
+		cameraController.onEvent(e);
 	}
 
 private:
 
-	std::shared_ptr<Coffee::Shader> triShader;
-	std::shared_ptr<Coffee::VertexArray> triVao;
+	Coffee::ShaderLibrary library;
+	Coffee::Ref<Coffee::VertexArray> squareVao;
 
-	std::shared_ptr<Coffee::Shader> squareShader;
-	std::shared_ptr<Coffee::VertexArray> squareVao;
+	Coffee::Ref<Coffee::Texture2D> checkerboardTexture;
+	Coffee::Ref<Coffee::Texture2D> chernoTexture;
+	
+	Coffee::OrthographicCameraController cameraController;
+
+	glm::vec3 squarePos = { 0.0f, 0.0f, 0.0f };
+	float squareSpeed = 1.0f;
+
+	glm::vec3 squareColour = { 0.2f, 0.3f, 0.8f };
 	
 };
 

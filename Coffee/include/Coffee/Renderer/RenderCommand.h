@@ -6,12 +6,16 @@ namespace Coffee {
 
 	class RenderCommand {
 	public:
+		
+		static void init();
 
 		static void setClearColour(const glm::vec4& colour);
 		static void setClearColour(float r, float g, float b, float a);
 		static void clearScreen();
 
-		static void drawIndexed(const std::shared_ptr<VertexArray>& vertexArray);
+		static void setViewport(unsigned x, unsigned y, unsigned width, unsigned height);
+
+		static void drawIndexed(const Ref<VertexArray>& vertexArray);
 
 	private:
 

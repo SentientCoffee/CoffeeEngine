@@ -37,6 +37,18 @@
     <Filter Include="imgui\include\imgui">
       <UniqueIdentifier>{1D5716D8-89B8-F3E5-1226-3A987E862AA5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{6EAB880B-DAB4-887C-6330-9F7CCF38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb\include">
+      <UniqueIdentifier>{E160093B-4D16-8230-D60A-7C0742BF7834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb\include\stb">
+      <UniqueIdentifier>{B9A7BC70-2533-2A35-2E44-AD299A4E8635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb\src">
+      <UniqueIdentifier>{8570C8AD-F14F-4749-FA67-D21F66C6ADAA}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glad\include\KHR\khrplatform.h">
@@ -71,6 +83,27 @@
     </ClInclude>
     <ClInclude Include="imgui\include\imgui\imstb_truetype.h">
       <Filter>imgui\include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_image.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_image_write.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_impl.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_include.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_perlin.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_rect_pack.h">
+      <Filter>stb\include\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stb\include\stb\stb_truetype.h">
+      <Filter>stb\include\stb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="imgui\include\imgui\imgui_widgets.cpp">
       <Filter>imgui\include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="stb\src\stb_impl.cpp">
+      <Filter>stb\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -37,6 +37,8 @@ project "Coffee"
 		"%{prj.name}/Externals/imgui/include",
 		"%{prj.name}/Externals/imgui/include/imgui",
 		"%{prj.name}/Externals/spdlog/include",
+		"%{prj.name}/Externals/stb/include",
+		
 		"%{prj.name}/include"
 	}
 	
@@ -106,6 +108,7 @@ project "Sandbox"
 		"Coffee/Externals/glm/include",
 		"Coffee/Externals/imgui/include",
 		"Coffee/Externals/spdlog/include",
+		"Coffee/Externals/stb/include",
 		
 		"Coffee/include"
 	}

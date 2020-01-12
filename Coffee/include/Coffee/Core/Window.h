@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Coffee/Core.h"
 #include "Coffee/Events/Event.h"
 
 namespace Coffee {

@@ -71,17 +71,17 @@ void BufferLayout::strideOffsetCalc() {
 // ----- Vertex buffers -------------------
 // ----------------------------------------
 
-VertexBuffer* VertexBuffer::create(std::vector<float>& vertices) {
+Ref<VertexBuffer> VertexBuffer::create(std::vector<float>& vertices) {
 	return create(vertices.data(), static_cast<unsigned>(vertices.size() * sizeof(float)));
 }
 
-VertexBuffer* VertexBuffer::create(float* vertices, const unsigned size) {
+Ref<VertexBuffer> VertexBuffer::create(float* vertices, const unsigned size) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(vertices, size);
+			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");
@@ -92,17 +92,17 @@ VertexBuffer* VertexBuffer::create(float* vertices, const unsigned size) {
 // ----- Index buffers --------------------
 // ----------------------------------------
 
-IndexBuffer* IndexBuffer::create(std::vector<unsigned>& indices) {
+Ref<IndexBuffer> IndexBuffer::create(std::vector<unsigned>& indices) {
 	return create(indices.data(), static_cast<unsigned>(indices.size()));
 }
 
-IndexBuffer* IndexBuffer::create(unsigned* indices, const unsigned count) {
+Ref<IndexBuffer> IndexBuffer::create(unsigned* indices, const unsigned count) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLIndexBuffer(indices, count);
+			return std::make_shared<OpenGLIndexBuffer>(indices, count);
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");

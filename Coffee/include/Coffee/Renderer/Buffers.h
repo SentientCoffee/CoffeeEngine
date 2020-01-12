@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Coffee/Core/Core.h"
+
 #include <vector>
 
 namespace Coffee {
@@ -89,8 +91,8 @@ namespace Coffee {
 		virtual void setLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
 
-		static VertexBuffer* create(std::vector<float>& vertices);
-		static VertexBuffer* create(float* vertices, unsigned int size);
+		static Ref<VertexBuffer> create(std::vector<float>& vertices);
+		static Ref<VertexBuffer> create(float* vertices, unsigned int size);
 		
 	};
 
@@ -104,8 +106,8 @@ namespace Coffee {
 
 		virtual unsigned int getCount() const = 0;
 
-		static IndexBuffer* create(std::vector<unsigned>& indices);
-		static IndexBuffer* create(unsigned* indices, unsigned int count);
+		static Ref<IndexBuffer> create(std::vector<unsigned>& indices);
+		static Ref<IndexBuffer> create(unsigned* indices, unsigned int count);
 		
 	};
 }

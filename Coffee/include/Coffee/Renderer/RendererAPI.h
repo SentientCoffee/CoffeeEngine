@@ -10,6 +10,8 @@ namespace Coffee {
 	public:
 
 		virtual ~RendererAPI() = default;
+		virtual void init() = 0;
+		virtual void setViewport(unsigned x, unsigned y, unsigned width, unsigned height) = 0;
 
 		enum class API : unsigned int {
 			None = 0,
@@ -19,7 +21,7 @@ namespace Coffee {
 		virtual void setClearColour(const glm::vec4& colour) = 0;
 		virtual void clearScreen() = 0;
 		
-		virtual void drawIndexed(const std::shared_ptr<VertexArray>& vertexArray) = 0;
+		virtual void drawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 		
 		static API getAPI();
 

@@ -1,5 +1,5 @@
 #include "CoffeePCH.h"
-#include "Coffee/Layer.h"
+#include "Coffee/Core/Layer.h"
 
 using namespace Coffee;
 
@@ -8,7 +8,7 @@ Layer::Layer(const std::string& name) :
 
 void Layer::onPush() {}
 void Layer::onPop() {}
-void Layer::update() {}
+void Layer::update(Timestep ts) {}
 void Layer::drawImgui() {}
 void Layer::onEvent(Event& e) {}
 
