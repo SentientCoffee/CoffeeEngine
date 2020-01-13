@@ -161,6 +161,7 @@
     <ClInclude Include="include\Coffee\Renderer\GraphicsContext.h" />
     <ClInclude Include="include\Coffee\Renderer\RenderCommand.h" />
     <ClInclude Include="include\Coffee\Renderer\Renderer.h" />
+    <ClInclude Include="include\Coffee\Renderer\Renderer2D.h" />
     <ClInclude Include="include\Coffee\Renderer\RendererAPI.h" />
     <ClInclude Include="include\Coffee\Renderer\Shader.h" />
     <ClInclude Include="include\Coffee\Renderer\Texture.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="src\Coffee\Renderer\Camera.cpp" />
     <ClCompile Include="src\Coffee\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Coffee\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Shader.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Texture.cpp" />

@@ -6,6 +6,24 @@
 
 using namespace Coffee;
 
+OpenGLTexture2D::OpenGLTexture2D(const unsigned width, const unsigned height) :
+	_width(width), _height(height) {
+	
+	_internalFormat = GL_RGBA8;
+	_format = GL_RGBA;
+
+	CF_CORE_ASSERT(_internalFormat & _format, "Unsupported image format!");
+
+	glCreateTextures(GL_TEXTURE_2D, 1, &_rendererId);
+	glTextureStorage2D(_rendererId, 1, _internalFormat, _width, _height);
+
+	glTextureParameteri(_rendererId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTextureParameteri(_rendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTextureParameteri(_rendererId, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTextureParameteri(_rendererId, GL_TEXTURE_WRAP_T, GL_REPEAT);
+}
+
 OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
 	_texturePath(filepath) {
 	int width, height, channels;
@@ -30,14 +48,19 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
 	}
 
 	CF_CORE_ASSERT(internalFormat & format, "Unsupported image format!");
+	_internalFormat = internalFormat;
+	_format = format;
 	
 	glCreateTextures(GL_TEXTURE_2D, 1, &_rendererId);
-	glTextureStorage2D(_rendererId, 1, internalFormat, _width, _height);
+	glTextureStorage2D(_rendererId, 1, _internalFormat, _width, _height);
 
 	glTextureParameteri(_rendererId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTextureParameteri(_rendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	glTextureSubImage2D(_rendererId, 0, 0, 0, _width, _height, format, GL_UNSIGNED_BYTE, data);
+	glTextureParameteri(_rendererId, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTextureParameteri(_rendererId, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTextureSubImage2D(_rendererId, 0, 0, 0, _width, _height, _format, GL_UNSIGNED_BYTE, data);
 
 	stbi_image_free(data);
 }
@@ -53,4 +76,10 @@ void OpenGLTexture2D::bind(const unsigned slot) const {
 }
 void OpenGLTexture2D::unbind(const unsigned slot) const {
 	glBindTextureUnit(slot, 0);
+}
+
+void OpenGLTexture2D::setData(void* data, unsigned size) {
+	unsigned bpp = _format == GL_RGBA ? 4 : 3;
+	CF_CORE_ASSERT(size == _width * _height * bpp, "Data must be entire texture!");
+	glTextureSubImage2D(_rendererId, 0, 0, 0, _width, _height, _format, GL_UNSIGNED_BYTE, data);
 }

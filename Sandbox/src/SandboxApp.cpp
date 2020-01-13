@@ -1,12 +1,12 @@
 #include <Coffee.h>
-
-#include "RenderAPI/OpenGL/OpenGLShader.h"
+#include <Coffee/EntryPoint.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include <imgui/imgui.h>
+
+#include "Sandbox2D.h"
 
 class TestLayer : public Coffee::Layer {
 public:
@@ -62,7 +62,7 @@ public:
 		chernoTexture = Coffee::Texture2D::create("assets/textures/ChernoLogo.png");
 
 		squareShader->bind();
-		std::dynamic_pointer_cast<Coffee::OpenGLShader>(squareShader)->setUniform("uTextureAlbedo", 0);
+		squareShader->setInt("uTextureAlbedo", 0);
 
 		Coffee::RenderCommand::setClearColour(0.1f, 0.1f, 0.1f, 1.0f);
 	}
@@ -112,7 +112,6 @@ public:
 
 private:
 
-	Coffee::ShaderLibrary library;
 	Coffee::Ref<Coffee::VertexArray> squareVao;
 
 	Coffee::Ref<Coffee::Texture2D> checkerboardTexture;
@@ -131,7 +130,8 @@ class Sandbox : public Coffee::Application {
 public:
 
 	Sandbox() {
-		pushLayer(new TestLayer());
+		//pushLayer(new TestLayer());
+		pushLayer(new Sandbox2D());
 	}
 	
 	~Sandbox() = default;

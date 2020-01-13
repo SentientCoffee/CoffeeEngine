@@ -28,18 +28,29 @@ namespace Coffee {
 
 		const std::string& getName() const override;
 
-		void setUniform(const std::string& name, bool value) const;
-		void setUniform(const std::string& name, int value) const;
-		void setUniform(const std::string& name, float value) const;
+		void setBool(const std::string& name, bool value) override;
+		void setInt(const std::string& name, int value) override;
+		void setFloat(const std::string& name, float value) override;
 		
-		void setUniform(const std::string& name, const glm::vec2& value) const;
-		void setUniform(const std::string& name, const glm::vec3& value) const;
-		void setUniform(const std::string& name, const glm::vec4& value) const;
+		void setVec2(const std::string& name, const glm::vec2& value) override;
+		void setVec3(const std::string& name, const glm::vec3& value) override;
+		void setVec4(const std::string& name, const glm::vec4& value) override;
 		
-		void setUniform(const std::string& name, const glm::mat3& value) const;
-		void setUniform(const std::string& name, const glm::mat4& value) const;
+		void setMat3(const std::string& name, const glm::mat3& value) override;
+		void setMat4(const std::string& name, const glm::mat4& value) override;
 
 	private:
+		
+		void uploadUniform(const std::string& name, bool value) const;
+		void uploadUniform(const std::string& name, int value) const;
+		void uploadUniform(const std::string& name, float value) const;
+		
+		void uploadUniform(const std::string& name, const glm::vec2& value) const;
+		void uploadUniform(const std::string& name, const glm::vec3& value) const;
+		void uploadUniform(const std::string& name, const glm::vec4& value) const;
+		
+		void uploadUniform(const std::string& name, const glm::mat3& value) const;
+		void uploadUniform(const std::string& name, const glm::mat4& value) const;
 
 		static std::string readFile(const std::string& filepath);
 		static std::unordered_map<ShaderType, std::string> processSource(const std::string& shaderSrc);

@@ -22,8 +22,10 @@ layout(location = 0) in vec2 inUVs;
 
 layout(location = 0) out vec4 outColour;
 
+uniform vec4 uColour;
 uniform sampler2D uTextureAlbedo;
+uniform float uTileFactor;
 
 void main() {
-	outColour = texture(uTextureAlbedo, inUVs);
+	outColour = texture(uTextureAlbedo, inUVs * uTileFactor) * uColour;
 }

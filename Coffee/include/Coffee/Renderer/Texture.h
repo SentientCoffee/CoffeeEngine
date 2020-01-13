@@ -16,11 +16,14 @@ namespace Coffee {
 
 		virtual void bind(unsigned slot = 0) const = 0;
 		virtual void unbind(unsigned slot = 0) const = 0;
+
+		virtual void setData(void* data, unsigned size) = 0;
 	};
 
 	class Texture2D : public Texture {
 	public:
 
+		static Ref<Texture2D> create(unsigned width, unsigned height);
 		static Ref<Texture2D> create(const std::string& filepath);
 		
 	};

@@ -56,6 +56,7 @@ void Application::onEvent(Event& e) {
 	
 	EventDispatcher dispatcher(e);
 	dispatcher.dispatch<WindowClosedEvent>(CF_BIND_FN(Application::onWindowClosed));
+	dispatcher.dispatch<WindowResizedEvent>(CF_BIND_FN(Application::onWindowResized));
 
 	for(auto it = _layerStack.end(); it != _layerStack.begin(); ) {
 		(*--it)->onEvent(e);

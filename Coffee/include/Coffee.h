@@ -22,9 +22,7 @@
 #include "Coffee/Renderer/Camera.h"
 #include "Coffee/Renderer/CameraController.h"
 #include "Coffee/Renderer/Renderer.h"
+#include "Coffee/Renderer/Renderer2D.h"
 #include "Coffee/Renderer/Shader.h"
 #include "Coffee/Renderer/Texture.h"
 #include "Coffee/Renderer/VertexArray.h"
-
-///// ENTRY POINT /////
-#include "Coffee/EntryPoint.h"

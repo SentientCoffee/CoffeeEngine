@@ -166,6 +166,7 @@
     <ClInclude Include="include\Coffee\EntryPoint.h">
       <Filter>include\Coffee</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Coffee\Core\Timestep.cpp">
@@ -250,5 +251,6 @@
       <Filter>src\Coffee</Filter>
     </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\CameraController.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

@@ -184,42 +184,67 @@ void OpenGLShader::unbind() const { glUseProgram(0); }
 
 const std::string& OpenGLShader::getName() const { return _name; }
 
-void OpenGLShader::setUniform(const std::string& name, const bool value) const {
+void OpenGLShader::setBool(const std::string& name, const bool value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setInt(const std::string& name, const int value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setFloat(const std::string& name, const float value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setVec2(const std::string& name, const glm::vec2& value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setVec3(const std::string& name, const glm::vec3& value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setVec4(const std::string& name, const glm::vec4& value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setMat3(const std::string& name, const glm::mat3& value) {
+	uploadUniform(name, value);
+}
+void OpenGLShader::setMat4(const std::string& name, const glm::mat4& value) {
+	uploadUniform(name, value);
+}
+
+void OpenGLShader::uploadUniform(const std::string& name, const bool value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform1i(location, static_cast<int>(value));
 }
 
-void OpenGLShader::setUniform(const std::string& name, const int value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const int value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform1i(location, value);
 }
 
-void OpenGLShader::setUniform(const std::string& name, const float value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const float value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform1f(location, value);
 }
 
-void OpenGLShader::setUniform(const std::string& name, const glm::vec2& value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec2& value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform2fv(location, 1, glm::value_ptr(value));
 }
 
-void OpenGLShader::setUniform(const std::string& name, const glm::vec3& value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec3& value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform3fv(location, 1, glm::value_ptr(value));
 }
 
-void OpenGLShader::setUniform(const std::string& name, const glm::vec4& value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec4& value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform4fv(location, 1, glm::value_ptr(value));
 }
 
-void OpenGLShader::setUniform(const std::string& name, const glm::mat3& value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const glm::mat3& value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void OpenGLShader::setUniform(const std::string& name, const glm::mat4& value) const {
+void OpenGLShader::uploadUniform(const std::string& name, const glm::mat4& value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 

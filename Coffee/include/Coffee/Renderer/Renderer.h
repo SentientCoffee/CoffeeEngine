@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Camera.h"
-#include "Shader.h"
-#include "RenderCommand.h"
+#include "Coffee/Renderer/Camera.h"
+#include "Coffee/Renderer/Shader.h"
+#include "Coffee/Renderer/RenderCommand.h"
 
 namespace Coffee {
 
@@ -18,7 +18,7 @@ namespace Coffee {
 		static void submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
 		static RendererAPI::API getAPI();
-		static ShaderLibrary* getShaderLibrary();
+		static const Scope<ShaderLibrary>& getShaderLibrary();
 
 	private:
 
@@ -26,8 +26,8 @@ namespace Coffee {
 			glm::mat4 viewProjection;
 		};
 
-		static SceneData* sceneData;
-		static ShaderLibrary* shaderLib;
+		static Scope<SceneData> sceneData;
+		static Scope<ShaderLibrary> shaderLib;
 		
 	};
 }

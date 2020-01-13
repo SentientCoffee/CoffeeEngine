@@ -7,9 +7,12 @@ void Coffee::OpenGLRendererAPI::init() {
 	// Blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Depth testing
+	glEnable(GL_DEPTH_TEST);
 }
 
-void Coffee::OpenGLRendererAPI::setViewport(unsigned x, unsigned y, unsigned width, unsigned height) {
+void Coffee::OpenGLRendererAPI::setViewport(const unsigned x, const unsigned y, const unsigned width, const unsigned height) {
 	glViewport(x, y, width, height);
 }
 
