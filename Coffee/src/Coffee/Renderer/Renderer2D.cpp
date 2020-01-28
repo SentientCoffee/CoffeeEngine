@@ -20,6 +20,15 @@ ColouredQuad::ColouredQuad(const glm::vec2& position, const float zIndex, const 
 	position(position), zIndex(zIndex), dimensions(dimensions), colour(colour) {}
 
 
+TexturedQuad::TexturedQuad(const glm::vec3& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
+	zIndexedPosition(position), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
+
+TexturedQuad::TexturedQuad(const glm::vec2& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
+	position(position), zIndex(0.0f), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
+
+TexturedQuad::TexturedQuad(const glm::vec2& position, const float zIndex, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
+	position(position), zIndex(zIndex), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
+
 struct Renderer2DStorage {
 
 	Ref<VertexArray> quadVao;
@@ -29,15 +38,6 @@ struct Renderer2DStorage {
 };
 
 static Renderer2DStorage* storage;
-
-TexturedQuad::TexturedQuad(const glm::vec3& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
-	zIndexedPosition(position), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
-
-TexturedQuad::TexturedQuad(const glm::vec2& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
-	position(position), zIndex(0.0f), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
-
-TexturedQuad::TexturedQuad(const glm::vec2& position, const float zIndex, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) :
-	position(position), zIndex(zIndex), dimensions(dimensions), texture(texture), tint(tint), tilingFactor(tilingFactor) {}
 
 void Renderer2D::init() {
 
