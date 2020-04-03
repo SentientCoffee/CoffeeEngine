@@ -2,12 +2,12 @@
 
 #include <memory>
 
-// Platform DLL export/import code
+// Platform check
 #ifndef CF_PLATFORM_WINDOWS
 	#error CoffeeEngine only supports Windows!
 #endif
 
-// Bit shift (event flagging)
+// Bit shift (bitfields, right now used for event flagging)
 #define BIT_SHIFT(x) (1 << (x))
 
 // Function binding
@@ -15,15 +15,19 @@
 
 // Asserts
 #if CF_ENABLE_ASSERTS
-	#define CF_CORE_ASSERT(exp, ...)	if(!(exp)) {\
-											CF_CORE_CRITICAL("ASSERTION FAILED: {0}", ##__VA_ARGS__);\
-											__debugbreak();\
-										}
+	#define CF_CORE_ASSERT(exp, msg, ...)\
+		if(!(exp)) {\
+			CF_CORE_CRITICAL("ASSERTION FAILED: {0}", #exp);\
+			CF_CORE_CRITICAL(msg, ##__VA_ARGS__);\
+			__debugbreak();\
+		}
 
-	#define CF_ASSERT(exp, ...)			if(!(exp)) {\
-											CF_CRITICAL("ASSERTION FAILED: {0}", ##__VA_ARGS__);\
-											__debugbreak();\
-										}
+	#define CF_ASSERT(exp, msg, ...)\
+		if(!(exp)) {\
+			CF_CRITICAL("ASSERTION FAILED: {0}", #exp);\
+			CF_CRITICAL(msg, ##__VA_ARGS__);\
+			__debugbreak();\
+		}
 #else
 	#define CF_CORE_ASSERT(exp, ...)
 	#define CF_ASSERT(exp, ...)

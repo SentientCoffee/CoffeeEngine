@@ -9,6 +9,13 @@ using namespace Coffee;
 // ----- Vertex buffers -------------------
 // ----------------------------------------
 
+OpenGLVertexBuffer::OpenGLVertexBuffer(const unsigned size) :
+	_rendererId(0) {
+	glCreateBuffers(1, &_rendererId);
+	glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
+	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+}
+
 OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, const unsigned size) :
 	_rendererId(0) {
 	glCreateBuffers(1, &_rendererId);
@@ -22,6 +29,11 @@ OpenGLVertexBuffer::~OpenGLVertexBuffer() {
 
 void OpenGLVertexBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, _rendererId); }
 void OpenGLVertexBuffer::unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+
+void OpenGLVertexBuffer::setData(const void* data, const unsigned size) {
+	glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+}
 
 void OpenGLVertexBuffer::setLayout(const BufferLayout& layout) { _layout = layout; }
 const BufferLayout& OpenGLVertexBuffer::getLayout() const { return _layout; }

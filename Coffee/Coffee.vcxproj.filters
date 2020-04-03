@@ -16,6 +16,9 @@
     <Filter Include="include\Coffee\Imgui">
       <UniqueIdentifier>{2A789765-1607-212F-BF25-352AAB9331D5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Coffee\Input">
+      <UniqueIdentifier>{DF2A9865-CBB9-212F-74D8-352A604632D5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include\Coffee\Renderer">
       <UniqueIdentifier>{8652BA49-F289-02E1-FB93-6604674A29DA}</UniqueIdentifier>
     </Filter>
@@ -66,8 +69,26 @@
     <ClInclude Include="include\Coffee.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Core\Application.h">
+      <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Core\Core.h">
+      <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Core\Layer.h">
+      <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Core\Logging.h">
+      <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
     <ClInclude Include="include\Coffee\Core\Timestep.h">
       <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Core\Window.h">
+      <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\EntryPoint.h">
+      <Filter>include\Coffee</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Events\AppEvents.h">
       <Filter>include\Coffee\Events</Filter>
@@ -84,10 +105,22 @@
     <ClInclude Include="include\Coffee\Imgui\ImguiLayer.h">
       <Filter>include\Coffee\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="include\Coffee\Input\Input.h">
+      <Filter>include\Coffee\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Input\KeyCodes.h">
+      <Filter>include\Coffee\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Input\MouseButtonCodes.h">
+      <Filter>include\Coffee\Input</Filter>
+    </ClInclude>
     <ClInclude Include="include\Coffee\Renderer\Buffers.h">
       <Filter>include\Coffee\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Renderer\Camera.h">
+      <Filter>include\Coffee\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Renderer\CameraController.h">
       <Filter>include\Coffee\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Renderer\GraphicsContext.h">
@@ -97,6 +130,9 @@
       <Filter>include\Coffee\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Renderer\Renderer.h">
+      <Filter>include\Coffee\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Renderer\Renderer2D.h">
       <Filter>include\Coffee\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\Renderer\RendererAPI.h">
@@ -138,37 +174,17 @@
     <ClInclude Include="include\RenderAPI\OpenGL\OpenGLVertexArray.h">
       <Filter>include\RenderAPI\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="include\Coffee\Core\Application.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Core\Core.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Core\Layer.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Core\Logging.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Core\Window.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Input\Input.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Input\KeyCodes.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Input\MouseButtonCodes.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Renderer\CameraController.h" />
-    <ClInclude Include="include\Coffee\EntryPoint.h">
-      <Filter>include\Coffee</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Coffee\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Coffee\Core\Application.cpp">
+      <Filter>src\Coffee\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Core\Layer.cpp">
+      <Filter>src\Coffee\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Core\Logging.cpp">
+      <Filter>src\Coffee\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Core\Timestep.cpp">
       <Filter>src\Coffee\Core</Filter>
     </ClCompile>
@@ -196,10 +212,16 @@
     <ClCompile Include="src\Coffee\Renderer\Camera.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Renderer\CameraController.cpp">
+      <Filter>src\Coffee\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\RenderCommand.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\Renderer.cpp">
+      <Filter>src\Coffee\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Coffee\Renderer\Renderer2D.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\RendererAPI.cpp">
@@ -241,16 +263,5 @@
     <ClCompile Include="src\RenderAPI\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\RenderAPI\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Coffee\Core\Application.cpp">
-      <Filter>src\Coffee</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Coffee\Core\Layer.cpp">
-      <Filter>src\Coffee</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Coffee\Core\Logging.cpp">
-      <Filter>src\Coffee</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Coffee\Renderer\CameraController.cpp" />
-    <ClCompile Include="src\Coffee\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

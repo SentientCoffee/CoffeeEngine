@@ -21,6 +21,7 @@ void Sandbox2D::onPop() {}
 void Sandbox2D::update(const Coffee::Timestep ts) {
 	cameraController.onUpdate(ts);
 
+	#if 0
 	Coffee::ColouredQuad imguiQuad = {
 		{ -1.0f, 0.0f },
 		{ 0.8f, 0.8f },
@@ -39,12 +40,16 @@ void Sandbox2D::update(const Coffee::Timestep ts) {
 		checkerboardTexture,
 		{ 0.2f, 0.8f, 0.3f, 1.0f }
 	};
+	#endif
+
 
 	Coffee::Renderer2D::beginScene(cameraController.getCamera());
 	{
-		Coffee::Renderer2D::drawQuad(imguiQuad);
-		Coffee::Renderer2D::drawQuad(redQuad);
-		Coffee::Renderer2D::drawQuad(checkerboard);
+		// Coffee::Renderer2D::drawQuad(imguiQuad);
+		// Coffee::Renderer2D::drawQuad(redQuad);
+		// Coffee::Renderer2D::drawQuad(checkerboard);
+		Coffee::Renderer2D::drawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+		Coffee::Renderer2D::drawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
 	}
 	Coffee::Renderer2D::endScene();
 	

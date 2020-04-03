@@ -15,7 +15,7 @@ namespace Coffee {
 
 		static void setViewport(unsigned x, unsigned y, unsigned width, unsigned height);
 
-		static void drawIndexed(const Ref<VertexArray>& vertexArray);
+		static void drawIndexed(const Ref<VertexArray>& vertexArray, unsigned indexCount = 0);
 
 	private:
 

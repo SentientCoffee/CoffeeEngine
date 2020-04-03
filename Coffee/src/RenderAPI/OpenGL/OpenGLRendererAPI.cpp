@@ -22,6 +22,7 @@ void Coffee::OpenGLRendererAPI::setClearColour(const glm::vec4& colour) {
 void Coffee::OpenGLRendererAPI::clearScreen() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-void Coffee::OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vertexArray) {
-	glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+void Coffee::OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vertexArray, const unsigned indexCount) {
+	const unsigned count = indexCount > 0 ? indexCount : vertexArray->getIndexBuffer()->getCount();
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 }

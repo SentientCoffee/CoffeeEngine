@@ -13,4 +13,4 @@ void RenderCommand::clearScreen() { _rendererApi->clearScreen(); }
 
 void RenderCommand::setViewport(const unsigned x, const unsigned y, const unsigned width, const unsigned height) { _rendererApi->setViewport(x, y, width, height); }
 
-void RenderCommand::drawIndexed(const Ref<VertexArray>& vertexArray) { _rendererApi->drawIndexed(vertexArray); }
+void RenderCommand::drawIndexed(const Ref<VertexArray>& vertexArray, const unsigned indexCount) { _rendererApi->drawIndexed(vertexArray, indexCount); }

@@ -21,7 +21,7 @@ namespace Coffee {
 		virtual void setClearColour(const glm::vec4& colour) = 0;
 		virtual void clearScreen() = 0;
 		
-		virtual void drawIndexed(const Ref<VertexArray>& vertexArray) = 0;
+		virtual void drawIndexed(const Ref<VertexArray>& vertexArray, unsigned indexCount) = 0;
 		
 		static API getAPI();
 

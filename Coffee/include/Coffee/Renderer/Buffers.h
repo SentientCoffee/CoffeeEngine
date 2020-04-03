@@ -76,7 +76,7 @@ namespace Coffee {
 		void strideOffsetCalc();
 
 		BufferElemVector _elements;
-		unsigned int _stride;
+		unsigned int _stride = 0;
 
 	};
 	
@@ -90,7 +90,9 @@ namespace Coffee {
 
 		virtual void setLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
+		virtual void setData(const void* data, unsigned size) = 0;
 
+		static Ref<VertexBuffer> create(unsigned int size);
 		static Ref<VertexBuffer> create(std::vector<float>& vertices);
 		static Ref<VertexBuffer> create(float* vertices, unsigned int size);
 		

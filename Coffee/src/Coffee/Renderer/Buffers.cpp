@@ -71,6 +71,19 @@ void BufferLayout::strideOffsetCalc() {
 // ----- Vertex buffers -------------------
 // ----------------------------------------
 
+Ref<VertexBuffer> VertexBuffer::create(unsigned size) {
+	switch(Renderer::getAPI()) {
+		case RendererAPI::API::None:
+			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return createRef<OpenGLVertexBuffer>(size);
+	}
+
+	CF_CORE_ASSERT(false, "Unknown renderer API!");
+	return nullptr;
+}
+
 Ref<VertexBuffer> VertexBuffer::create(std::vector<float>& vertices) {
 	return create(vertices.data(), static_cast<unsigned>(vertices.size() * sizeof(float)));
 }
@@ -81,7 +94,7 @@ Ref<VertexBuffer> VertexBuffer::create(float* vertices, const unsigned size) {
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+			return createRef<OpenGLVertexBuffer>(vertices, size);
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");

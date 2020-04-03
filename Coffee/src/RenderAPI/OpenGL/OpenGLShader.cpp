@@ -23,7 +23,7 @@ static ShaderType shaderTypeFromString(const std::string& type) {
 
 OpenGLShader::OpenGLShader(const std::string& filepath) {
 	const std::string shaderSrc = readFile(filepath);
-	std::unordered_map<ShaderType, std::string> sources = processSource(shaderSrc);
+	const std::unordered_map<ShaderType, std::string> sources = processSource(shaderSrc);
 	compileProgram(sources);
 
 	// Extract name from filepath
@@ -78,8 +78,7 @@ std::unordered_map<ShaderType, std::string> OpenGLShader::processSource(const st
 		CF_CORE_ASSERT(eol != std::string::npos, "Syntax error!");
 		const size_t begin = pos + typeTokenLength + 1;
 		std::string type = shaderSrc.substr(begin, eol - begin);
-		CF_CORE_ASSERT(type == "vertex" || type == "fragment" || type == "pixel" || type == "geometry",
-		               "Invalid shader type specified!");
+		CF_CORE_ASSERT(type == "vertex" || type == "fragment" || type == "pixel" || type == "geometry", "Invalid shader type specified!");
 
 		const size_t nextLinePos = shaderSrc.find_first_not_of("\r\n", eol);
 		pos = shaderSrc.find(typeToken, nextLinePos);
@@ -89,7 +88,7 @@ std::unordered_map<ShaderType, std::string> OpenGLShader::processSource(const st
 	return shaderSources;
 }
 
-unsigned OpenGLShader::createShader(const std::string& shaderSrc, const ShaderType shaderType) {
+unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const ShaderType shaderType) {
 	unsigned int shaderHandle = 0;
 
 	switch(shaderType) {
@@ -132,9 +131,7 @@ unsigned OpenGLShader::createShader(const std::string& shaderSrc, const ShaderTy
 			default: break;
 		}
 
-		CF_CORE_CRITICAL("{0} shader:", type);
-		CF_CORE_CRITICAL("{0}", infoLog.data());
-		CF_CORE_ASSERT(success, "Failed to compile shader!");
+		CF_CORE_ASSERT(success, "Failed to compile {0} shader!\n\t{1}", type, infoLog.data());
 		return 0;
 	}
 
@@ -144,7 +141,7 @@ unsigned OpenGLShader::createShader(const std::string& shaderSrc, const ShaderTy
 void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::string>& sources) {
 	const unsigned program = glCreateProgram();
 	CF_CORE_ASSERT(sources.size() <= 3, "Only up to 3 shaders are supported!");
-	std::array<unsigned, 3> shaderIds;
+	std::array<unsigned, 3> shaderIds {};
 
 	int shaderIdIndex = 0;
 	for(auto& src : sources) {
@@ -169,7 +166,7 @@ void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::stri
 			glDeleteShader(id);
 		}
 
-		CF_CORE_ASSERT(success, "Failed to link shader program!\n{0}", infoLog.data());
+		CF_CORE_ASSERT(success, "Failed to link shader program!\n\t{0}", infoLog.data());
 	}
 
 	for(auto& id : shaderIds) {

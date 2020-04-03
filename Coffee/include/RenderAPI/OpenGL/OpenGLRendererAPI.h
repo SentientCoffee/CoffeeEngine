@@ -13,7 +13,7 @@ namespace Coffee {
 
 		void setClearColour(const glm::vec4& colour) override;
 		void clearScreen() override;
-		void drawIndexed(const Ref<VertexArray>& vertexArray) override;
+		void drawIndexed(const Ref<VertexArray>& vertexArray, unsigned indexCount) override;
 
 	private:
 

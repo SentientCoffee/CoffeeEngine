@@ -4,8 +4,6 @@
 
 #include <glm/glm.hpp>
 
-#include <optional>
-
 namespace Coffee {
 
 	enum class ShaderType : unsigned int {
@@ -55,7 +53,7 @@ namespace Coffee {
 		static std::string readFile(const std::string& filepath);
 		static std::unordered_map<ShaderType, std::string> processSource(const std::string& shaderSrc);
 
-		unsigned int createShader(const std::string& shaderSrc, ShaderType shaderType);
+		static unsigned int createShader(const std::string& shaderSrc, ShaderType shaderType);
 		void compileProgram(const std::unordered_map<ShaderType, std::string>& sources);
 
 		unsigned int _rendererId = 0;

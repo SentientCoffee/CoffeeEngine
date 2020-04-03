@@ -1,0 +1,2 @@
+C:\Repos\CoffeeEngine\Build\bin\windows\Debug-x86_64\Coffee\Coffee.pdb
+C:\Repos\CoffeeEngine\Build\obj\windows\Debug-x86_64\Coffee\Coffee.pdb

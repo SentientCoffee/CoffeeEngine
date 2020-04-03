@@ -47,6 +47,7 @@ namespace Coffee {
 
 		static void beginScene(const OrthographicCamera& camera);
 		static void endScene();
+		static void renderScene();
 
 		static void drawQuad(const glm::vec2& position, const glm::vec2& dimensions, const glm::vec4& colour);
 		static void drawQuad(const glm::vec2& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint = glm::vec4(1.0f));
