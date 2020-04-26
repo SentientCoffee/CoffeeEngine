@@ -45,9 +45,9 @@ void WindowsWindow::init(const WindowProperties& properties) {
 	}
 
 	_window = glfwCreateWindow(static_cast<int>(_data.width),
-	                           static_cast<int>(_data.height),
-	                           _data.title.c_str(),
-	                           nullptr, nullptr);
+		static_cast<int>(_data.height),
+		_data.title.c_str(),
+		nullptr, nullptr);
 
 	_renderContext = new OpenGLContext(_window);
 	_renderContext->init();

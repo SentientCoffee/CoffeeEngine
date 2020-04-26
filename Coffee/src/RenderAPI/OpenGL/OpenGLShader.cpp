@@ -206,6 +206,10 @@ void OpenGLShader::setMat4(const std::string& name, const glm::mat4& value) {
 	uploadUniform(name, value);
 }
 
+void OpenGLShader::setIntArray(const std::string& name, int* values, const unsigned count) {
+	uploadUniformArray(name, values, count);
+}
+
 void OpenGLShader::uploadUniform(const std::string& name, const bool value) const {
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniform1i(location, static_cast<int>(value));
@@ -245,5 +249,10 @@ void OpenGLShader::uploadUniform(const std::string& name, const glm::mat4& value
 	const int location = glGetUniformLocation(_rendererId, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 
+}
+
+void OpenGLShader::uploadUniformArray(const std::string& name, int* values, const unsigned count) const {
+	const int location = glGetUniformLocation(_rendererId, name.c_str());
+	glUniform1iv(location, count, values);
 }
 

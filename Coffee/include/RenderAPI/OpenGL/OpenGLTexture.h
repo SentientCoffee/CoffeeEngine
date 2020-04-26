@@ -12,6 +12,8 @@ namespace Coffee {
 		OpenGLTexture2D(unsigned width, unsigned height);
 		OpenGLTexture2D(const std::string& filepath);
 		~OpenGLTexture2D();
+
+		bool operator==(const Texture& other) const override;
 		
 		void getWidth() const override;
 		void getHeight() const override;

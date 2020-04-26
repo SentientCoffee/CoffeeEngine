@@ -1,11 +1,8 @@
 #include "Sandbox2D.h"
 
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>
-#include <Coffee/Renderer/Texture.h>
-#include <Coffee/Renderer/Renderer2D.h>
 
 Sandbox2D::Sandbox2D() :
 	Layer("Sandbox 2D"),
@@ -45,11 +42,15 @@ void Sandbox2D::update(const Coffee::Timestep ts) {
 
 	Coffee::Renderer2D::beginScene(cameraController.getCamera());
 	{
-		// Coffee::Renderer2D::drawQuad(imguiQuad);
-		// Coffee::Renderer2D::drawQuad(redQuad);
-		// Coffee::Renderer2D::drawQuad(checkerboard);
+		static float rotation = 0.0f;
+		rotation += ts * 50.0f;
+		
 		Coffee::Renderer2D::drawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Coffee::Renderer2D::drawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+		Coffee::Renderer2D::drawQuad({ 0.0f, 0.0f, -0.2f }, { 10.0f, 10.0f }, checkerboardTexture, { 1.0f, 1.0f, 1.0f, 1.0f }, 10.0f);
+
+		Coffee::Renderer2D::drawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -rotation, { 0.8f, 0.2f, 0.3f, 1.0f });
+		Coffee::Renderer2D::drawRotatedQuad({ 0.0f, 0.0f, -0.1f }, { 1.5f, 1.5f }, rotation, checkerboardTexture, { 0.2f, 0.8f, 0.3f, 1.0f }, 1.0f);
 	}
 	Coffee::Renderer2D::endScene();
 	

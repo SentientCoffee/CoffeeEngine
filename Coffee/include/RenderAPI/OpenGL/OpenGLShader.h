@@ -37,6 +37,8 @@ namespace Coffee {
 		void setMat3(const std::string& name, const glm::mat3& value) override;
 		void setMat4(const std::string& name, const glm::mat4& value) override;
 
+		void setIntArray(const std::string& name, int* values, unsigned count) override;
+
 	private:
 		
 		void uploadUniform(const std::string& name, bool value) const;
@@ -49,6 +51,8 @@ namespace Coffee {
 		
 		void uploadUniform(const std::string& name, const glm::mat3& value) const;
 		void uploadUniform(const std::string& name, const glm::mat4& value) const;
+
+		void uploadUniformArray(const std::string& name, int* values, unsigned count) const;
 
 		static std::string readFile(const std::string& filepath);
 		static std::unordered_map<ShaderType, std::string> processSource(const std::string& shaderSrc);

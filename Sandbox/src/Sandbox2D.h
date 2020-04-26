@@ -20,7 +20,7 @@ private:
 	
 	glm::vec4 squareColour = { 0.2f, 0.3f, 0.8f, 1.0f };
 
-	Coffee::Ref<Coffee::Texture2D> checkerboardTexture;
-	Coffee::Ref<Coffee::Texture2D> chernoTexture;
+	Coffee::Ref<Coffee::Texture2D> checkerboardTexture = nullptr;
+	Coffee::Ref<Coffee::Texture2D> chernoTexture = nullptr;
 	
 };

@@ -69,6 +69,8 @@ OpenGLTexture2D::~OpenGLTexture2D() {
 	glDeleteTextures(1, &_rendererId);
 }
 
+bool OpenGLTexture2D::operator==(const Texture& other) const { return ((OpenGLTexture2D&)other)._rendererId; }
+
 void OpenGLTexture2D::getWidth() const {}
 void OpenGLTexture2D::getHeight() const {}
 void OpenGLTexture2D::bind(const unsigned slot) const {

@@ -24,6 +24,8 @@ namespace Coffee {
 		
 		virtual void setMat3(const std::string& name, const glm::mat3& value) = 0;
 		virtual void setMat4(const std::string& name, const glm::mat4& value) = 0;
+
+		virtual void setIntArray(const std::string& name, int* values, unsigned count) = 0;
 		
 		virtual const std::string& getName() const = 0;
 
