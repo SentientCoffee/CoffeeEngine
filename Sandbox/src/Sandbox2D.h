@@ -17,8 +17,8 @@ public:
 private:
 	
 	Coffee::OrthographicCameraController cameraController;
-	
-	glm::vec4 squareColour = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+	float rows = 10.0f, columns = 10.0f, size = 0.5f;
 
 	Coffee::Ref<Coffee::Texture2D> checkerboardTexture = nullptr;
 	Coffee::Ref<Coffee::Texture2D> chernoTexture = nullptr;

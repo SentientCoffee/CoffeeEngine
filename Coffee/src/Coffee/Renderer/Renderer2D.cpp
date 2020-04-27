@@ -20,9 +20,9 @@ struct QuadVertex {
 
 struct Renderer2DData {
 
-	const unsigned maxQuads = 10000;
-	const unsigned maxVertices = maxQuads * 4;
-	const unsigned maxIndices = maxQuads * 6;
+	static const unsigned maxQuads        = 10000;
+	static const unsigned maxVertices     = maxQuads * 4;
+	static const unsigned maxIndices      = maxQuads * 6;
 	static const unsigned maxTextureSlots = 32; // TODO: RenderCaps
 
 	unsigned quadIndexCount = 0;
@@ -39,16 +39,18 @@ struct Renderer2DData {
 	unsigned textureSlotIndex = 1;
 
 	glm::vec4 quadVertexPositions[4] = {};
+
+	Renderer2D::Statistics stats;
 };
 
-static Renderer2DData storage;
+static Renderer2DData Data;
 
 void Renderer2D::init() {
 	CF_PROFILE_FUNCTION();
 	
-	auto* const quadIndices = new unsigned[storage.maxIndices];
+	auto* const quadIndices = new unsigned[Renderer2DData::maxIndices];
 	unsigned offset = 0;
-	for(unsigned i = 0; i < storage.maxIndices; i += 6, offset += 4) {
+	for(unsigned i = 0; i < Renderer2DData::maxIndices; i += 6, offset += 4) {
 		quadIndices[i + 0] = offset + 0;
 		quadIndices[i + 1] = offset + 1;
 		quadIndices[i + 2] = offset + 2;
@@ -58,12 +60,12 @@ void Renderer2D::init() {
 		quadIndices[i + 5] = offset + 3;
 	}
 	
-	storage.quadVboBase = new QuadVertex[storage.maxVertices];
+	Data.quadVboBase = new QuadVertex[Renderer2DData::maxVertices];
 
 
-	storage.quadVao = VertexArray::create();
-	storage.quadVbo = VertexBuffer::create(storage.maxVertices * sizeof(QuadVertex));
-	const Ref<IndexBuffer> quadIbo = IndexBuffer::create(quadIndices, storage.maxIndices);
+	Data.quadVao = VertexArray::create();
+	Data.quadVbo = VertexBuffer::create(Data.maxVertices * sizeof(QuadVertex));
+	const Ref<IndexBuffer> quadIbo = IndexBuffer::create(quadIndices, Data.maxIndices);
 
 	const BufferLayout quadLayout = {
 		{ ShaderDataType::Vec3,  "inPosition" },
@@ -73,29 +75,29 @@ void Renderer2D::init() {
 		{ ShaderDataType::Float, "inTileFactor" }
 	};
 
-	storage.quadVbo->setLayout(quadLayout);
-	storage.quadVao->addVertexBuffer(storage.quadVbo);
-	storage.quadVao->setIndexBuffer(quadIbo);
+	Data.quadVbo->setLayout(quadLayout);
+	Data.quadVao->addVertexBuffer(Data.quadVbo);
+	Data.quadVao->setIndexBuffer(quadIbo);
 	delete[] quadIndices;
 	
-	storage.whiteTexture = Texture2D::create(1, 1);
+	Data.whiteTexture = Texture2D::create(1, 1);
 	unsigned whiteData = 0xFFFFFFFF;
-	storage.whiteTexture->setData(&whiteData, sizeof(unsigned));
-	storage.textureSlots[0] = storage.whiteTexture;
+	Data.whiteTexture->setData(&whiteData, sizeof(unsigned));
+	Data.textureSlots[0] = Data.whiteTexture;
 	
 	int samplers[32];
 	for(int i = 0; i < Renderer2DData::maxTextureSlots; ++i) {
 		samplers[i] = i;
 	}
 	
-	storage.quadShader = Shader::create("assets/shaders/Texture.glsl");
-	storage.quadShader->bind();
-	storage.quadShader->setIntArray("uTextures", samplers, storage.maxTextureSlots);
+	Data.quadShader = Shader::create("assets/shaders/Texture.glsl");
+	Data.quadShader->bind();
+	Data.quadShader->setIntArray("uTextures", samplers, Data.maxTextureSlots);
 	
-	storage.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-	storage.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
-	storage.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
-	storage.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
+	Data.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+	Data.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+	Data.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+	Data.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 }
 
 void Renderer2D::shutdown() {
@@ -105,20 +107,20 @@ void Renderer2D::shutdown() {
 void Renderer2D::beginScene(const OrthographicCamera& camera) {
 	CF_PROFILE_FUNCTION();
 	
-	storage.quadShader->bind();
-	storage.quadShader->setMat4("uViewProjection", camera.getViewProjectionMatrix());
+	Data.quadShader->bind();
+	Data.quadShader->setMat4("uViewProjection", camera.getViewProjectionMatrix());
 
-	storage.quadIndexCount = 0;
-	storage.quadVboPtr = storage.quadVboBase;
+	Data.quadIndexCount = 0;
+	Data.quadVboPtr = Data.quadVboBase;
 
-	storage.textureSlotIndex = 1;
+	Data.textureSlotIndex = 1;
 }
 
 void Renderer2D::endScene() {
 	CF_PROFILE_FUNCTION();
 	
-	const auto dataSize = static_cast<unsigned>(reinterpret_cast<char*>(storage.quadVboPtr) - reinterpret_cast<char*>(storage.quadVboBase));
-	storage.quadVbo->setData(storage.quadVboBase, dataSize);
+	const auto dataSize = static_cast<unsigned>(reinterpret_cast<char*>(Data.quadVboPtr) - reinterpret_cast<char*>(Data.quadVboBase));
+	Data.quadVbo->setData(Data.quadVboBase, dataSize);
 	
 	renderScene();
 }
@@ -126,12 +128,28 @@ void Renderer2D::endScene() {
 void Renderer2D::renderScene() {
 	CF_PROFILE_FUNCTION();
 	
-	for(unsigned i = 0; i < storage.textureSlotIndex; ++i) {
-		storage.textureSlots[i]->bind(i);
+	for(unsigned i = 0; i < Data.textureSlotIndex; ++i) {
+		Data.textureSlots[i]->bind(i);
 	}
+
+	Data.stats.textureCount = Data.textureSlotIndex;
 	
-	RenderCommand::drawIndexed(storage.quadVao, storage.quadIndexCount);
+	RenderCommand::drawIndexed(Data.quadVao, Data.quadIndexCount);
+	++Data.stats.drawCalls;
 }
+
+static void renderAndReset() {
+	Renderer2D::endScene();
+	
+	Data.quadIndexCount = 0;
+	Data.quadVboPtr = Data.quadVboBase;
+
+	Data.textureSlotIndex = 1;
+}
+
+// ---------------------------------------------------------------------------
+// ----- Primitives ----------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& dimensions, const glm::vec4& colour) {
 	drawQuad({ position.x, position.y, 0.0f }, dimensions, colour);
@@ -142,94 +160,73 @@ void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& dimensions
 
 void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions, const glm::vec4& colour) {
 	CF_PROFILE_FUNCTION();
+
+	if(Data.quadIndexCount >= Renderer2DData::maxIndices) {
+		renderAndReset();
+	}
 	
 	// White texture
 	const float textureIndex = 0.0f;
-	const float tileFactor = 1.0f;
+	const float tilingFactor = 1.0f;
+
+	constexpr size_t quadVertexCount = 4;
+	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 	const glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 		glm::scale(glm::mat4(1.0f), { dimensions, 1.0f });
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[0];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 0.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[1];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 1.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
+	for(size_t i = 0; i < quadVertexCount; ++i) {
+		Data.quadVboPtr->position = transform * Data.quadVertexPositions[i];
+		Data.quadVboPtr->colour = colour;
+		Data.quadVboPtr->uv = textureCoords[i];
+		Data.quadVboPtr->uvIndex = textureIndex;
+		Data.quadVboPtr->tileFactor = tilingFactor;
+		Data.quadVboPtr++;
+	}
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[2];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 1.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[3];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 0.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
-
-	storage.quadIndexCount += 6;
+	Data.quadIndexCount += 6;
+	++Data.stats.quadCount;
 }
 
 void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) {
 	CF_PROFILE_FUNCTION();
+
+	if(Data.quadIndexCount >= Renderer2DData::maxIndices) {
+		renderAndReset();
+	}
 	
 	float textureIndex = 0.0f;
+	constexpr size_t quadVertexCount = 4;
+	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
-	for(unsigned i = 1; i < storage.textureSlotIndex; ++i) {
-		if(*storage.textureSlots[i].get() == *texture.get()) {
+	for(unsigned i = 1; i < Data.textureSlotIndex; ++i) {
+		if(*Data.textureSlots[i].get() == *texture.get()) {
 			textureIndex = static_cast<float>(i);
 		}
 	}
 	
 	if(textureIndex == 0.0f) {
-		textureIndex = static_cast<float>(storage.textureSlotIndex);
-		storage.textureSlots[storage.textureSlotIndex] = texture;
-		++storage.textureSlotIndex;
+		textureIndex = static_cast<float>(Data.textureSlotIndex);
+		Data.textureSlots[Data.textureSlotIndex] = texture;
+		++Data.textureSlotIndex;
 	}
+
 
 	const glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 		glm::scale(glm::mat4(1.0f), { dimensions, 1.0f });
-	
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[0];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 0.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[1];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 1.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
+	for(size_t i = 0; i < quadVertexCount; ++i) {
+		Data.quadVboPtr->position = transform * Data.quadVertexPositions[i];
+		Data.quadVboPtr->colour = tint;
+		Data.quadVboPtr->uv = textureCoords[i];
+		Data.quadVboPtr->uvIndex = textureIndex;
+		Data.quadVboPtr->tileFactor = tilingFactor;
+		Data.quadVboPtr++;
+	}
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[2];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 1.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[3];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 0.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
-
-	storage.quadIndexCount += 6;
+	Data.quadIndexCount += 6;
+	++Data.stats.quadCount;
 }
 
 void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dimensions, const float rotation, const glm::vec4& colour) {
@@ -243,93 +240,77 @@ void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dim
 void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const glm::vec4& colour) {
 	CF_PROFILE_FUNCTION();
 
+	if(Data.quadIndexCount >= Renderer2DData::maxIndices) {
+		renderAndReset();
+	}
+	
 	// White texture
 	const float textureIndex = 0.0f;
-	const float tileFactor = 1.0f;
+	const float tilingFactor = 1.0f;
+
+	constexpr size_t quadVertexCount = 4;
+	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 	const glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) *
 		glm::scale(glm::mat4(1.0f), { dimensions, 1.0f });
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[0];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 0.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
+	for(size_t i = 0; i < quadVertexCount; ++i) {
+		Data.quadVboPtr->position = transform * Data.quadVertexPositions[i];
+		Data.quadVboPtr->colour = colour;
+		Data.quadVboPtr->uv = textureCoords[i];
+		Data.quadVboPtr->uvIndex = textureIndex;
+		Data.quadVboPtr->tileFactor = tilingFactor;
+		Data.quadVboPtr++;
+	}
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[1];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 1.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[2];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 1.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[3];
-	storage.quadVboPtr->colour = colour;
-	storage.quadVboPtr->uv = { 0.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tileFactor;
-	storage.quadVboPtr++;
-
-	storage.quadIndexCount += 6;
+	Data.quadIndexCount += 6;
+	++Data.stats.quadCount;
 }
 
 void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, float tilingFactor) {
 	CF_PROFILE_FUNCTION();
 
-	float textureIndex = 0.0f;
+	if(Data.quadIndexCount >= Renderer2DData::maxIndices) {
+		renderAndReset();
+	}
 
-	for(unsigned i = 1; i < storage.textureSlotIndex; ++i) {
-		if(*storage.textureSlots[i].get() == *texture.get()) {
+	float textureIndex = 0.0f;
+	constexpr size_t quadVertexCount = 4;
+	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+
+	for(unsigned i = 1; i < Data.textureSlotIndex; ++i) {
+		if(*Data.textureSlots[i].get() == *texture.get()) {
 			textureIndex = static_cast<float>(i);
 		}
 	}
 
 	if(textureIndex == 0.0f) {
-		textureIndex = static_cast<float>(storage.textureSlotIndex);
-		storage.textureSlots[storage.textureSlotIndex] = texture;
-		++storage.textureSlotIndex;
+		textureIndex = static_cast<float>(Data.textureSlotIndex);
+		Data.textureSlots[Data.textureSlotIndex] = texture;
+		++Data.textureSlotIndex;
 	}
 
 	const glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) *
 		glm::scale(glm::mat4(1.0f), { dimensions, 1.0f });
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[0];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 0.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
+	for(size_t i = 0; i < quadVertexCount; ++i) {
+		Data.quadVboPtr->position = transform * Data.quadVertexPositions[i];
+		Data.quadVboPtr->colour = tint;
+		Data.quadVboPtr->uv = textureCoords[i];
+		Data.quadVboPtr->uvIndex = textureIndex;
+		Data.quadVboPtr->tileFactor = tilingFactor;
+		Data.quadVboPtr++;
+	}
 
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[1];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 1.0f, 0.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[2];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 1.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
-
-	storage.quadVboPtr->position = transform * storage.quadVertexPositions[3];
-	storage.quadVboPtr->colour = tint;
-	storage.quadVboPtr->uv = { 0.0f, 1.0f };
-	storage.quadVboPtr->uvIndex = textureIndex;
-	storage.quadVboPtr->tileFactor = tilingFactor;
-	storage.quadVboPtr++;
-
-	storage.quadIndexCount += 6;
+	Data.quadIndexCount += 6;
+	++Data.stats.quadCount;
 }
+
+// ---------------------------------------------------------------------------
+// ----- Stats ---------------------------------------------------------------
+// ---------------------------------------------------------------------------
+
+void Renderer2D::resetStats() { memset(&Data.stats, 0, sizeof(Statistics)); }
+Renderer2D::Statistics Renderer2D::getStats() { return Data.stats; }

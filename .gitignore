@@ -3,7 +3,9 @@
 Build/
 Coffee/Externals/Build/
 
-*.sln
-*.vcxproj
+# File extensions
 *.filters
+*.json
+*.sln
 *.user
+*.vcxproj

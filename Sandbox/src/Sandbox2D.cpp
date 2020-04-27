@@ -25,6 +25,8 @@ void Sandbox2D::update(const Coffee::Timestep ts) {
 	
 	cameraController.onUpdate(ts);
 
+	Coffee::Renderer2D::resetStats();
+
 	Coffee::Renderer2D::beginScene(cameraController.getCamera());
 	{		
 		static float rotation = 0.0f;
@@ -32,10 +34,20 @@ void Sandbox2D::update(const Coffee::Timestep ts) {
 		
 		Coffee::Renderer2D::drawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Coffee::Renderer2D::drawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		Coffee::Renderer2D::drawQuad({ 0.0f, 0.0f, -0.2f }, { 10.0f, 10.0f }, checkerboardTexture, { 1.0f, 1.0f, 1.0f, 1.0f }, 10.0f);
+		Coffee::Renderer2D::drawQuad({ 0.0f, 0.0f, -0.2f }, { 20.0f, 20.0f }, checkerboardTexture, { 1.0f, 1.0f, 1.0f, 1.0f }, 10.0f);
 
 		Coffee::Renderer2D::drawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -rotation, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Coffee::Renderer2D::drawRotatedQuad({ 0.0f, 0.0f, -0.1f }, { 1.5f, 1.5f }, rotation, checkerboardTexture, { 0.2f, 0.8f, 0.3f, 1.0f }, 1.0f);
+
+		for(float y = -(rows / 2.0f); y < rows / 2.0f; y += size) {
+			for(float x = -(columns / 2.0f); x < columns / 2.0f; x += size) {
+				const float red = (x + rows / 2.0f) / rows;
+				const float blue = (y + columns / 2.0f) / columns;
+				glm::vec4 color = { red, 0.45f, blue, 0.75f };
+
+				Coffee::Renderer2D::drawQuad({ x, y, 0.1f }, { size - 0.05f, size - 0.05f }, color);
+			}
+		}
 	}
 	Coffee::Renderer2D::endScene();
 	
@@ -43,8 +55,23 @@ void Sandbox2D::update(const Coffee::Timestep ts) {
 void Sandbox2D::drawImgui() {
 	CF_PROFILE_FUNCTION();
 	
-	ImGui::Begin(getName().c_str());
-	ImGui::ColorEdit4("Square colour", glm::value_ptr(squareColour));
+	ImGui::Begin("Renderer2D Stats");
+	{
+		const auto stats = Coffee::Renderer2D::getStats();
+		ImGui::Text("Draw Calls: %d", stats.drawCalls);
+		ImGui::Text("Quads: %d", stats.quadCount);
+		ImGui::Text("Vertices: %d", stats.getTotalVertexCount());
+		ImGui::Text("Indices: %d", stats.getTotalIndexCount());
+		ImGui::Text("Textures: %d", stats.textureCount);
+	}
+	ImGui::End();
+
+	ImGui::Begin("Settings");
+	{
+		ImGui::SliderFloat("Rows", &rows, 1.0f, 20.0f);
+		ImGui::SliderFloat("Columns", &columns, 1.0f, 20.0f);
+		ImGui::SliderFloat("Size", &size, 0.1f, 1.0f);
+	}
 	ImGui::End();
 }
 
