@@ -1,5 +1,8 @@
 # Directories
 .vs/
-Hazelnut/Build/
+Build/
+Coffee/Externals/Build/
 
+*.vcxproj
+*.filters
 *.user
