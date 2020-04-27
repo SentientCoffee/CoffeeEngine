@@ -224,6 +224,9 @@
     <ClCompile Include="src\Coffee\Renderer\CameraController.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Renderer\GraphicsContext.cpp">
+      <Filter>src\Coffee\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\RenderCommand.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
@@ -272,6 +275,5 @@
     <ClCompile Include="src\RenderAPI\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\RenderAPI\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Coffee\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

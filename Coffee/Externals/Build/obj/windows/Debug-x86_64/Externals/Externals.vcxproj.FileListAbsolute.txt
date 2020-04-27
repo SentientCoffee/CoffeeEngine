@@ -1,2 +1,0 @@
-C:\Repos\CoffeeEngine\Coffee\Externals\Build\bin\windows\Debug-x86_64\Externals\Externals.pdb
-C:\Repos\CoffeeEngine\Coffee\Externals\Build\obj\windows\Debug-x86_64\Externals\Externals.pdb

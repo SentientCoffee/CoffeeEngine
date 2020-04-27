@@ -3,6 +3,7 @@
 Build/
 Coffee/Externals/Build/
 
+*.sln
 *.vcxproj
 *.filters
 *.user
