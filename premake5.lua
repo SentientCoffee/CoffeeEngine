@@ -65,7 +65,8 @@ project "Coffee"
 			"CF_DEBUG=1",
 			"CF_RELEASE=0",
 			"CF_DIST=0",
-			"CF_ENABLE_ASSERTS=1"
+			"CF_ENABLE_ASSERTS=1",
+			"CF_ENABLE_PROFILING=1"
 		}
 		runtime "Debug"
 		symbols "on"
@@ -75,7 +76,8 @@ project "Coffee"
 			"CF_DEBUG=0",
 			"CF_RELEASE=1",
 			"CF_DIST=0",
-			"CF_ENABLE_ASSERTS=0"
+			"CF_ENABLE_ASSERTS=0",
+			"CF_ENABLE_PROFILING=1"
 		}
 		runtime "Release"
 		optimize "on"
@@ -85,7 +87,8 @@ project "Coffee"
 			"CF_DEBUG=0",
 			"CF_RELEASE=0",
 			"CF_DIST=1",
-			"CF_ENABLE_ASSERTS=0"
+			"CF_ENABLE_ASSERTS=0",
+			"CF_ENABLE_PROFILING=0"
 		}
 		runtime "Release"
 		optimize "on"
@@ -135,7 +138,8 @@ project "Sandbox"
 			"CF_DEBUG=1",
 			"CF_RELEASE=0",
 			"CF_DIST=0",
-			"CF_ENABLE_ASSERTS=1"
+			"CF_ENABLE_ASSERTS=1",
+			"CF_ENABLE_PROFILING=1"
 		}
 		runtime "Debug"
 		symbols "on"
@@ -145,7 +149,8 @@ project "Sandbox"
 			"CF_DEBUG=0",
 			"CF_RELEASE=1",
 			"CF_DIST=0",
-			"CF_ENABLE_ASSERTS=0"
+			"CF_ENABLE_ASSERTS=0",
+			"CF_ENABLE_PROFILING=1"
 		}
 		runtime "Release"
 		optimize "on"
@@ -155,7 +160,8 @@ project "Sandbox"
 			"CF_DEBUG=0",
 			"CF_RELEASE=0",
 			"CF_DIST=1",
-			"CF_ENABLE_ASSERTS=0"
+			"CF_ENABLE_ASSERTS=0",
+			"CF_ENABLE_PROFILING=0"
 		}
 		runtime "Release"
 		optimize "on"

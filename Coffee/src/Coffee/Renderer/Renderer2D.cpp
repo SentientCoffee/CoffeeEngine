@@ -38,14 +38,15 @@ struct Renderer2DData {
 	std::array<Ref<Texture2D>, maxTextureSlots> textureSlots = {};
 	unsigned textureSlotIndex = 1;
 
-	glm::vec4 quadVertexPositions[4];
+	glm::vec4 quadVertexPositions[4] = {};
 };
 
 static Renderer2DData storage;
 
 void Renderer2D::init() {
-
-	unsigned* quadIndices = new unsigned[storage.maxIndices];
+	CF_PROFILE_FUNCTION();
+	
+	auto* const quadIndices = new unsigned[storage.maxIndices];
 	unsigned offset = 0;
 	for(unsigned i = 0; i < storage.maxIndices; i += 6, offset += 4) {
 		quadIndices[i + 0] = offset + 0;
@@ -77,33 +78,32 @@ void Renderer2D::init() {
 	storage.quadVao->setIndexBuffer(quadIbo);
 	delete[] quadIndices;
 	
-	storage.quadShader = Shader::create("assets/shaders/Texture.glsl");
-
-	storage.quadShader->bind();
-	storage.quadShader->setInt("uTextureAlbedo", 0);
-	
 	storage.whiteTexture = Texture2D::create(1, 1);
 	unsigned whiteData = 0xFFFFFFFF;
 	storage.whiteTexture->setData(&whiteData, sizeof(unsigned));
-
+	storage.textureSlots[0] = storage.whiteTexture;
+	
 	int samplers[32];
 	for(int i = 0; i < Renderer2DData::maxTextureSlots; ++i) {
 		samplers[i] = i;
 	}
-	storage.quadShader->setIntArray("uTextures", samplers, storage.maxTextureSlots);
-
 	
-	storage.textureSlots[0] = storage.whiteTexture;
-
+	storage.quadShader = Shader::create("assets/shaders/Texture.glsl");
+	storage.quadShader->bind();
+	storage.quadShader->setIntArray("uTextures", samplers, storage.maxTextureSlots);
+	
 	storage.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
 	storage.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
 	storage.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
 	storage.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 }
 
-void Renderer2D::shutdown() {}
+void Renderer2D::shutdown() {
+	CF_PROFILE_FUNCTION();
+}
 
 void Renderer2D::beginScene(const OrthographicCamera& camera) {
+	CF_PROFILE_FUNCTION();
 	
 	storage.quadShader->bind();
 	storage.quadShader->setMat4("uViewProjection", camera.getViewProjectionMatrix());
@@ -115,6 +115,8 @@ void Renderer2D::beginScene(const OrthographicCamera& camera) {
 }
 
 void Renderer2D::endScene() {
+	CF_PROFILE_FUNCTION();
+	
 	const auto dataSize = static_cast<unsigned>(reinterpret_cast<char*>(storage.quadVboPtr) - reinterpret_cast<char*>(storage.quadVboBase));
 	storage.quadVbo->setData(storage.quadVboBase, dataSize);
 	
@@ -122,6 +124,8 @@ void Renderer2D::endScene() {
 }
 
 void Renderer2D::renderScene() {
+	CF_PROFILE_FUNCTION();
+	
 	for(unsigned i = 0; i < storage.textureSlotIndex; ++i) {
 		storage.textureSlots[i]->bind(i);
 	}
@@ -137,6 +141,8 @@ void Renderer2D::drawQuad(const glm::vec2& position, const glm::vec2& dimensions
 }
 
 void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions, const glm::vec4& colour) {
+	CF_PROFILE_FUNCTION();
+	
 	// White texture
 	const float textureIndex = 0.0f;
 	const float tileFactor = 1.0f;
@@ -176,6 +182,8 @@ void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions
 }
 
 void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) {
+	CF_PROFILE_FUNCTION();
+	
 	float textureIndex = 0.0f;
 
 	for(unsigned i = 1; i < storage.textureSlotIndex; ++i) {
@@ -233,6 +241,8 @@ void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dim
 }
 
 void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const glm::vec4& colour) {
+	CF_PROFILE_FUNCTION();
+
 	// White texture
 	const float textureIndex = 0.0f;
 	const float tileFactor = 1.0f;
@@ -273,6 +283,8 @@ void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dim
 }
 
 void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, float tilingFactor) {
+	CF_PROFILE_FUNCTION();
+
 	float textureIndex = 0.0f;
 
 	for(unsigned i = 1; i < storage.textureSlotIndex; ++i) {

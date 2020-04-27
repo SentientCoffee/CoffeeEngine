@@ -10,6 +10,7 @@ namespace Coffee {
 	public:
 
 		static void init();
+		static void shutdown();
 		static void onWindowResized(unsigned width, unsigned height);
 		
 		static void beginScene(OrthographicCamera& camera);

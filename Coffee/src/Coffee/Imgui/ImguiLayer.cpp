@@ -15,6 +15,8 @@ using namespace Coffee;
 ImguiLayer::ImguiLayer() : Layer("ImguiLayer") {}
 
 void ImguiLayer::onPush() {
+	CF_PROFILE_FUNCTION();
+	
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -42,20 +44,24 @@ void ImguiLayer::onPush() {
 	ImGui_ImplOpenGL3_Init("#version 450");
 }
 void ImguiLayer::onPop() {
+	CF_PROFILE_FUNCTION();
+	
 	ImGui_ImplGlfw_Shutdown();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui::DestroyContext();
 }
 
 void ImguiLayer::begin() {
+	CF_PROFILE_FUNCTION();
+	
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 }
 
-void ImguiLayer::drawImgui() {}
-
 void ImguiLayer::end() {
+	CF_PROFILE_FUNCTION();
+	
 	ImGuiIO& io = ImGui::GetIO();
 	Application& app = Application::getInstance();
 

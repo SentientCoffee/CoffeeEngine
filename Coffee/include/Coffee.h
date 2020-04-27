@@ -5,8 +5,9 @@
 #include "Coffee/Core/Application.h"
 #include "Coffee/Core/Layer.h"
 #include "Coffee/Core/Logging.h"
-
 #include "Coffee/Core/Timestep.h"
+
+#include "Coffee/Debug/Instrumentation.h"
 
 #include "Coffee/Events/Event.h"
 #include "Coffee/Events/AppEvents.h"

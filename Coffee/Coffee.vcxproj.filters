@@ -10,6 +10,9 @@
     <Filter Include="include\Coffee\Core">
       <UniqueIdentifier>{38C3B38E-A424-919C-2D92-D74E99F2C75B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Coffee\Debug">
+      <UniqueIdentifier>{56853865-4214-C22E-EB32-D629D7A0D2D4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include\Coffee\Events">
       <UniqueIdentifier>{C482D30F-30EF-8E0A-F9E2-2668650EB172}</UniqueIdentifier>
     </Filter>
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="include\Coffee\Core\Window.h">
       <Filter>include\Coffee\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Coffee\Debug\Instrumentation.h">
+      <Filter>include\Coffee\Debug</Filter>
     </ClInclude>
     <ClInclude Include="include\Coffee\EntryPoint.h">
       <Filter>include\Coffee</Filter>
@@ -206,6 +212,9 @@
     <ClCompile Include="src\Coffee\Imgui\ImguiLayer.cpp">
       <Filter>src\Coffee\Imgui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Instrumentation.cpp">
+      <Filter>src\Coffee</Filter>
+    </ClCompile>
     <ClCompile Include="src\Coffee\Renderer\Buffers.cpp">
       <Filter>src\Coffee\Renderer</Filter>
     </ClCompile>
@@ -263,5 +272,6 @@
     <ClCompile Include="src\RenderAPI\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\RenderAPI\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Coffee\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 
 void Coffee::OpenGLRendererAPI::init() {
+	CF_PROFILE_FUNCTION();
+	
 	// Blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

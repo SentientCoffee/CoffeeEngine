@@ -12,7 +12,7 @@ namespace Coffee {
 
 		void onPush() override;
 		void onPop() override;
-		void drawImgui() override;
+		void drawImgui() override {}
 
 		void begin();
 		void end();

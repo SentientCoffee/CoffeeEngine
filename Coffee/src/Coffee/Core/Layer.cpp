@@ -22,13 +22,11 @@ LayerStack::~LayerStack() {
 
 void LayerStack::pushLayer(Layer* layer) {
 	_layers.emplace(_layers.begin() + _layerIndex, layer);
-	layer->onPush();
 	++_layerIndex;
 }
 
 void LayerStack::pushOverlay(Layer* overlay) {
 	_layers.emplace_back(overlay);
-	overlay->onPush();
 }
 
 void LayerStack::popLayer(Layer* layer) {

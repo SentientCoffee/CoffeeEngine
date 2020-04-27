@@ -4,13 +4,12 @@
 #include "Coffee/Events/AppEvents.h"
 #include "Coffee/Events/KeyEvents.h"
 #include "Coffee/Events/MouseEvents.h"
-
+#include "Coffee/Renderer/Renderer.h"
 #include "RenderAPI/OpenGL/OpenGLContext.h"
-
 
 using namespace Coffee;
 
-static bool glfwInitialized = false;
+static uint8_t glfwWindowCount = 0;
 
 Window* Window::create(const WindowProperties& properties) {
 	return new WindowsWindow(properties);
@@ -20,36 +19,48 @@ WindowProperties::WindowProperties(const std::string& title, const unsigned widt
 	title(title), width(width), height(height) {}
 
 WindowsWindow::WindowsWindow(const WindowProperties& properties) :
-	_window(nullptr), _renderContext(nullptr) {
+	_window(nullptr), _renderContext(nullptr)
+{
+	CF_PROFILE_FUNCTION();
 	WindowsWindow::init(properties);
 }
 WindowsWindow::~WindowsWindow() {
+	CF_PROFILE_FUNCTION();
 	WindowsWindow::shutdown();
 }
 
 void WindowsWindow::init(const WindowProperties& properties) {
+	CF_PROFILE_FUNCTION();
+	
 	_data.title = properties.title;
 	_data.width = properties.width;
 	_data.height = properties.height;
 
-	#if CF_DEBUG
-	CF_CORE_INFO("Creating Windows window \"{0}\" ({1} x {2})", _data.title, _data.width, _data.height);
-	#endif
-
 	// GLFW initialization
-	if(!glfwInitialized) {
+	if(glfwWindowCount == 0) {
+		CF_PROFILE_SCOPE("[glfwInit] - void WindowsWindow::init(const WindowProperties&)");
 		const int glfwStatus = glfwInit();
 		CF_CORE_ASSERT(glfwStatus, "Could not initialize GLFW!");
 		glfwSetErrorCallback(glfwErrorCallback);
-		glfwInitialized = true;
 	}
 
-	_window = glfwCreateWindow(static_cast<int>(_data.width),
-		static_cast<int>(_data.height),
-		_data.title.c_str(),
-		nullptr, nullptr);
+	CF_CORE_INFO("Creating Windows window \"{0}\" ({1} x {2})", _data.title, _data.width, _data.height);
 
-	_renderContext = new OpenGLContext(_window);
+	{
+		CF_PROFILE_SCOPE("[glfwCreateWindow] - void WindowsWindow::init(const WindowProperties&)");
+		
+		#if CF_DEBUG
+		if(Renderer::getAPI() == RendererAPI::API::OpenGL) {
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		}
+		#endif
+		
+		_window = glfwCreateWindow(static_cast<int>(_data.width), static_cast<int>(_data.height), _data.title.c_str(),
+			nullptr, nullptr);
+		++glfwWindowCount;
+	}
+
+	_renderContext = GraphicsContext::create(_window);
 	_renderContext->init();
 
 	glfwSetWindowUserPointer(_window, &_data);
@@ -57,13 +68,26 @@ void WindowsWindow::init(const WindowProperties& properties) {
 	setGlfwCallbacks();
 }
 void WindowsWindow::shutdown() {
-	glfwDestroyWindow(_window);
+	CF_PROFILE_FUNCTION();
+	
+	{
+		CF_PROFILE_SCOPE("[glfwDestroyWindow] - void WindowsWindow::shutdown()");
+		glfwDestroyWindow(_window);
+	}
+
+	--glfwWindowCount;
+	if(glfwWindowCount == 0) {
+		CF_PROFILE_SCOPE("[glfwTerminate] - void WindowsWindow::shutdown()");
+		glfwTerminate();
+	}
 }
 
 void WindowsWindow::setGlfwCallbacks() {
+	CF_PROFILE_FUNCTION();
+	
 	// Window resize callback
 	glfwSetWindowSizeCallback(_window, [](GLFWwindow* window, const int width, const int height) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 		data->width = width;
 		data->height = height;
 
@@ -73,7 +97,7 @@ void WindowsWindow::setGlfwCallbacks() {
 
 	// Window close callback
 	glfwSetWindowCloseCallback(_window, [](GLFWwindow* window) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		WindowClosedEvent e;
 		data->eventFunc(e);
@@ -81,7 +105,7 @@ void WindowsWindow::setGlfwCallbacks() {
 
 	// Window key callback
 	glfwSetKeyCallback(_window, [](GLFWwindow* window, const int key, const int scancode, const int action, const int mods) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 		static int repeatCount = 0;
 		
 		switch(action) {
@@ -106,7 +130,7 @@ void WindowsWindow::setGlfwCallbacks() {
 	});
 
 	glfwSetCharCallback(_window, [](GLFWwindow* window, const unsigned int key) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		KeyTypedEvent keyTyped(static_cast<int>(key));
 		data->eventFunc(keyTyped);
@@ -115,7 +139,7 @@ void WindowsWindow::setGlfwCallbacks() {
 
 	// Window mouse button callback
 	glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, const int button, const int action, const int mods) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		switch(action) {
 			case GLFW_PRESS: {
@@ -134,7 +158,7 @@ void WindowsWindow::setGlfwCallbacks() {
 
 	// Window mouse scrolling callback
 	glfwSetScrollCallback(_window, [](GLFWwindow* window, const double xOffset, const double yOffset) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		MouseScrolledEvent e(static_cast<float>(xOffset), static_cast<float>(yOffset));
 		data->eventFunc(e);
@@ -142,7 +166,7 @@ void WindowsWindow::setGlfwCallbacks() {
 
 	// Window mouse position callback
 	glfwSetCursorPosCallback(_window, [](GLFWwindow* window, const double xPos, const double yPos) {
-		const auto data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+		auto* const data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
 		MouseMovedEvent e(static_cast<float>(xPos), static_cast<float>(yPos));
 		data->eventFunc(e);
@@ -153,7 +177,9 @@ void WindowsWindow::glfwErrorCallback(const int errorCode, const char* log) {
 	CF_CORE_CRITICAL("GLFW ERROR! ({0})\n{1}", errorCode, log);
 }
 
-void WindowsWindow::update() {	
+void WindowsWindow::update() {
+	CF_PROFILE_FUNCTION();
+	
 	glfwPollEvents();
 	_renderContext->swapBuffers();
 }
@@ -162,6 +188,8 @@ unsigned WindowsWindow::getWidth() const { return _data.width; }
 unsigned WindowsWindow::getHeight() const { return _data.height; }
 
 void WindowsWindow::setVSync(const bool enabled) {
+	CF_PROFILE_FUNCTION();
+	
 	_data.isVSync = enabled;
 
 	if(_data.isVSync) {	glfwSwapInterval(1); }

@@ -7,21 +7,17 @@
 using namespace Coffee;
 
 static ShaderType shaderTypeFromString(const std::string& type) {
-	if(type == "vertex") {
-		return ShaderType::Vertex;
-	}
-	if(type == "fragment" || type == "pixel") {
-		return ShaderType::Fragment;
-	}
-	if(type == "geometry") {
-		return ShaderType::Geometry;
-	}
+	if(type == "vertex")							return ShaderType::Vertex;
+	if(type == "fragment" || type == "pixel")		return ShaderType::Fragment;
+	if(type == "geometry")							return ShaderType::Geometry;
 
 	CF_CORE_ASSERT(false, "Unknown shader type!");
 	return ShaderType::None;
 }
 
 OpenGLShader::OpenGLShader(const std::string& filepath) {
+	CF_PROFILE_FUNCTION();
+	
 	const std::string shaderSrc = readFile(filepath);
 	const std::unordered_map<ShaderType, std::string> sources = processSource(shaderSrc);
 	compileProgram(sources);
@@ -35,20 +31,28 @@ OpenGLShader::OpenGLShader(const std::string& filepath) {
 }
 
 OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) :
-	_name(name) {
+	_name(name)
+{
+	CF_PROFILE_FUNCTION();
+	
 	CF_CORE_ASSERT(!vertexSrc.empty(), "Vertex shader could not be read!");
 	CF_CORE_ASSERT(!fragmentSrc.empty(), "Fragment shader could not be read!");
 	
-	std::unordered_map<ShaderType, std::string> sources;
+	std::unordered_map<ShaderType, std::string> sources = {};
 	sources[ShaderType::Vertex] = vertexSrc;
 	sources[ShaderType::Fragment] = fragmentSrc;
 
 	compileProgram(sources);
 }
 
-OpenGLShader::~OpenGLShader() { glDeleteProgram(_rendererId); }
+OpenGLShader::~OpenGLShader() {
+	CF_PROFILE_FUNCTION();
+	glDeleteProgram(_rendererId);
+}
 
 std::string OpenGLShader::readFile(const std::string& filepath) {
+	CF_PROFILE_FUNCTION();
+	
 	std::string result;
 	std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
@@ -67,7 +71,9 @@ std::string OpenGLShader::readFile(const std::string& filepath) {
 }
 
 std::unordered_map<ShaderType, std::string> OpenGLShader::processSource(const std::string& shaderSrc) {
-	std::unordered_map<ShaderType, std::string> shaderSources;
+	CF_PROFILE_FUNCTION();
+	
+	std::unordered_map<ShaderType, std::string> shaderSources = {};
 
 	const char* typeToken = "#type";
 	const size_t typeTokenLength = strlen(typeToken);
@@ -89,6 +95,8 @@ std::unordered_map<ShaderType, std::string> OpenGLShader::processSource(const st
 }
 
 unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const ShaderType shaderType) {
+	CF_PROFILE_FUNCTION();
+	
 	unsigned int shaderHandle = 0;
 
 	switch(shaderType) {
@@ -104,16 +112,17 @@ unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const Shad
 		default: break;
 	}
 
-	auto shaderSource = shaderSrc.c_str();
+	const char* shaderSource = shaderSrc.c_str();
 	glShaderSource(shaderHandle, 1, &shaderSource, nullptr);
 	glCompileShader(shaderHandle);
 
-	int success;
+	int success = 0;
 	glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &success);
 	if(!success) {
-		int logLength;
+		int logLength = 0;
 		glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<char> infoLog(logLength);
+		std::vector<char> infoLog;
+		infoLog.reserve(logLength);
 		glGetShaderInfoLog(shaderHandle, logLength, &logLength, infoLog.data());
 		glDeleteShader(shaderHandle);
 
@@ -139,6 +148,8 @@ unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const Shad
 }
 
 void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::string>& sources) {
+	CF_PROFILE_FUNCTION();
+	
 	const unsigned program = glCreateProgram();
 	CF_CORE_ASSERT(sources.size() <= 3, "Only up to 3 shaders are supported!");
 	std::array<unsigned, 3> shaderIds {};
@@ -152,12 +163,13 @@ void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::stri
 
 	glLinkProgram(program);
 
-	int success;
+	int success = 0;
 	glGetProgramiv(program, GL_LINK_STATUS, &success);
 	if(!success) {
-		int logLength;
+		int logLength = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<char> infoLog(logLength);
+		std::vector<char> infoLog;
+		infoLog.reserve(logLength);
 		glGetProgramInfoLog(program, logLength, &logLength, infoLog.data());
 
 		glDeleteProgram(program);
@@ -176,83 +188,69 @@ void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::stri
 	_rendererId = program;
 }
 
-void OpenGLShader::bind() const { glUseProgram(_rendererId); }
-void OpenGLShader::unbind() const { glUseProgram(0); }
+void OpenGLShader::bind() const { CF_PROFILE_FUNCTION(); glUseProgram(_rendererId); }
+void OpenGLShader::unbind() const { CF_PROFILE_FUNCTION(); glUseProgram(0); }
 
 const std::string& OpenGLShader::getName() const { return _name; }
 
 void OpenGLShader::setBool(const std::string& name, const bool value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setInt(const std::string& name, const int value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setFloat(const std::string& name, const float value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setVec2(const std::string& name, const glm::vec2& value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setVec3(const std::string& name, const glm::vec3& value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setVec4(const std::string& name, const glm::vec4& value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setMat3(const std::string& name, const glm::mat3& value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 void OpenGLShader::setMat4(const std::string& name, const glm::mat4& value) {
+	CF_PROFILE_FUNCTION();
 	uploadUniform(name, value);
 }
 
 void OpenGLShader::setIntArray(const std::string& name, int* values, const unsigned count) {
+	CF_PROFILE_FUNCTION();
 	uploadUniformArray(name, values, count);
 }
 
-void OpenGLShader::uploadUniform(const std::string& name, const bool value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform1i(location, static_cast<int>(value));
+int OpenGLShader::getUniformLocation(const std::string& uniformName) const {
+	const int location = glGetUniformLocation(_rendererId, uniformName.c_str());
+
+	if(location == -1) {
+		CF_CORE_WARNING("Could not find uniform {0}!", uniformName);
+		CF_CORE_WARNING("\tShader: {0}", _name);
+	}
+
+	return location;
 }
 
-void OpenGLShader::uploadUniform(const std::string& name, const int value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform1i(location, value);
-}
+void OpenGLShader::uploadUniform(const std::string& name, const bool value) const  { glUniform1i(getUniformLocation(name), static_cast<int>(value)); }
+void OpenGLShader::uploadUniform(const std::string& name, const int value) const   { glUniform1i(getUniformLocation(name), value); }
+void OpenGLShader::uploadUniform(const std::string& name, const float value) const { glUniform1f(getUniformLocation(name), value); }
 
-void OpenGLShader::uploadUniform(const std::string& name, const float value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform1f(location, value);
-}
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec2& value) const { glUniform2fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec3& value) const { glUniform3fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
+void OpenGLShader::uploadUniform(const std::string& name, const glm::vec4& value) const { glUniform4fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
 
-void OpenGLShader::uploadUniform(const std::string& name, const glm::vec2& value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform2fv(location, 1, glm::value_ptr(value));
-}
+void OpenGLShader::uploadUniform(const std::string& name, const glm::mat3& value) const { glUniformMatrix3fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value)); }
+void OpenGLShader::uploadUniform(const std::string& name, const glm::mat4& value) const { glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value)); }
 
-void OpenGLShader::uploadUniform(const std::string& name, const glm::vec3& value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform3fv(location, 1, glm::value_ptr(value));
-}
-
-void OpenGLShader::uploadUniform(const std::string& name, const glm::vec4& value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform4fv(location, 1, glm::value_ptr(value));
-}
-
-void OpenGLShader::uploadUniform(const std::string& name, const glm::mat3& value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(value));
-}
-
-void OpenGLShader::uploadUniform(const std::string& name, const glm::mat4& value) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
-
-}
-
-void OpenGLShader::uploadUniformArray(const std::string& name, int* values, const unsigned count) const {
-	const int location = glGetUniformLocation(_rendererId, name.c_str());
-	glUniform1iv(location, count, values);
-}
-
+void OpenGLShader::uploadUniformArray(const std::string& name, int* values, const unsigned count) const { glUniform1iv(getUniformLocation(name), count, values); }

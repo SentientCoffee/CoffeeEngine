@@ -76,7 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=1;CF_RELEASE=0;CF_DIST=0;CF_ENABLE_ASSERTS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=1;CF_RELEASE=0;CF_DIST=0;CF_ENABLE_ASSERTS=1;CF_ENABLE_PROFILING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\imgui\include\imgui;Externals\spdlog\include;Externals\stb\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -96,7 +96,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=1;CF_DIST=0;CF_ENABLE_ASSERTS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=1;CF_DIST=0;CF_ENABLE_ASSERTS=0;CF_ENABLE_PROFILING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\imgui\include\imgui;Externals\spdlog\include;Externals\stb\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -120,7 +120,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CoffeePCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=0;CF_DIST=1;CF_ENABLE_ASSERTS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CF_PLATFORM_WINDOWS;CF_BUILD_DLL;CF_DEBUG=0;CF_RELEASE=0;CF_DIST=1;CF_ENABLE_ASSERTS=0;CF_ENABLE_PROFILING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Externals\glad\include;Externals\glfw3\include;Externals\glm\include;Externals\imgui\include;Externals\imgui\include\imgui;Externals\spdlog\include;Externals\stb\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -147,6 +147,7 @@
     <ClInclude Include="include\Coffee\Core\Logging.h" />
     <ClInclude Include="include\Coffee\Core\Timestep.h" />
     <ClInclude Include="include\Coffee\Core\Window.h" />
+    <ClInclude Include="include\Coffee\Debug\Instrumentation.h" />
     <ClInclude Include="include\Coffee\EntryPoint.h" />
     <ClInclude Include="include\Coffee\Events\AppEvents.h" />
     <ClInclude Include="include\Coffee\Events\Event.h" />
@@ -188,9 +189,11 @@
     <ClCompile Include="src\Coffee\Events\MouseEvents.cpp" />
     <ClCompile Include="src\Coffee\Imgui\ImguiBuild.cpp" />
     <ClCompile Include="src\Coffee\Imgui\ImguiLayer.cpp" />
+    <ClCompile Include="src\Coffee\Instrumentation.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Buffers.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Camera.cpp" />
     <ClCompile Include="src\Coffee\Renderer\CameraController.cpp" />
+    <ClCompile Include="src\Coffee\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Coffee\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Coffee\Renderer\Renderer2D.cpp" />

@@ -25,18 +25,18 @@ namespace Coffee {
 #if CF_DEBUG
 
 // Core log macros
-#define CF_CORE_CRITICAL(msg, ...)		::Coffee::Logger::getEngineLogger()->critical(msg, ##__VA_ARGS__);
-#define CF_CORE_ERROR(msg, ...)			::Coffee::Logger::getEngineLogger()->error(msg, ##__VA_ARGS__);
-#define CF_CORE_WARNING(msg, ...)		::Coffee::Logger::getEngineLogger()->warn(msg, ##__VA_ARGS__);
-#define CF_CORE_INFO(msg, ...)			::Coffee::Logger::getEngineLogger()->info(msg, ##__VA_ARGS__);
-#define CF_CORE_TRACE(msg, ...)			::Coffee::Logger::getEngineLogger()->trace(msg, ##__VA_ARGS__);
+#define CF_CORE_CRITICAL(msg, ...) ::Coffee::Logger::getEngineLogger()->critical(msg, ##__VA_ARGS__)
+#define CF_CORE_ERROR(msg, ...) ::Coffee::Logger::getEngineLogger()->error(msg, ##__VA_ARGS__)
+#define CF_CORE_WARNING(msg, ...) ::Coffee::Logger::getEngineLogger()->warn(msg, ##__VA_ARGS__)
+#define CF_CORE_INFO(msg, ...) ::Coffee::Logger::getEngineLogger()->info(msg, ##__VA_ARGS__)
+#define CF_CORE_TRACE(msg, ...) ::Coffee::Logger::getEngineLogger()->trace(msg, ##__VA_ARGS__)
 
 // Client log macros 
-#define CF_CRITICAL(msg, ...)			::Coffee::Logger::getClientLogger()->critical(msg, ##__VA_ARGS__);
-#define CF_ERROR(msg, ...)				::Coffee::Logger::getClientLogger()->error(msg, ##__VA_ARGS__);
-#define CF_WARNING(msg, ...)			::Coffee::Logger::getClientLogger()->warn(msg, ##__VA_ARGS__);
-#define CF_INFO(msg, ...)				::Coffee::Logger::getClientLogger()->info(msg, ##__VA_ARGS__);
-#define CF_TRACE(msg, ...)				::Coffee::Logger::getClientLogger()->trace(msg, ##__VA_ARGS__);
+#define CF_CRITICAL(msg, ...)			::Coffee::Logger::getClientLogger()->critical(msg, ##__VA_ARGS__)
+#define CF_ERROR(msg, ...)				::Coffee::Logger::getClientLogger()->error(msg, ##__VA_ARGS__)
+#define CF_WARNING(msg, ...)			::Coffee::Logger::getClientLogger()->warn(msg, ##__VA_ARGS__)
+#define CF_INFO(msg, ...)				::Coffee::Logger::getClientLogger()->info(msg, ##__VA_ARGS__)
+#define CF_TRACE(msg, ...)				::Coffee::Logger::getClientLogger()->trace(msg, ##__VA_ARGS__)
 
 #else
 

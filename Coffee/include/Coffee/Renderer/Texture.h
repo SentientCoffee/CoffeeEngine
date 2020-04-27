@@ -13,9 +13,6 @@ namespace Coffee {
 		
 		virtual bool operator==(const Texture& other) const = 0;
 
-		virtual void getWidth() const = 0;
-		virtual void getHeight() const = 0;
-
 		virtual void bind(unsigned slot = 0) const = 0;
 		virtual void unbind(unsigned slot = 0) const = 0;
 
@@ -28,7 +25,8 @@ namespace Coffee {
 		static Ref<Texture2D> create(unsigned width, unsigned height);
 		static Ref<Texture2D> create(const std::string& filepath);
 
-		
+		virtual unsigned getWidth() const = 0;
+		virtual unsigned getHeight() const = 0;
 		
 	};
 	

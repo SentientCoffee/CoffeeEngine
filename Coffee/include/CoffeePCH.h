@@ -16,6 +16,7 @@
 #include <glm/glm.hpp>
 
 #include "Coffee/Core/Logging.h"
+#include "Coffee/Debug/Instrumentation.h"
 
 #if CF_PLATFORM_WINDOWS
 #include <Windows.h>

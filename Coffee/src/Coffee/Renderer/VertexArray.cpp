@@ -7,12 +7,10 @@
 using namespace Coffee;
 
 Ref<VertexArray> VertexArray::create() {
+	
 	switch(Renderer::getAPI()) {
-		case RendererAPI::API::None:
-			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
-			return nullptr;
-		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexArray>();
+		case RendererAPI::API::None:	CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!"); return nullptr;
+		case RendererAPI::API::OpenGL:	return createRef<OpenGLVertexArray>();
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");

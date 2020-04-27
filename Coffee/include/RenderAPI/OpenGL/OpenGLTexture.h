@@ -15,8 +15,8 @@ namespace Coffee {
 
 		bool operator==(const Texture& other) const override;
 		
-		void getWidth() const override;
-		void getHeight() const override;
+		unsigned getWidth() const override;
+		unsigned getHeight() const override;
 		
 		void bind(unsigned slot = 0) const override;
 		void unbind(unsigned slot = 0) const override;

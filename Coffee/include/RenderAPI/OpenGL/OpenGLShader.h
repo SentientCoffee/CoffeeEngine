@@ -40,6 +40,8 @@ namespace Coffee {
 		void setIntArray(const std::string& name, int* values, unsigned count) override;
 
 	private:
+
+		int getUniformLocation(const std::string& uniformName) const;
 		
 		void uploadUniform(const std::string& name, bool value) const;
 		void uploadUniform(const std::string& name, int value) const;

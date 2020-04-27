@@ -7,7 +7,9 @@
 using namespace Coffee;
 
 OpenGLTexture2D::OpenGLTexture2D(const unsigned width, const unsigned height) :
-	_width(width), _height(height) {
+	_width(width), _height(height)
+{
+	CF_PROFILE_FUNCTION();
 	
 	_internalFormat = GL_RGBA8;
 	_format = GL_RGBA;
@@ -25,14 +27,20 @@ OpenGLTexture2D::OpenGLTexture2D(const unsigned width, const unsigned height) :
 }
 
 OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
-	_texturePath(filepath) {
-	int width, height, channels;
+	_texturePath(filepath)
+{
+	CF_PROFILE_FUNCTION();
+
+	int width = 0, height = 0, channels = 0;
 	stbi_set_flip_vertically_on_load(true);
-	stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+	stbi_uc* data = nullptr;
+	{
+		CF_PROFILE_SCOPE("[stbi_load] - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+		data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+	}
 
 	if(data == nullptr) {
-		CF_CORE_ERROR("Texture path: {0}", filepath);
-		CF_CORE_ASSERT(data, "Failed to load image!");
+		CF_CORE_ASSERT(data, "Failed to load image!\n\tTexture path: {0}", filepath);
 	}
 
 	_width = width; _height = height;
@@ -66,22 +74,27 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
 }
 
 OpenGLTexture2D::~OpenGLTexture2D() {
+	CF_PROFILE_FUNCTION();
 	glDeleteTextures(1, &_rendererId);
 }
 
 bool OpenGLTexture2D::operator==(const Texture& other) const { return ((OpenGLTexture2D&)other)._rendererId; }
 
-void OpenGLTexture2D::getWidth() const {}
-void OpenGLTexture2D::getHeight() const {}
+unsigned OpenGLTexture2D::getWidth() const { return _width; }
+unsigned OpenGLTexture2D::getHeight() const { return _height; }
+
 void OpenGLTexture2D::bind(const unsigned slot) const {
+	CF_PROFILE_FUNCTION();
 	glBindTextureUnit(slot, _rendererId);
 }
 void OpenGLTexture2D::unbind(const unsigned slot) const {
+	CF_PROFILE_FUNCTION();
 	glBindTextureUnit(slot, 0);
 }
 
-void OpenGLTexture2D::setData(void* data, unsigned size) {
-	unsigned bpp = _format == GL_RGBA ? 4 : 3;
+void OpenGLTexture2D::setData(void* data, const unsigned size) {
+	CF_PROFILE_FUNCTION();
+	const unsigned bpp = _format == GL_RGBA ? 4 : 3;
 	CF_CORE_ASSERT(size == _width * _height * bpp, "Data must be entire texture!");
 	glTextureSubImage2D(_rendererId, 0, 0, 0, _width, _height, _format, GL_UNSIGNED_BYTE, data);
 }

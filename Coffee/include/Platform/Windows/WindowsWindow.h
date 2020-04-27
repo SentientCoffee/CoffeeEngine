@@ -24,6 +24,7 @@ namespace Coffee {
 		void* getNativeWindow() const override;
 
 		void setEventCallbackFunc(const EventCallbackFunc& callback) override;
+		
 	private:
 
 		virtual void init(const WindowProperties& properties);
@@ -33,7 +34,7 @@ namespace Coffee {
 		static void glfwErrorCallback(int errorCode, const char* log);
 		
 		GLFWwindow* _window;
-		GraphicsContext* _renderContext;
+		Scope<GraphicsContext> _renderContext;
 
 		struct WindowData {
 			std::string title;

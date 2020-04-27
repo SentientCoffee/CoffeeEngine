@@ -6,11 +6,14 @@
 using namespace Coffee;
 
 OrthographicCameraController::OrthographicCameraController(const float aspectRatio, const bool rotation) :
-	_aspectRatio(aspectRatio), _camera(-aspectRatio * _zoom, aspectRatio * _zoom, -_zoom, _zoom), _rotation(rotation) {
+	_aspectRatio(aspectRatio), _camera(-aspectRatio * _zoom, aspectRatio * _zoom, -_zoom, _zoom), _rotation(rotation)
+{
 	CF_CORE_ASSERT(_aspectRatio, "Aspect ratio needs to be set to non-zero value!");
 }
 
 void OrthographicCameraController::onUpdate(const Timestep ts) {
+	CF_PROFILE_FUNCTION();
+	
 	if(Input::isKeyPressed(KeyCode::A)) {
 		_cameraPosition.x -= _camTranslationSpeed * ts;
 	}
@@ -43,12 +46,16 @@ OrthographicCamera& OrthographicCameraController::getCamera() { return _camera; 
 const OrthographicCamera& OrthographicCameraController::getCamera() const { return _camera; }
 
 void OrthographicCameraController::onEvent(Event& e) {
+	CF_PROFILE_FUNCTION();
+	
 	EventDispatcher d(e);
 	d.dispatch<MouseScrolledEvent>(CF_BIND_FN(OrthographicCameraController::onMouseScrolled));
 	d.dispatch<WindowResizedEvent>(CF_BIND_FN(OrthographicCameraController::onWindowResized));
 }
 
 bool OrthographicCameraController::onMouseScrolled(MouseScrolledEvent& e) {
+	CF_PROFILE_FUNCTION();
+	
 	_zoom -= e.getYOffset() * 0.25f;
 	_zoom = glm::max(_zoom, 0.25f);
 	_camera.setProjection(-_aspectRatio * _zoom, _aspectRatio * _zoom, -_zoom, _zoom);
@@ -56,6 +63,8 @@ bool OrthographicCameraController::onMouseScrolled(MouseScrolledEvent& e) {
 }
 
 bool OrthographicCameraController::onWindowResized(WindowResizedEvent& e) {
+	CF_PROFILE_FUNCTION();
+	
 	_aspectRatio = static_cast<float>(e.getWidth()) / static_cast<float>(e.getHeight());
 	_camera.setProjection(-_aspectRatio * _zoom, _aspectRatio * _zoom, -_zoom, _zoom);
 	return false;

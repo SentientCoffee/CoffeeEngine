@@ -30,18 +30,23 @@ static GLenum shaderDataTypeToOpenGLBaseType(const ShaderDataType type) {
 }
 
 OpenGLVertexArray::OpenGLVertexArray() :
-	_rendererId(0), _indexBuffer(nullptr) {
+	_rendererId(0), _indexBuffer(nullptr)
+{
+	CF_PROFILE_FUNCTION();
 	glCreateVertexArrays(1, &_rendererId);
 }
 
 OpenGLVertexArray::~OpenGLVertexArray() {
+	CF_PROFILE_FUNCTION();
 	glDeleteVertexArrays(1, &_rendererId);
 }
 
-void OpenGLVertexArray::bind() const { glBindVertexArray(_rendererId); }
-void OpenGLVertexArray::unbind() const { glBindVertexArray(0); }
+void OpenGLVertexArray::bind() const { CF_PROFILE_FUNCTION(); glBindVertexArray(_rendererId); }
+void OpenGLVertexArray::unbind() const { CF_PROFILE_FUNCTION(); glBindVertexArray(0); }
 
 void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
+	CF_PROFILE_FUNCTION();
+	
 	CF_CORE_ASSERT(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout!");
 	
 	glBindVertexArray(_rendererId);
@@ -52,10 +57,10 @@ void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
 		glEnableVertexAttribArray(i);
 
 		glVertexAttribPointer(i, elem.getComponentCount(),
-		                      shaderDataTypeToOpenGLBaseType(elem.type),
-		                      elem.normalized ? GL_TRUE : GL_FALSE,
-		                      vertexBuffer->getLayout().getStride(),
-		                      reinterpret_cast<const void*>(static_cast<__int64>(elem.offset)));
+			shaderDataTypeToOpenGLBaseType(elem.type),
+			elem.normalized ? GL_TRUE : GL_FALSE,
+			vertexBuffer->getLayout().getStride(),
+			reinterpret_cast<const void*>(static_cast<__int64>(elem.offset)));
 
 		++i;
 	}
@@ -64,6 +69,8 @@ void OpenGLVertexArray::addVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
 }
 
 void OpenGLVertexArray::setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
+	CF_PROFILE_FUNCTION();
+	
 	glBindVertexArray(_rendererId);
 	indexBuffer->bind();
 	

@@ -5,12 +5,19 @@
 
 using namespace Coffee;
 
-Scope<Renderer::SceneData> Renderer::sceneData = std::make_unique<SceneData>();
-Scope<ShaderLibrary> Renderer::shaderLib = std::make_unique<ShaderLibrary>();
+Scope<Renderer::SceneData> Renderer::sceneData = createScope<SceneData>();
+Scope<ShaderLibrary> Renderer::shaderLib = createScope<ShaderLibrary>();
 
 void Renderer::init() {
+	CF_PROFILE_FUNCTION();
 	RenderCommand::init();
 	Renderer2D::init();
+}
+
+void Renderer::shutdown() {
+	CF_PROFILE_FUNCTION();
+	
+	Renderer2D::shutdown();
 }
 
 void Renderer::onWindowResized(const unsigned width, const unsigned height) {

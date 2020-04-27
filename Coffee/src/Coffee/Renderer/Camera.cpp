@@ -6,11 +6,15 @@
 using namespace Coffee;
 
 OrthographicCamera::OrthographicCamera(const float left, const float right, const float bottom, const float top) :
-	_projectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), _viewMatrix(glm::mat4(1.0f)) {
+	_projectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), _viewMatrix(glm::mat4(1.0f))
+{
+	CF_PROFILE_FUNCTION();
 	_viewProjection = _projectionMatrix * _viewMatrix;
 }
 
 void OrthographicCamera::setProjection(const float left, const float right, const float bottom, const float top) {
+	CF_PROFILE_FUNCTION();
+	
 	_projectionMatrix = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
 	_viewProjection = _projectionMatrix * _viewMatrix;
 }
@@ -33,8 +37,10 @@ const glm::mat4& OrthographicCamera::getViewMatrix() const { return _viewMatrix;
 const glm::mat4& OrthographicCamera::getViewProjectionMatrix() const { return _viewProjection; }
 
 void OrthographicCamera::viewMatrixCalc() {
+	CF_PROFILE_FUNCTION();
+	
 	const glm::mat4 transform = glm::translate(glm::mat4(1.0f), _position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(_rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::rotate(glm::mat4(1.0f), glm::radians(_rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
 	_viewMatrix = glm::inverse(transform);
 	_viewProjection = _projectionMatrix * _viewMatrix;

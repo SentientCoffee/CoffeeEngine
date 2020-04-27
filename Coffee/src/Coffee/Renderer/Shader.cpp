@@ -12,11 +12,8 @@ using namespace Coffee;
 
 Ref<Shader> Shader::create(const std::string& filepath) {
 	switch(Renderer::getAPI()) {
-		case RendererAPI::API::None:
-			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
-			return nullptr;
-		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(filepath);
+		case RendererAPI::API::None:		CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!"); return nullptr;
+		case RendererAPI::API::OpenGL:		return createRef<OpenGLShader>(filepath);
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");
@@ -25,11 +22,8 @@ Ref<Shader> Shader::create(const std::string& filepath) {
 
 Ref<Shader> Shader::create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) {
 	switch(Renderer::getAPI()) {
-		case RendererAPI::API::None:
-			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
-			return nullptr;
-		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+		case RendererAPI::API::None:		CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!"); return nullptr;
+		case RendererAPI::API::OpenGL:		return createRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 	}
 
 	CF_CORE_ASSERT(false, "Unknown renderer API!");
@@ -41,7 +35,7 @@ Ref<Shader> Shader::create(const std::string& name, const std::string& vertexSrc
 // ----------------------------------------------------------------------
 
 void ShaderLibrary::add(const Ref<Shader>& shader) {
-	auto& name = shader->getName();
+	const auto& name = shader->getName();
 	add(name, shader);
 }
 
