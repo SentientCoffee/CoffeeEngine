@@ -68,9 +68,13 @@ void Sandbox2D::drawImgui() {
 
 	ImGui::Begin("Settings");
 	{
-		ImGui::SliderFloat("Rows", &rows, 1.0f, 20.0f);
-		ImGui::SliderFloat("Columns", &columns, 1.0f, 20.0f);
+		int row = static_cast<int>(rows), col = static_cast<int>(columns);
+		
+		ImGui::SliderInt("Rows", &row, 1, 20);
+		ImGui::SliderInt("Columns", &col, 1, 20);
 		ImGui::SliderFloat("Size", &size, 0.1f, 1.0f);
+
+		rows = static_cast<float>(row); columns = static_cast<float>(col);
 	}
 	ImGui::End();
 }

@@ -30,14 +30,14 @@ public:
 			-0.5f,  0.5f, 0.0f,		0.0f, 1.0f
 		};
 
-		std::vector<unsigned> squareIndices = {
+		std::vector<uint32_t> squareIndices = {
 			0, 1, 2,
 			0, 2, 3
 		};
 
 		squareVao = Coffee::VertexArray::create();
 		Coffee::Ref<Coffee::VertexBuffer> squareVbo(Coffee::VertexBuffer::create(squareVertices));
-		Coffee::Ref<Coffee::IndexBuffer>  squareIbo(Coffee::IndexBuffer::create(squareIndices));
+		const Coffee::Ref<Coffee::IndexBuffer> squareIbo(Coffee::IndexBuffer::create(squareIndices));
 
 		const Coffee::BufferLayout squareLayout = {
 			{ Coffee::ShaderDataType::Vec3, "inPosition" },

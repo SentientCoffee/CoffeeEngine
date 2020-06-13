@@ -7,7 +7,7 @@
 
 namespace Coffee {
 
-	enum class EventType : unsigned int {
+	enum class EventType : uint32_t {
 		None = 0,
 		
 		WindowClosed,

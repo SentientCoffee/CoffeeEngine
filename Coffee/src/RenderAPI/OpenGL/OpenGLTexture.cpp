@@ -6,7 +6,7 @@
 
 using namespace Coffee;
 
-OpenGLTexture2D::OpenGLTexture2D(const unsigned width, const unsigned height) :
+OpenGLTexture2D::OpenGLTexture2D(const uint32_t width, const uint32_t height) :
 	_width(width), _height(height)
 {
 	CF_PROFILE_FUNCTION();
@@ -78,23 +78,23 @@ OpenGLTexture2D::~OpenGLTexture2D() {
 	glDeleteTextures(1, &_rendererId);
 }
 
-bool OpenGLTexture2D::operator==(const Texture& other) const { return ((OpenGLTexture2D&)other)._rendererId; }
+bool OpenGLTexture2D::operator==(const Texture2D& other) const { return ((OpenGLTexture2D&)other)._rendererId; }
 
-unsigned OpenGLTexture2D::getWidth() const { return _width; }
-unsigned OpenGLTexture2D::getHeight() const { return _height; }
+uint32_t OpenGLTexture2D::getWidth() const { return _width; }
+uint32_t OpenGLTexture2D::getHeight() const { return _height; }
 
-void OpenGLTexture2D::bind(const unsigned slot) const {
+void OpenGLTexture2D::bind(const uint32_t slot) const {
 	CF_PROFILE_FUNCTION();
 	glBindTextureUnit(slot, _rendererId);
 }
-void OpenGLTexture2D::unbind(const unsigned slot) const {
+void OpenGLTexture2D::unbind(const uint32_t slot) const {
 	CF_PROFILE_FUNCTION();
 	glBindTextureUnit(slot, 0);
 }
 
-void OpenGLTexture2D::setData(void* data, const unsigned size) {
+void OpenGLTexture2D::setData(void* data, const uint32_t size) {
 	CF_PROFILE_FUNCTION();
-	const unsigned bpp = _format == GL_RGBA ? 4 : 3;
+	const uint32_t bpp = _format == GL_RGBA ? 4 : 3;
 	CF_CORE_ASSERT(size == _width * _height * bpp, "Data must be entire texture!");
 	glTextureSubImage2D(_rendererId, 0, 0, 0, _width, _height, _format, GL_UNSIGNED_BYTE, data);
 }

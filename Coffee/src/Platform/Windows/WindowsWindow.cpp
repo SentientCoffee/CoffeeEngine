@@ -15,7 +15,7 @@ Window* Window::create(const WindowProperties& properties) {
 	return new WindowsWindow(properties);
 }
 
-WindowProperties::WindowProperties(const std::string& title, const unsigned width, const unsigned height) :
+WindowProperties::WindowProperties(const std::string& title, const uint32_t width, const uint32_t height) :
 	title(title), width(width), height(height) {}
 
 WindowsWindow::WindowsWindow(const WindowProperties& properties) :
@@ -184,8 +184,8 @@ void WindowsWindow::update() {
 	_renderContext->swapBuffers();
 }
 
-unsigned WindowsWindow::getWidth() const { return _data.width; }
-unsigned WindowsWindow::getHeight() const { return _data.height; }
+uint32_t WindowsWindow::getWidth() const { return _data.width; }
+uint32_t WindowsWindow::getHeight() const { return _data.height; }
 
 void WindowsWindow::setVSync(const bool enabled) {
 	CF_PROFILE_FUNCTION();

@@ -1,6 +1,6 @@
 #pragma once
 
-enum class MouseButton : unsigned int {
+enum class MouseButton : uint32_t {
 	// From glfw3.h
 	MouseButton1       = 0,
 	MouseButton2       = 1,

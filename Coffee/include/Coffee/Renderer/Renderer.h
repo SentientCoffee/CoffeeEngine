@@ -11,7 +11,7 @@ namespace Coffee {
 
 		static void init();
 		static void shutdown();
-		static void onWindowResized(unsigned width, unsigned height);
+		static void onWindowResized(uint32_t width, uint32_t height);
 		
 		static void beginScene(OrthographicCamera& camera);
 		static void endScene();

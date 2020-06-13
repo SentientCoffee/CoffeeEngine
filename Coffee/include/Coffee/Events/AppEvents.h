@@ -7,13 +7,13 @@ namespace Coffee {
 	class WindowResizedEvent : public Event {
 	public:
 
-		WindowResizedEvent(unsigned width, unsigned height);
+		WindowResizedEvent(uint32_t width, uint32_t height);
 
 		EVENT_CLASS_TYPE(WindowResized)
 		EVENT_CLASS_CATEGORY(CategoryApp)
 		
-		unsigned getWidth() const;
-		unsigned getHeight() const;
+		uint32_t getWidth() const;
+		uint32_t getHeight() const;
 
 		#if CF_DEBUG || CF_RELEASE
 		std::string toString() const override;
@@ -21,7 +21,7 @@ namespace Coffee {
 
 	private:
 
-		unsigned _width, _height;
+		uint32_t _width, _height;
 	};
 
 

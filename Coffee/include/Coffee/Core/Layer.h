@@ -48,7 +48,7 @@ namespace Coffee {
 	private:
 
 		LayerVector _layers;
-		unsigned int _layerIndex = 0;
+		uint32_t _layerIndex = 0;
 	};
 	
 }

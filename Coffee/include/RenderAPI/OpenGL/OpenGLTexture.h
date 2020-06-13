@@ -6,27 +6,27 @@
 
 namespace Coffee {
 
-	class OpenGLTexture2D : public Texture2D {
+	class OpenGLTexture2D final : public Texture2D {
 	public:
 
-		OpenGLTexture2D(unsigned width, unsigned height);
+		OpenGLTexture2D(uint32_t width, uint32_t height);
 		OpenGLTexture2D(const std::string& filepath);
 		~OpenGLTexture2D();
 
-		bool operator==(const Texture& other) const override;
+		bool operator==(const Texture2D& other) const override;
 		
-		unsigned getWidth() const override;
-		unsigned getHeight() const override;
+		uint32_t getWidth() const override;
+		uint32_t getHeight() const override;
 		
-		void bind(unsigned slot = 0) const override;
-		void unbind(unsigned slot = 0) const override;
+		void bind(uint32_t slot = 0) const override;
+		void unbind(uint32_t slot = 0) const override;
 
-		void setData(void* data, unsigned size) override;
+		void setData(void* data, uint32_t size) override;
 
 	private:
 
-		unsigned _rendererId = 0;
-		unsigned _width, _height;
+		uint32_t _rendererId = 0;
+		uint32_t _width, _height;
 		std::string _texturePath;
 
 		GLenum _internalFormat, _format;

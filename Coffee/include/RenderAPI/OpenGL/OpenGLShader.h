@@ -6,7 +6,7 @@
 
 namespace Coffee {
 
-	enum class ShaderType : unsigned int {
+	enum class ShaderType : uint32_t {
 		None = 0,
 		Vertex,
 		Fragment,
@@ -37,7 +37,7 @@ namespace Coffee {
 		void setMat3(const std::string& name, const glm::mat3& value) override;
 		void setMat4(const std::string& name, const glm::mat4& value) override;
 
-		void setIntArray(const std::string& name, int* values, unsigned count) override;
+		void setIntArray(const std::string& name, int* values, uint32_t count) override;
 
 	private:
 
@@ -54,15 +54,15 @@ namespace Coffee {
 		void uploadUniform(const std::string& name, const glm::mat3& value) const;
 		void uploadUniform(const std::string& name, const glm::mat4& value) const;
 
-		void uploadUniformArray(const std::string& name, int* values, unsigned count) const;
+		void uploadUniformArray(const std::string& name, int* values, uint32_t count) const;
 
 		static std::string readFile(const std::string& filepath);
 		static std::unordered_map<ShaderType, std::string> processSource(const std::string& shaderSrc);
 
-		static unsigned int createShader(const std::string& shaderSrc, ShaderType shaderType);
+		static uint32_t createShader(const std::string& shaderSrc, ShaderType shaderType);
 		void compileProgram(const std::unordered_map<ShaderType, std::string>& sources);
 
-		unsigned int _rendererId = 0;
+		uint32_t _rendererId = 0;
 		std::string _name;
 
 	};

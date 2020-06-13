@@ -9,7 +9,7 @@ using namespace Coffee;
 // ----- Vertex buffers -------------------
 // ----------------------------------------
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(const unsigned size) :
+OpenGLVertexBuffer::OpenGLVertexBuffer(const uint32_t size) :
 	_rendererId(0)
 {
 	CF_PROFILE_FUNCTION();
@@ -18,7 +18,7 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(const unsigned size) :
 	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, const unsigned size) :
+OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, const uint32_t size) :
 	_rendererId(0)
 {
 	CF_PROFILE_FUNCTION();
@@ -35,7 +35,7 @@ OpenGLVertexBuffer::~OpenGLVertexBuffer() {
 void OpenGLVertexBuffer::bind() const { CF_PROFILE_FUNCTION(); glBindBuffer(GL_ARRAY_BUFFER, _rendererId); }
 void OpenGLVertexBuffer::unbind() const { CF_PROFILE_FUNCTION(); glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
-void OpenGLVertexBuffer::setData(const void* data, const unsigned size) {
+void OpenGLVertexBuffer::setData(const void* data, const uint32_t size) {
 	CF_PROFILE_FUNCTION();
 	glBindBuffer(GL_ARRAY_BUFFER, _rendererId);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
@@ -48,13 +48,13 @@ const BufferLayout& OpenGLVertexBuffer::getLayout() const { return _layout; }
 // ----- Index buffers --------------------
 // ----------------------------------------
 
-OpenGLIndexBuffer::OpenGLIndexBuffer(unsigned* indices, const unsigned count) :
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, const uint32_t count) :
 	_rendererId(0), _indexCount(count)
 {
 	CF_PROFILE_FUNCTION();
 	glCreateBuffers(1, &_rendererId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _rendererId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer() {
@@ -65,4 +65,4 @@ OpenGLIndexBuffer::~OpenGLIndexBuffer() {
 void OpenGLIndexBuffer::bind() const { CF_PROFILE_FUNCTION(); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _rendererId); }
 void OpenGLIndexBuffer::unbind() const { CF_PROFILE_FUNCTION(); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
-unsigned OpenGLIndexBuffer::getCount() const { return _indexCount; }
+uint32_t OpenGLIndexBuffer::getCount() const { return _indexCount; }

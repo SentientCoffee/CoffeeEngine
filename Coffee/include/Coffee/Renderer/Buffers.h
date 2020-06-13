@@ -6,7 +6,7 @@
 
 namespace Coffee {
 
-	enum class ShaderDataType : unsigned int {
+	enum class ShaderDataType : uint32_t {
 		Bool = 0, Int, Float,
 		Vec2, Vec3, Vec4,
 		IVec2, IVec3, IVec4,
@@ -14,7 +14,7 @@ namespace Coffee {
 		
 	};
 
-	static unsigned int shaderDataTypeSize(const ShaderDataType type) {
+	static uint32_t shaderDataTypeSize(const ShaderDataType type) {
 		switch(type) {
 			case ShaderDataType::Bool:		return sizeof(bool);
 			case ShaderDataType::Int:		return sizeof(int);
@@ -39,14 +39,14 @@ namespace Coffee {
 	struct BufferElement {
 		std::string name;
 		ShaderDataType type;
-		unsigned size;
-		unsigned offset;
+		uint32_t size;
+		uint32_t offset;
 		bool normalized;
 
 		BufferElement() = default;
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false);
 
-		unsigned int getComponentCount() const;
+		uint32_t getComponentCount() const;
 	};
 
 	class BufferLayout {
@@ -63,20 +63,20 @@ namespace Coffee {
 		BufferLayout(const BufferElemInitList& elements);
 		
 		BufferElemVector getElements() const;
-		unsigned int size() const;
+		uint32_t size() const;
 		BufferElemIterator begin();
 		BufferElemIterator end();
 		ConstBufferElemIterator begin() const;
 		ConstBufferElemIterator end() const;
 
-		unsigned int getStride() const;
+		uint32_t getStride() const;
 
 	private:
 
 		void strideOffsetCalc();
 
 		BufferElemVector _elements;
-		unsigned int _stride = 0;
+		uint32_t _stride = 0;
 
 	};
 	
@@ -90,11 +90,11 @@ namespace Coffee {
 
 		virtual void setLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& getLayout() const = 0;
-		virtual void setData(const void* data, unsigned size) = 0;
+		virtual void setData(const void* data, uint32_t size) = 0;
 
-		static Ref<VertexBuffer> create(unsigned int size);
+		static Ref<VertexBuffer> create(uint32_t size);
 		static Ref<VertexBuffer> create(std::vector<float>& vertices);
-		static Ref<VertexBuffer> create(float* vertices, unsigned int size);
+		static Ref<VertexBuffer> create(float* vertices, uint32_t size);
 		
 	};
 
@@ -106,10 +106,10 @@ namespace Coffee {
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
-		virtual unsigned int getCount() const = 0;
+		virtual uint32_t getCount() const = 0;
 
-		static Ref<IndexBuffer> create(std::vector<unsigned>& indices);
-		static Ref<IndexBuffer> create(unsigned* indices, unsigned int count);
+		static Ref<IndexBuffer> create(std::vector<uint32_t>& indices);
+		static Ref<IndexBuffer> create(uint32_t* indices, uint32_t count);
 		
 	};
 }

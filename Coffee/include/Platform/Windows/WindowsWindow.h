@@ -15,8 +15,8 @@ namespace Coffee {
 
 		void update() override;
 
-		unsigned getWidth() const override;
-		unsigned getHeight() const override;
+		uint32_t getWidth() const override;
+		uint32_t getHeight() const override;
 		
 		void setVSync(bool enabled) override;
 		bool isVSync() const override;
@@ -38,7 +38,7 @@ namespace Coffee {
 
 		struct WindowData {
 			std::string title;
-			unsigned width, height;
+			uint32_t width, height;
 			bool isVSync;
 
 			EventCallbackFunc eventFunc;

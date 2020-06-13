@@ -1,6 +1,6 @@
 #pragma once
 
-enum class KeyCode : unsigned int {
+enum class KeyCode : uint32_t {
 	// From glfw3.h
 	Space           = 32,
 	Apostrophe      = 39,		/* ' */

@@ -94,10 +94,10 @@ std::unordered_map<ShaderType, std::string> OpenGLShader::processSource(const st
 	return shaderSources;
 }
 
-unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const ShaderType shaderType) {
+uint32_t OpenGLShader::createShader(const std::string& shaderSrc, const ShaderType shaderType) {
 	CF_PROFILE_FUNCTION();
 	
-	unsigned int shaderHandle = 0;
+	uint32_t shaderHandle = 0;
 
 	switch(shaderType) {
 		case ShaderType::Vertex:
@@ -150,13 +150,13 @@ unsigned int OpenGLShader::createShader(const std::string& shaderSrc, const Shad
 void OpenGLShader::compileProgram(const std::unordered_map<ShaderType, std::string>& sources) {
 	CF_PROFILE_FUNCTION();
 	
-	const unsigned program = glCreateProgram();
+	const uint32_t program = glCreateProgram();
 	CF_CORE_ASSERT(sources.size() <= 3, "Only up to 3 shaders are supported!");
-	std::array<unsigned, 3> shaderIds {};
+	std::array<uint32_t, 3> shaderIds {};
 
 	int shaderIdIndex = 0;
-	for(auto& src : sources) {
-		const unsigned shader = createShader(src.second, src.first);
+	for(const auto& src : sources) {
+		const uint32_t shader = createShader(src.second, src.first);
 		glAttachShader(program, shader);
 		shaderIds[shaderIdIndex++] = shader;
 	}
@@ -226,7 +226,7 @@ void OpenGLShader::setMat4(const std::string& name, const glm::mat4& value) {
 	uploadUniform(name, value);
 }
 
-void OpenGLShader::setIntArray(const std::string& name, int* values, const unsigned count) {
+void OpenGLShader::setIntArray(const std::string& name, int* values, const uint32_t count) {
 	CF_PROFILE_FUNCTION();
 	uploadUniformArray(name, values, count);
 }
@@ -253,4 +253,4 @@ void OpenGLShader::uploadUniform(const std::string& name, const glm::vec4& value
 void OpenGLShader::uploadUniform(const std::string& name, const glm::mat3& value) const { glUniformMatrix3fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value)); }
 void OpenGLShader::uploadUniform(const std::string& name, const glm::mat4& value) const { glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value)); }
 
-void OpenGLShader::uploadUniformArray(const std::string& name, int* values, const unsigned count) const { glUniform1iv(getUniformLocation(name), count, values); }
+void OpenGLShader::uploadUniformArray(const std::string& name, int* values, const uint32_t count) const { glUniform1iv(getUniformLocation(name), count, values); }

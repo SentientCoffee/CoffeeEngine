@@ -20,7 +20,7 @@ namespace Coffee {
 
 	private:
 		
-		unsigned int _rendererId;
+		uint32_t _rendererId;
 		std::vector<Ref<VertexBuffer>> _vertexBuffers;
 		Ref<IndexBuffer> _indexBuffer;
 		

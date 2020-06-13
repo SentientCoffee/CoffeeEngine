@@ -20,12 +20,12 @@ struct QuadVertex {
 
 struct Renderer2DData {
 
-	static const unsigned maxQuads        = 10000;
-	static const unsigned maxVertices     = maxQuads * 4;
-	static const unsigned maxIndices      = maxQuads * 6;
-	static const unsigned maxTextureSlots = 32; // TODO: RenderCaps
+	static const uint32_t maxQuads        = 10000;
+	static const uint32_t maxVertices     = maxQuads * 4;
+	static const uint32_t maxIndices      = maxQuads * 6;
+	static const uint32_t maxTextureSlots = 32;
 
-	unsigned quadIndexCount = 0;
+	uint32_t quadIndexCount = 0;
 
 	QuadVertex* quadVboBase = nullptr;
 	QuadVertex* quadVboPtr  = nullptr;
@@ -36,7 +36,7 @@ struct Renderer2DData {
 	Ref<Texture2D> whiteTexture = nullptr;
 
 	std::array<Ref<Texture2D>, maxTextureSlots> textureSlots = {};
-	unsigned textureSlotIndex = 1;
+	uint32_t textureSlotIndex = 1;
 
 	glm::vec4 quadVertexPositions[4] = {};
 
@@ -48,9 +48,9 @@ static Renderer2DData Data;
 void Renderer2D::init() {
 	CF_PROFILE_FUNCTION();
 	
-	auto* const quadIndices = new unsigned[Renderer2DData::maxIndices];
-	unsigned offset = 0;
-	for(unsigned i = 0; i < Renderer2DData::maxIndices; i += 6, offset += 4) {
+	auto* const quadIndices = new uint32_t[Renderer2DData::maxIndices];
+	uint32_t offset = 0;
+	for(uint32_t i = 0; i < Renderer2DData::maxIndices; i += 6, offset += 4) {
 		quadIndices[i + 0] = offset + 0;
 		quadIndices[i + 1] = offset + 1;
 		quadIndices[i + 2] = offset + 2;
@@ -64,8 +64,8 @@ void Renderer2D::init() {
 
 
 	Data.quadVao = VertexArray::create();
-	Data.quadVbo = VertexBuffer::create(Data.maxVertices * sizeof(QuadVertex));
-	const Ref<IndexBuffer> quadIbo = IndexBuffer::create(quadIndices, Data.maxIndices);
+	Data.quadVbo = VertexBuffer::create(Renderer2DData::maxVertices * sizeof(QuadVertex));
+	const Ref<IndexBuffer> quadIbo = IndexBuffer::create(quadIndices, Renderer2DData::maxIndices);
 
 	const BufferLayout quadLayout = {
 		{ ShaderDataType::Vec3,  "inPosition" },
@@ -81,18 +81,18 @@ void Renderer2D::init() {
 	delete[] quadIndices;
 	
 	Data.whiteTexture = Texture2D::create(1, 1);
-	unsigned whiteData = 0xFFFFFFFF;
-	Data.whiteTexture->setData(&whiteData, sizeof(unsigned));
+	uint32_t whiteData = 0xFFFFFFFF;
+	Data.whiteTexture->setData(&whiteData, sizeof(uint32_t));
 	Data.textureSlots[0] = Data.whiteTexture;
 	
 	int samplers[32];
-	for(int i = 0; i < Renderer2DData::maxTextureSlots; ++i) {
+	for(uint32_t i = 0; i < Renderer2DData::maxTextureSlots; ++i) {
 		samplers[i] = i;
 	}
 	
 	Data.quadShader = Shader::create("assets/shaders/Texture.glsl");
 	Data.quadShader->bind();
-	Data.quadShader->setIntArray("uTextures", samplers, Data.maxTextureSlots);
+	Data.quadShader->setIntArray("uTextures", samplers, Renderer2DData::maxTextureSlots);
 	
 	Data.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
 	Data.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
@@ -119,7 +119,7 @@ void Renderer2D::beginScene(const OrthographicCamera& camera) {
 void Renderer2D::endScene() {
 	CF_PROFILE_FUNCTION();
 	
-	const auto dataSize = static_cast<unsigned>(reinterpret_cast<char*>(Data.quadVboPtr) - reinterpret_cast<char*>(Data.quadVboBase));
+	const auto dataSize = static_cast<uint32_t>(reinterpret_cast<char*>(Data.quadVboPtr) - reinterpret_cast<char*>(Data.quadVboBase));
 	Data.quadVbo->setData(Data.quadVboBase, dataSize);
 	
 	renderScene();
@@ -128,7 +128,7 @@ void Renderer2D::endScene() {
 void Renderer2D::renderScene() {
 	CF_PROFILE_FUNCTION();
 	
-	for(unsigned i = 0; i < Data.textureSlotIndex; ++i) {
+	for(uint32_t i = 0; i < Data.textureSlotIndex; ++i) {
 		Data.textureSlots[i]->bind(i);
 	}
 
@@ -200,8 +200,8 @@ void Renderer2D::drawQuad(const glm::vec3& position, const glm::vec2& dimensions
 	constexpr size_t quadVertexCount = 4;
 	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
-	for(unsigned i = 1; i < Data.textureSlotIndex; ++i) {
-		if(*Data.textureSlots[i].get() == *texture.get()) {
+	for(uint32_t i = 1; i < Data.textureSlotIndex; ++i) {
+		if(*Data.textureSlots[i] == *texture) {
 			textureIndex = static_cast<float>(i);
 		}
 	}
@@ -233,7 +233,7 @@ void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dim
 	drawRotatedQuad({ position.x, position.y, 0.0f }, dimensions, rotation, colour);
 }
 
-void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, float tilingFactor) {
+void Renderer2D::drawRotatedQuad(const glm::vec2& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) {
 	drawRotatedQuad({ position.x, position.y, 0.0f }, dimensions, rotation, texture, tint, tilingFactor);
 }
 
@@ -268,7 +268,7 @@ void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dim
 	++Data.stats.quadCount;
 }
 
-void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, float tilingFactor) {
+void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dimensions, const float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint, const float tilingFactor) {
 	CF_PROFILE_FUNCTION();
 
 	if(Data.quadIndexCount >= Renderer2DData::maxIndices) {
@@ -279,8 +279,8 @@ void Renderer2D::drawRotatedQuad(const glm::vec3& position, const glm::vec2& dim
 	constexpr size_t quadVertexCount = 4;
 	constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
-	for(unsigned i = 1; i < Data.textureSlotIndex; ++i) {
-		if(*Data.textureSlots[i].get() == *texture.get()) {
+	for(uint32_t i = 1; i < Data.textureSlotIndex; ++i) {
+		if(*Data.textureSlots[i] == *texture) {
 			textureIndex = static_cast<float>(i);
 		}
 	}

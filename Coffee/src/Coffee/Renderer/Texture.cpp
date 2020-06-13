@@ -19,7 +19,7 @@ Ref<Texture2D> Texture2D::create(const std::string& filepath) {
 	return nullptr;
 }
 
-Ref<Texture2D> Texture2D::create(const unsigned width, const unsigned height) {
+Ref<Texture2D> Texture2D::create(const uint32_t width, const uint32_t height) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:		CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!"); return nullptr;
 		case RendererAPI::API::OpenGL:		return createRef<OpenGLTexture2D>(width, height);

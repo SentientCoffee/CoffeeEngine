@@ -11,9 +11,9 @@ namespace Coffee {
 
 		virtual ~RendererAPI() = default;
 		virtual void init() = 0;
-		virtual void setViewport(unsigned x, unsigned y, unsigned width, unsigned height) = 0;
+		virtual void setViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 
-		enum class API : unsigned int {
+		enum class API : uint32_t {
 			None = 0,
 			OpenGL
 		};
@@ -21,7 +21,7 @@ namespace Coffee {
 		virtual void setClearColour(const glm::vec4& colour) = 0;
 		virtual void clearScreen() = 0;
 		
-		virtual void drawIndexed(const Ref<VertexArray>& vertexArray, unsigned indexCount) = 0;
+		virtual void drawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount) = 0;
 		
 		static API getAPI();
 

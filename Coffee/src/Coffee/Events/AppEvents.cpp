@@ -3,11 +3,11 @@
 
 using namespace Coffee;
 
-WindowResizedEvent::WindowResizedEvent(unsigned width, unsigned height) :
+WindowResizedEvent::WindowResizedEvent(const uint32_t width, const uint32_t height) :
 	_width(width), _height(height) {}
 
-unsigned WindowResizedEvent::getWidth() const { return _width; }
-unsigned WindowResizedEvent::getHeight() const { return _height; }
+uint32_t WindowResizedEvent::getWidth() const { return _width; }
+uint32_t WindowResizedEvent::getHeight() const { return _height; }
 
 #if CF_DEBUG || CF_RELEASE
 

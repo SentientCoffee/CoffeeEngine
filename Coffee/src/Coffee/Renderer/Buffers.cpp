@@ -13,7 +13,7 @@ using namespace Coffee;
 BufferElement::BufferElement(const ShaderDataType type, const std::string& name, const bool normalized) :
 	name(name), type(type), size(shaderDataTypeSize(type)), offset(0), normalized(normalized) {}
 
-unsigned BufferElement::getComponentCount() const {
+uint32_t BufferElement::getComponentCount() const {
 	switch(type) {
 		case ShaderDataType::Bool:		return 1;
 		case ShaderDataType::Int:		return 1;
@@ -39,26 +39,26 @@ unsigned BufferElement::getComponentCount() const {
 // ----------------------------------------
 
 BufferLayout::BufferLayout(const std::vector<BufferElement>& elements) :
-	_elements(elements), _stride(0) {
+	_elements(elements) {
 	strideOffsetCalc();
 }
 
 BufferLayout::BufferLayout(const std::initializer_list<BufferElement>& elements) :
-	_elements(elements), _stride(0) {
+	_elements(elements) {
 	strideOffsetCalc();
 }
 
 std::vector<BufferElement> BufferLayout::getElements() const { return _elements; }
-unsigned int BufferLayout::size() const { return static_cast<unsigned int>(_elements.size()); }
+uint32_t BufferLayout::size() const { return static_cast<uint32_t>(_elements.size()); }
 BufferLayout::BufferElemIterator BufferLayout::begin() { return _elements.begin(); }
 BufferLayout::BufferElemIterator BufferLayout::end() { return _elements.end(); }
 BufferLayout::ConstBufferElemIterator BufferLayout::begin() const { return _elements.begin(); }
 BufferLayout::ConstBufferElemIterator BufferLayout::end() const { return _elements.end(); }
 
-unsigned BufferLayout::getStride() const { return _stride; }
+uint32_t BufferLayout::getStride() const { return _stride; }
 
 void BufferLayout::strideOffsetCalc() {
-	unsigned offset = _stride = 0;
+	uint32_t offset = _stride = 0;
 	
 	for(auto& elem : _elements) {
 		elem.offset = offset;
@@ -71,7 +71,7 @@ void BufferLayout::strideOffsetCalc() {
 // ----- Vertex buffers -------------------
 // ----------------------------------------
 
-Ref<VertexBuffer> VertexBuffer::create(unsigned size) {
+Ref<VertexBuffer> VertexBuffer::create(uint32_t size) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:		CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!"); return nullptr;
 		case RendererAPI::API::OpenGL:		return createRef<OpenGLVertexBuffer>(size);
@@ -82,10 +82,10 @@ Ref<VertexBuffer> VertexBuffer::create(unsigned size) {
 }
 
 Ref<VertexBuffer> VertexBuffer::create(std::vector<float>& vertices) {
-	return create(vertices.data(), static_cast<unsigned>(vertices.size() * sizeof(float)));
+	return create(vertices.data(), static_cast<uint32_t>(vertices.size() * sizeof(float)));
 }
 
-Ref<VertexBuffer> VertexBuffer::create(float* vertices, const unsigned size) {
+Ref<VertexBuffer> VertexBuffer::create(float* vertices, const uint32_t size) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
@@ -102,11 +102,11 @@ Ref<VertexBuffer> VertexBuffer::create(float* vertices, const unsigned size) {
 // ----- Index buffers --------------------
 // ----------------------------------------
 
-Ref<IndexBuffer> IndexBuffer::create(std::vector<unsigned>& indices) {
-	return create(indices.data(), static_cast<unsigned>(indices.size()));
+Ref<IndexBuffer> IndexBuffer::create(std::vector<uint32_t>& indices) {
+	return create(indices.data(), static_cast<uint32_t>(indices.size()));
 }
 
-Ref<IndexBuffer> IndexBuffer::create(unsigned* indices, const unsigned count) {
+Ref<IndexBuffer> IndexBuffer::create(uint32_t* indices, const uint32_t count) {
 	switch(Renderer::getAPI()) {
 		case RendererAPI::API::None:
 			CF_CORE_ASSERT(false, "Coffee Engine does not support having no renderer API!");
